@@ -4,6 +4,7 @@
  */
 export const ROUTES = {
   HOME: "/",
+  ABOUT: "/about",
   EXPERIENCES: "/experiences",
   EXPERIENCE_DETAIL: "/experiences/:slug",
   WORKSHOPS: "/workshops",
@@ -15,6 +16,8 @@ export const ROUTES = {
   BLOG_DETAIL: "/blog/:slug",
   SHOP: "/shop",
   SHOP_DETAIL: "/shop/:slug",
+  FAQ: "/faq",
+  CONTACT: "/contact",
   INQUIRIES: "/inquiries",
   ACCOUNT: "/account",
 } as const;

@@ -8,11 +8,11 @@ export const siteConfig = {
   locale: "en",
   nav: [
     { label: "Home", href: ROUTES.HOME },
+    { label: "About", href: ROUTES.ABOUT },
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
-    { label: "Portfolio", href: ROUTES.PORTFOLIO },
-    { label: "Blog", href: ROUTES.BLOG },
     { label: "Shop", href: ROUTES.SHOP },
+    { label: "Contact", href: ROUTES.CONTACT },
   ],
   social: {
     instagram: "https://instagram.com/naso",

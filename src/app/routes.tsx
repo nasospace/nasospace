@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/app/layout";
 import { ROUTES } from "@/config/routes";
 import HomePage from "@/pages/Index";
+import AboutPage from "@/pages/About";
 import ExperiencesPage from "@/pages/Experiences";
 import ExperienceDetailPage from "@/pages/ExperienceDetail";
 import WorkshopsPage from "@/pages/Workshops";
@@ -13,6 +14,8 @@ import BlogPage from "@/pages/Blog";
 import BlogDetailPage from "@/pages/BlogDetail";
 import ShopPage from "@/pages/Shop";
 import ProductDetailPage from "@/pages/ProductDetail";
+import FAQPage from "@/pages/FAQ";
+import ContactPage from "@/pages/Contact";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -23,6 +26,7 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: ROUTES.HOME, element: <HomePage /> },
+      { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.EXPERIENCES, element: <ExperiencesPage /> },
       { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
       { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
@@ -34,6 +38,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.BLOG_DETAIL, element: <BlogDetailPage /> },
       { path: ROUTES.SHOP, element: <ShopPage /> },
       { path: ROUTES.SHOP_DETAIL, element: <ProductDetailPage /> },
+      { path: ROUTES.FAQ, element: <FAQPage /> },
+      { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
       { path: "*", element: <NotFound /> },

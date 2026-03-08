@@ -7,11 +7,14 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   const footerNav = [
+    { label: "About", href: ROUTES.ABOUT },
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
     { label: "Portfolio", href: ROUTES.PORTFOLIO },
     { label: "Blog", href: ROUTES.BLOG },
     { label: "Shop", href: ROUTES.SHOP },
+    { label: "FAQ", href: ROUTES.FAQ },
+    { label: "Contact", href: ROUTES.CONTACT },
     { label: "Inquiries", href: ROUTES.INQUIRIES },
   ];
 
