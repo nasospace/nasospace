@@ -4,7 +4,6 @@ import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
