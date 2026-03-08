@@ -74,6 +74,7 @@ export default {
         soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
         elevated: "var(--shadow-elevated)",
+        brand: "var(--shadow-brand)",
       },
       borderRadius: {
         lg: "var(--radius)",
