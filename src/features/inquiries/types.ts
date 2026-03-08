@@ -73,7 +73,7 @@ export interface InquiryFormData {
 /* ═══ Parsed URL Context ═══ */
 
 export interface InquiryPageContext {
-  ref: "experience" | "workshop" | "portfolio" | null;
+  ref: "experience" | "workshop" | "portfolio" | "product" | null;
   slug: string | null;
   title: string | null;
 }
