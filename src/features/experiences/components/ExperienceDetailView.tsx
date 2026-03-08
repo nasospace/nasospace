@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, buildInquiryPath } from "@/config/routes";
 import { getExperienceBySlug, getRelatedExperiences } from "../data";
 import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
