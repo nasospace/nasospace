@@ -63,6 +63,7 @@ interface InquiryFormProps {
 /* ═══ Component ═══ */
 
 export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
+  const { toast } = useToast();
   const defaultType = contextToInquiryType(context.ref);
 
   const [form, setForm] = useState<InquiryFormData>({
