@@ -26,13 +26,24 @@ export function ValuesSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-60px" }}
           variants={staggerContainer}
           className="mx-auto mt-12 grid max-w-3xl gap-8 md:grid-cols-2"
         >
-          {values.map((v, i) => (
-            <motion.div key={v.title} variants={fadeUp} className="flex gap-4">
-              <Sparkle className="mt-1 h-5 w-5 shrink-0 text-primary" />
+          {values.map((v) => (
+            <motion.div
+              key={v.title}
+              variants={fadeUp}
+              whileHover={{ x: 6 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="flex gap-4 rounded-xl p-3 transition-colors hover:bg-muted/50"
+            >
+              <motion.div
+                whileHover={{ rotate: 90, scale: 1.2 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              >
+                <Sparkle className="mt-1 h-5 w-5 shrink-0 text-primary" />
+              </motion.div>
               <div>
                 <h4 className="font-display text-base font-bold">{v.title}</h4>
                 <p className="mt-1 text-sm leading-relaxed text-muted-foreground">

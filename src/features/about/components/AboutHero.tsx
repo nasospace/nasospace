@@ -9,26 +9,27 @@ export function AboutHero() {
     <section className="relative overflow-hidden bg-card py-section-lg">
       <div className="absolute inset-0 naso-dotgrid opacity-50" />
 
-      {/* Decorative collage — left */}
+      {/* Decorative collage — left, slow float */}
       <motion.img
         src={heroCollage}
         alt=""
         aria-hidden
-        initial={{ opacity: 0, x: -40, rotate: -8 }}
-        animate={{ opacity: 0.18, x: 0, rotate: -6 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="pointer-events-none absolute -left-24 top-1/2 hidden w-[340px] -translate-y-1/2 select-none lg:block"
+        initial={{ opacity: 0, x: -60, scale: 0.85 }}
+        animate={{ opacity: 0.7, x: 0, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+        className="pointer-events-none absolute -left-16 top-1/2 hidden w-[300px] -translate-y-1/2 select-none naso-float lg:block xl:-left-8 xl:w-[360px]"
       />
 
-      {/* Decorative collage — right */}
+      {/* Decorative collage — right, slow float (offset) */}
       <motion.img
         src={heroCollage}
         alt=""
         aria-hidden
-        initial={{ opacity: 0, x: 40, rotate: 8 }}
-        animate={{ opacity: 0.18, x: 0, rotate: 6 }}
-        transition={{ duration: 1.2, ease: "easeOut", delay: 0.15 }}
-        className="pointer-events-none absolute -right-24 top-1/2 hidden w-[340px] -translate-y-1/2 -scale-x-100 select-none lg:block"
+        initial={{ opacity: 0, x: 60, scale: 0.85 }}
+        animate={{ opacity: 0.7, x: 0, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut", delay: 0.2 }}
+        className="pointer-events-none absolute -right-16 top-1/2 hidden w-[300px] -translate-y-1/2 -scale-x-100 select-none lg:block xl:-right-8 xl:w-[360px]"
+        style={{ animationDelay: "2.5s", animationName: "gentle-float", animationDuration: "6s", animationIterationCount: "infinite", animationTimingFunction: "ease-in-out" }}
       />
 
       <div className="container relative z-10">
@@ -62,11 +63,25 @@ export function AboutHero() {
             variants={fadeUp}
             className="mt-8 flex items-center justify-center gap-4"
           >
-            <span className="h-3 w-3 rounded-full bg-primary" />
-            <FlowerShape size={28} className="text-naso-purple" />
-            <span className="h-3 w-3 rounded-full bg-secondary" />
-            <FlowerShape size={28} className="text-naso-pink" />
-            <span className="h-3 w-3 rounded-full bg-naso-lilac" />
+            <motion.span
+              className="h-3 w-3 rounded-full bg-primary"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            />
+            <FlowerShape size={28} className="text-naso-purple naso-flower-spin" />
+            <motion.span
+              className="h-3 w-3 rounded-full bg-secondary"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, delay: 0.4 }}
+            />
+            <div className="naso-flower-spin" style={{ animationDirection: "reverse" }}>
+              <FlowerShape size={28} className="text-naso-pink" />
+            </div>
+            <motion.span
+              className="h-3 w-3 rounded-full bg-naso-lilac"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, delay: 0.8 }}
+            />
           </motion.div>
         </motion.div>
       </div>
