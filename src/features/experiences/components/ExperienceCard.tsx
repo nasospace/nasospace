@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { posterEnter, spring } from "@/lib/motion";
 import { StickerBadge } from "@/components/shared";
 import { CATEGORY_META, type ExperienceDetail } from "../types";
-import { ROUTES } from "@/config/routes";
+import { routeHelpers } from "@/config/routes";
 
 interface ExperienceCardProps {
   experience: ExperienceDetail;
@@ -13,7 +13,7 @@ interface ExperienceCardProps {
 
 export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
   const meta = CATEGORY_META[experience.category];
-  const detailPath = ROUTES.EXPERIENCES + "/" + experience.slug;
+  const detailPath = routeHelpers.experienceDetail(experience.slug);
 
   return (
     <motion.div
