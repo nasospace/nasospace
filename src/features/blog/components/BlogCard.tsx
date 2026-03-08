@@ -61,11 +61,7 @@ export function BlogCard({ post, index = 0, featured = false }: BlogCardProps) {
           >
             {/* Category label */}
             <span
-              className={cn(
-                "mb-2 inline-block w-fit font-display text-[10px] font-bold uppercase tracking-[0.14em]",
-                "text-muted-foreground"
-              )}
-              style={{ color: `hsl(var(--naso-${getCategoryHue(post.category)}))` }}
+              className="mb-2 inline-block w-fit font-display text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground"
             >
               {meta.emoji} {meta.label}
             </span>
