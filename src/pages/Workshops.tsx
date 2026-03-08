@@ -23,7 +23,7 @@ export default function WorkshopsPage() {
         <div className="mb-8">
           <WorkshopCategoryFilter active={active} onChange={setActive} />
         </div>
-        <WorkshopGrid workshops={filtered} />
+        <WorkshopGrid key={active} workshops={filtered} />
       </Section>
     </>
   );

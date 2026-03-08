@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer } from "@/lib/motion";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 import {
   INQUIRY_TYPES,
   INQUIRY_TYPE_META,
@@ -58,6 +63,7 @@ interface InquiryFormProps {
 /* ═══ Component ═══ */
 
 export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
+  const { toast } = useToast();
   const defaultType = contextToInquiryType(context.ref);
 
   const [form, setForm] = useState<InquiryFormData>({
@@ -74,6 +80,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -105,8 +112,12 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
 
     setSubmitting(true);
     try {
-      // Mock submit — replace with real server action later
+      // TODO: Replace with real server action / API call
       await new Promise((resolve) => setTimeout(resolve, 1200));
+      toast({
+        title: "Request sent! ✦",
+        description: "This is a demo — in production, your inquiry would be emailed to the NASO team. We'll get back to you within 24 hours.",
+      });
       onSuccess();
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -206,12 +217,38 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
           variants={fadeUp}
           className="grid gap-4 sm:grid-cols-2"
         >
-          <Field
-            label="Preferred Date"
-            value={form.preferredDate}
-            onChange={(v) => update("preferredDate", v)}
-            placeholder="e.g. April 20, 2026"
-          />
+          <div>
+            <Label>Preferred Date</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className={cn(
+                    "mt-2 flex w-full items-center gap-2 rounded-xl border-2 border-foreground bg-card px-4 py-2.5",
+                    "font-body text-sm text-foreground",
+                    "outline-none transition-shadow focus:shadow-retro",
+                    !selectedDate && "text-muted-foreground/60"
+                  )}
+                >
+                  <CalendarIcon className="h-4 w-4 shrink-0" />
+                  {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    setSelectedDate(date);
+                    update("preferredDate", date ? format(date, "PPP") : "");
+                  }}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
           <Field
             label="Group Size"
             value={form.groupSize}
