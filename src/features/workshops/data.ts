@@ -113,7 +113,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "3.5 hours",
     skillLevel: "all-levels",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Cook Like Teta workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80", alt: "Cook Like Teta workshop" },
     gallery: [],
     featured: false,
   },
