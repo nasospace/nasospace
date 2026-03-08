@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
-
+import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
