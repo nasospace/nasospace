@@ -90,7 +90,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "4 hours",
     skillLevel: "beginner",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Beat making workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80", alt: "Beat making workshop" },
     gallery: [],
     featured: true,
   },
