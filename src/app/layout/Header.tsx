@@ -50,7 +50,7 @@ export function Header() {
               to={item.href}
               className={cn(
                 "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
-                pathname === item.href
+                (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
