@@ -12,6 +12,7 @@ export const ROUTES = {
   PORTFOLIO: "/portfolio",
   PORTFOLIO_DETAIL: "/portfolio/:slug",
   BLOG: "/blog",
+  BLOG_DETAIL: "/blog/:slug",
   SHOP: "/shop",
   INQUIRIES: "/inquiries",
   ACCOUNT: "/account",
@@ -24,6 +25,7 @@ export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
   workshopDetail: (slug: string) => `/workshops/${slug}` as const,
   portfolioDetail: (slug: string) => `/portfolio/${slug}` as const,
+  blogDetail: (slug: string) => `/blog/${slug}` as const,
 } as const;
 
 /** Build an inquiry path with optional context for prefill */
