@@ -99,7 +99,7 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
 
           {/* Right — info card */}
           <MotionDiv>
-            <div className="rounded-2xl border-2 border-foreground bg-card p-6 shadow-retro">
+            <div className="rounded-2xl border-[2.5px] border-foreground bg-card p-6 shadow-retro">
               <dl className="space-y-4">
                 <InfoRow label="Price" value={`${experience.price} ${experience.currency}`} />
                 <InfoRow label="Capacity" value={`${experience.capacity} spots`} />

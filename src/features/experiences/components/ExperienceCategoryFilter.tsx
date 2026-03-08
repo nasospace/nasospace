@@ -25,8 +25,7 @@ export function ExperienceCategoryFilter({ active, onChange }: ExperienceCategor
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="flex gap-2.5 overflow-x-auto pb-2 sm:gap-3 sm:flex-wrap sm:overflow-visible"
-      style={{ scrollbarWidth: "none" }}
+      className="naso-scrollbar-hide flex gap-2.5 overflow-x-auto pb-2 sm:gap-3 sm:flex-wrap sm:overflow-visible"
     >
       {options.map((opt) => {
         const isActive = active === opt.key;
