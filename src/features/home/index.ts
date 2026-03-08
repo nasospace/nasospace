@@ -1,3 +1,10 @@
 // Home feature module
-// Components, mappers, and domain logic will live here.
-export {};
+export {
+  HeroSection,
+  WhatNasoIsSection,
+  ExploreWorldsSection,
+  FeaturedExperiencesSection,
+  MoreToExploreSection,
+  BigCTASection,
+  BottomTickerSection,
+} from "./components";

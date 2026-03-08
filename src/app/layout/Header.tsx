@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -79,13 +78,7 @@ export function Header() {
               <img src={nasoLogo} alt={siteConfig.name} className="h-8 w-auto" />
             </SheetHeader>
             <nav className="mt-8 flex flex-col gap-1 px-4">
-              {[
-                { label: "Home", href: ROUTES.HOME },
-                { label: "Experiences", href: ROUTES.EXPERIENCES },
-                { label: "Workshops", href: ROUTES.WORKSHOPS },
-                { label: "Blog", href: ROUTES.BLOG },
-                { label: "Shop", href: ROUTES.SHOP },
-              ].map((item) => (
+              {siteConfig.nav.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}

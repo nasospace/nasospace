@@ -8,7 +8,8 @@
   Palette: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF + warm accents
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+/* Syne loaded via Google Fonts (Unbounded & Inter via @fontsource npm + index.html) */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
