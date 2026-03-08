@@ -39,7 +39,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 12,
     difficulty: "easy",
-    coverImage: { src: "/placeholder.svg", alt: "Pottery & Chill" },
+    coverImage: { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80", alt: "Pottery & Chill" },
     gallery: [],
     featured: true,
   },
