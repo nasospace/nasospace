@@ -67,7 +67,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "3 hours",
     skillLevel: "beginner",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Watercolor botanicals workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80", alt: "Watercolor botanicals workshop" },
     gallery: [],
     featured: false,
   },
