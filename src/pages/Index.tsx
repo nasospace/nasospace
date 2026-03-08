@@ -260,7 +260,7 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="absolute -right-8 bottom-16"
         >
-          <FlowerShape size={80} className="text-primary" style={{ animationDuration: "30s" }} />
+          <FlowerShape size={80} className="text-primary naso-flower-spin" />
         </motion.div>
 
         <div className="container relative z-10">
