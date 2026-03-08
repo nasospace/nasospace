@@ -19,17 +19,11 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* Detect if hero is dark (homepage) */
-  const isHome = pathname === "/" || pathname === ROUTES.HOME;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const showLight = isHome && !scrolled;
-
   return (
     <header
       className={cn(
@@ -45,10 +39,7 @@ export function Header() {
           <img
             src={nasoLogo}
             alt={siteConfig.name}
-            className={cn(
-              "h-8 w-auto transition-all duration-300 md:h-9",
-              showLight && "brightness-0 invert"
-            )}
+            className="h-8 w-auto transition-all duration-300 md:h-9"
           />
         </Link>
 
@@ -59,14 +50,10 @@ export function Header() {
               key={item.href}
               to={item.href}
               className={cn(
-                "font-display text-[13px] font-medium uppercase tracking-[0.08em] transition-colors duration-200",
-                showLight
-                  ? pathname === item.href
-                    ? "text-white"
-                    : "text-white/50 hover:text-white"
-                  : pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
+                pathname === item.href
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
               {item.label}
@@ -80,7 +67,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className={cn("md:hidden", showLight && "text-white hover:bg-white/10")}
+              className="md:hidden"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
