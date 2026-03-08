@@ -30,7 +30,7 @@ export const MOCK_BLOG_POSTS: BlogPost[] = [
     tags: ["downtown", "weekend", "slow living", "walking"],
     publishDate: "2026-01-18",
     readingTime: "6 min read",
-    coverImage: { src: "https://images.unsplash.com/photo-1553913861-c0a2e4da145e?w=800&q=80", alt: "Downtown Cairo street with art deco architecture" },
+    coverImage: { src: "https://images.unsplash.com/photo-1549492423-400c33ef4920?w=800&q=80", alt: "Downtown Cairo street with art deco architecture" },
     featured: false,
     authorName: "NASO Team",
   },
