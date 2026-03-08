@@ -1,154 +1,122 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
 import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
+import {
+  FlowerShape,
+  StickerBadge,
+  Sparkle,
+  MagneticButton,
+  MarqueeTicker,
+} from "@/components/shared/RetroElements";
 
-/* ── Motion ── */
+/* ── Motion presets ── */
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 };
 
 const fadeUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease, delay } },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease, delay } },
 });
 
-const wipe = (delay = 0) => ({
-  hidden: { scaleX: 0 },
-  visible: { scaleX: 1, transition: { duration: 0.55, ease, delay } },
-});
-
-const posterEnter = {
-  hidden: { opacity: 0, y: 50, rotate: -6 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    rotate: -2.5,
-    transition: { type: "spring" as const, stiffness: 200, damping: 22, delay: 0.5 },
-  },
-};
-
-const badgePop = (delay = 0, rotate = 0) => ({
-  hidden: { opacity: 0, scale: 0.2, rotate: rotate - 20 },
+const stickerPop = (delay = 0, rotate = 0) => ({
+  hidden: { opacity: 0, scale: 0.15, rotate: rotate - 25 },
   visible: {
     opacity: 1,
     scale: 1,
     rotate,
-    transition: { type: "spring" as const, stiffness: 400, damping: 16, delay },
+    transition: { type: "spring" as const, stiffness: 380, damping: 14, delay },
   },
 });
 
-/* ── Magnetic CTA ── */
-function MagneticCTA({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<typeof Link>) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 280, damping: 20 });
-  const sy = useSpring(y, { stiffness: 280, damping: 20 });
+const wipe = (delay = 0) => ({
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 1, transition: { duration: 0.65, ease, delay } },
+});
 
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * 0.2);
-    y.set((e.clientY - r.top - r.height / 2) * 0.2);
-  };
-
-  return (
-    <motion.div style={{ x: sx, y: sy }} className="inline-block">
-      <Link
-        ref={ref}
-        onMouseMove={onMove}
-        onMouseLeave={() => { x.set(0); y.set(0); }}
-        className={className}
-        {...props}
-      >
-        {children}
-      </Link>
-    </motion.div>
-  );
-}
-
-/* ── Sparkle SVG ── */
-function Sparkle({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" fill="currentColor" className={className}>
-      <path d="M16 0l2.35 13.65L32 16l-13.65 2.35L16 32l-2.35-13.65L0 16l13.65-2.35z" />
-    </svg>
-  );
-}
+const posterSlide = (delay = 0) => ({
+  hidden: { opacity: 0, y: 60, rotate: -8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: -3,
+    transition: { type: "spring" as const, stiffness: 160, damping: 18, delay },
+  },
+});
 
 /* ══════════════════════════════════════════
-   HERO
+   HERO — Retro-Groovy Poster World
    ══════════════════════════════════════════ */
 export function HeroSection() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-background">
-      {/* Dot-grid texture */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, hsl(var(--foreground) / 0.045) 1px, transparent 1px)",
-          backgroundSize: "22px 22px",
-        }}
-      />
+    <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden">
+      {/* ── Background layers ── */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+        {/* Warm cream base */}
+        <div className="absolute inset-0 bg-naso-cream" />
+        {/* Dot grid texture */}
+        <div className="absolute inset-0 naso-dotgrid opacity-60" />
+        {/* Large green blob — top right */}
+        <div className="absolute -right-[10%] -top-[5%] h-[60vh] w-[45vw] rounded-[50%] bg-secondary/20 blur-3xl" />
+        {/* Lilac wash — bottom left */}
+        <div className="absolute -left-[8%] bottom-[5%] h-[35vh] w-[30vw] rounded-[50%] bg-naso-lilac/15 blur-3xl" />
+      </motion.div>
 
-      {/* Soft ambient color wash — just two shapes */}
-      <div className="pointer-events-none absolute -right-32 top-[12%] h-[50vh] w-[40vw] rounded-[4rem] bg-secondary/10 blur-2xl" />
-      <div className="pointer-events-none absolute -left-24 bottom-[10%] h-[30vh] w-[25vw] rounded-[4rem] bg-naso-lilac/8 blur-2xl" />
+      {/* ── Hero Content ── */}
+      <div className="container relative z-10 flex min-h-[100svh] flex-col justify-center px-5 pb-20 pt-28 sm:px-6 lg:px-8">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 xl:gap-24">
 
-      {/* ── 2-column layout ── */}
-      <div className="container relative flex min-h-[100svh] items-center px-5 py-28 sm:px-6 lg:px-8">
-        <div className="grid w-full items-center gap-16 lg:grid-cols-[1.1fr_auto] lg:gap-20">
-
-          {/* ═══ LEFT COLUMN ═══ */}
+          {/* ═══ LEFT COLUMN — Typography + CTAs ═══ */}
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="relative z-10 max-w-[620px]"
+            className="relative z-10"
           >
             {/* Location kicker */}
-            <motion.div variants={fadeUp(0)} className="mb-7 flex items-center gap-3">
-              <img src={nasoLogo} alt="NASO" className="h-6 w-auto" />
-              <span className="h-px w-6 bg-foreground/20" />
-              <span className="font-display text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            <motion.div variants={fadeUp(0)} className="mb-6 flex items-center gap-3">
+              <img src={nasoLogo} alt="NASO" className="h-7 w-auto" />
+              <span className="h-[2px] w-8 rounded-full bg-foreground/20" />
+              <span className="font-groovy text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
                 Cairo, Egypt
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* ── Headline ── */}
             <motion.h1
-              variants={fadeUp(0.12)}
-              className="font-poster text-[clamp(3.2rem,9vw,7.8rem)] font-extrabold leading-[0.88] tracking-[-0.045em] text-foreground"
+              variants={fadeUp(0.1)}
+              className="font-groovy text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.92] tracking-[-0.03em] text-foreground"
             >
-              <span className="block">Go out</span>
+              <span className="block">Make it</span>
               <span className="relative mt-1 inline-block lg:mt-2">
-                {/* Green highlight wipe — the ONE treatment */}
+                {/* Green highlight block wipe */}
                 <motion.span
-                  variants={wipe(0.65)}
-                  className="absolute -inset-x-[0.1em] inset-y-[0.02em] origin-left -skew-x-2 rounded-md bg-secondary"
+                  variants={wipe(0.7)}
+                  className="absolute -inset-x-[0.12em] inset-y-[0.04em] origin-left -skew-x-2 rounded-lg bg-secondary"
                   aria-hidden
                 />
-                <span className="relative z-10">different</span>
+                <span className="relative z-10">memorable</span>
               </span>
-              <span className="text-primary">ly.</span>
+              <span className="text-primary">.</span>
             </motion.h1>
 
             {/* Subtext */}
             <motion.p
-              variants={fadeUp(0.32)}
-              className="mt-7 max-w-[26rem] text-[15px] leading-[1.75] text-muted-foreground lg:text-base"
+              variants={fadeUp(0.3)}
+              className="mt-6 max-w-[26rem] text-[15px] leading-[1.8] text-muted-foreground lg:text-base"
             >
               Curated outings, creative workshops &amp; original products — for
               people who collect moments, not things.
@@ -156,139 +124,160 @@ export function HeroSection() {
 
             {/* CTAs */}
             <motion.div
-              variants={fadeUp(0.48)}
-              className="mt-9 flex flex-wrap items-center gap-3.5"
+              variants={fadeUp(0.45)}
+              className="mt-8 flex flex-wrap items-center gap-3.5"
             >
-              <MagneticCTA
+              <MagneticButton
                 to={ROUTES.EXPERIENCES}
-                className="group inline-flex h-[52px] items-center gap-2.5 rounded-full bg-foreground px-8 font-display text-sm font-bold tracking-wide text-background shadow-elevated transition-shadow duration-300 hover:shadow-[0_14px_44px_-8px_hsl(var(--foreground)/0.3)] active:scale-[0.97]"
+                className="group inline-flex h-[54px] items-center gap-2.5 rounded-full border-[2.5px] border-foreground bg-foreground px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-background shadow-retro transition-all duration-200 hover:shadow-retro-lg active:scale-[0.96] active:shadow-retro"
               >
                 Explore experiences
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </MagneticCTA>
-              <MagneticCTA
+              </MagneticButton>
+              <MagneticButton
                 to={ROUTES.SHOP}
-                className="inline-flex h-[52px] items-center rounded-full border-[2.5px] border-foreground/15 px-8 font-display text-sm font-bold tracking-wide text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/[0.04] active:scale-[0.97]"
+                className="inline-flex h-[54px] items-center rounded-full border-[2.5px] border-foreground bg-card px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-foreground shadow-retro transition-all duration-200 hover:bg-secondary hover:shadow-retro-lg active:scale-[0.96] active:shadow-retro"
               >
                 Visit shop
-              </MagneticCTA>
+              </MagneticButton>
             </motion.div>
 
-            {/* Tiny supporting detail */}
+            {/* Supporting detail */}
             <motion.div
-              variants={fadeUp(0.6)}
-              className="mt-5 flex items-center gap-2 text-muted-foreground/50"
+              variants={fadeUp(0.58)}
+              className="mt-6 flex items-center gap-2.5 text-muted-foreground/50"
             >
-              <Sparkle className="h-3 w-3" />
-              <span className="font-display text-[10px] font-semibold uppercase tracking-[0.15em]">
+              <Sparkle className="h-3.5 w-3.5 text-naso-purple" />
+              <span className="font-groovy text-[8px] font-bold uppercase tracking-[0.2em]">
                 Experiences · Workshops · Products
               </span>
             </motion.div>
           </motion.div>
 
-          {/* ═══ RIGHT COLUMN — Poster block ═══ */}
+          {/* ═══ RIGHT COLUMN — Poster Composition ═══ */}
           <motion.div
             initial="hidden"
             animate="visible"
-            className="relative hidden h-[500px] w-[380px] lg:block xl:h-[540px] xl:w-[410px]"
+            className="relative mx-auto h-[420px] w-[340px] sm:h-[460px] sm:w-[370px] lg:mx-0 lg:h-[520px] lg:w-[400px] xl:h-[560px] xl:w-[430px]"
           >
-            {/* Main poster frame */}
+            {/* ── Main poster frame ── */}
             <motion.div
-              variants={posterEnter}
-              className="absolute inset-0 overflow-hidden rounded-2xl border-[3px] border-foreground bg-card shadow-[8px_8px_0_hsl(var(--foreground))]"
+              variants={posterSlide(0.35)}
+              className="absolute inset-0 overflow-hidden rounded-3xl border-[3px] border-foreground bg-card shadow-retro-lg"
             >
-              <div className="flex h-full flex-col items-center justify-center p-10">
-                {/* NASO wordmark */}
-                <span className="font-poster text-[6rem] font-extrabold leading-none tracking-[-0.06em] text-foreground xl:text-[7rem]">
-                  NASO
-                </span>
+              {/* Checkerboard strip at top */}
+              <div className="h-10 w-full naso-checkerboard border-b-[2px] border-foreground" />
 
-                {/* Tagline */}
-                <div className="mt-5 flex items-center gap-2.5">
-                  <span className="h-px w-7 bg-foreground/20" />
-                  <span className="font-display text-[9px] font-bold uppercase tracking-[0.28em] text-muted-foreground">
+              <div className="flex h-[calc(100%-2.5rem)] flex-col items-center justify-center p-8">
+                {/* NASO wordmark */}
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.6 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.7 }}
+                  className="font-groovy text-[5.5rem] font-black leading-none tracking-[-0.04em] text-foreground sm:text-[6rem] xl:text-[7rem]"
+                >
+                  NASO
+                </motion.span>
+
+                {/* Tagline bar */}
+                <div className="mt-4 flex items-center gap-3">
+                  <span className="h-[2px] w-8 bg-foreground/20" />
+                  <span className="font-groovy text-[7px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
                     Creative moments
                   </span>
-                  <span className="h-px w-7 bg-foreground/20" />
+                  <span className="h-[2px] w-8 bg-foreground/20" />
                 </div>
 
-                {/* Brand color bar */}
-                <div className="mt-7 flex gap-1.5">
-                  {["bg-primary", "bg-secondary", "bg-accent", "bg-naso-lilac", "bg-foreground"].map(
-                    (c, i) => (
-                      <div key={i} className={`h-3.5 w-9 rounded-sm ${c}`} />
-                    )
-                  )}
+                {/* Brand color strip */}
+                <div className="mt-6 flex gap-2">
+                  {[
+                    "bg-primary",
+                    "bg-secondary",
+                    "bg-accent",
+                    "bg-naso-lilac",
+                    "bg-naso-pink",
+                    "bg-foreground",
+                  ].map((c, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={{ delay: 0.9 + i * 0.06, duration: 0.4, ease }}
+                      className={`h-4 w-8 origin-bottom rounded-sm border border-foreground/10 ${c}`}
+                    />
+                  ))}
                 </div>
 
                 {/* Year stamp */}
-                <span className="mt-8 font-poster text-[10px] font-bold uppercase tracking-[0.35em] text-muted-foreground/40">
+                <span className="mt-6 font-groovy text-[8px] font-bold uppercase tracking-[0.4em] text-muted-foreground/30">
                   Est. Cairo 2024
                 </span>
               </div>
             </motion.div>
 
-            {/* "Made in Cairo" badge — top-left, gently floating */}
+            {/* ── "Made in Cairo" sticker ── */}
             <motion.div
-              variants={badgePop(0.75, -7)}
-              whileHover={{ scale: 1.1, rotate: -2 }}
-              animate={{ y: [0, -4, 0] }}
-              transition={{ y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" } }}
-              className="absolute -left-10 -top-6 z-20 flex h-[76px] w-[76px] cursor-default flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-secondary font-poster text-[8px] font-extrabold uppercase leading-tight tracking-[0.12em] text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] xl:-left-14 xl:h-[88px] xl:w-[88px] xl:text-[9px]"
+              variants={stickerPop(0.6, -8)}
+              whileHover={{ scale: 1.12, rotate: -2 }}
+              className="absolute -left-8 -top-6 z-20 sm:-left-10 lg:-left-12"
             >
-              <span>Made</span>
-              <span>in</span>
-              <span>Cairo</span>
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="flex h-[80px] w-[80px] flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-secondary font-groovy text-[7px] font-black uppercase leading-tight tracking-[0.12em] text-foreground shadow-retro xl:h-[90px] xl:w-[90px] xl:text-[8px]"
+              >
+                <span>Made</span>
+                <span>in</span>
+                <span>Cairo</span>
+              </motion.div>
             </motion.div>
 
-            {/* Sparkle accent — top-right */}
+            {/* ── Flower accent — top right ── */}
             <motion.div
-              variants={badgePop(0.9, 12)}
-              className="absolute -right-4 -top-2 z-20"
+              variants={stickerPop(0.85, 15)}
+              className="absolute -right-5 -top-4 z-20"
             >
-              <Sparkle className="h-7 w-7 text-primary xl:h-8 xl:w-8" />
+              <FlowerShape size={48} className="text-naso-purple naso-flower-spin" />
             </motion.div>
 
-            {/* Small lilac dot — bottom-left */}
+            {/* ── Blue sparkle — bottom right ── */}
             <motion.div
-              variants={badgePop(1.05, 0)}
-              className="absolute -bottom-3 left-8 z-20 h-4 w-4 rounded-full bg-naso-lilac border-2 border-foreground"
+              variants={stickerPop(1.0, 0)}
+              className="absolute -bottom-3 -right-3 z-20"
+            >
+              <Sparkle className="h-7 w-7 text-primary" />
+            </motion.div>
+
+            {/* ── Lilac dot — bottom left ── */}
+            <motion.div
+              variants={stickerPop(0.95, 0)}
+              className="absolute -bottom-2 left-10 z-20 h-5 w-5 rounded-full border-2 border-foreground bg-naso-lilac shadow-retro"
             />
           </motion.div>
         </div>
       </div>
 
-      {/* ── Mobile poster (simplified) ── */}
-      <div className="container relative z-10 -mt-4 mb-20 px-5 lg:hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 30, rotate: -2 }}
-          animate={{ opacity: 1, y: 0, rotate: -2 }}
-          transition={{ duration: 0.7, ease, delay: 0.55 }}
-          className="mx-auto max-w-[260px] rounded-xl border-[2.5px] border-foreground bg-card p-6 text-center shadow-[5px_5px_0_hsl(var(--foreground))]"
-        >
-          <div className="font-poster text-4xl font-extrabold tracking-[-0.05em] text-foreground">
-            NASO
-          </div>
-          <div className="mt-2 font-display text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-            Creative moments · Cairo
-          </div>
-          <div className="mx-auto mt-3 flex justify-center gap-1">
-            {["bg-primary", "bg-secondary", "bg-accent", "bg-naso-lilac"].map((c, i) => (
-              <div key={i} className={`h-2 w-5 rounded-sm ${c}`} />
-            ))}
-          </div>
-        </motion.div>
-        {/* Mobile badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.2 }}
-          animate={{ opacity: 1, scale: 1, rotate: -6 }}
-          transition={{ type: "spring", stiffness: 380, damping: 16, delay: 0.85 }}
-          className="absolute -top-5 right-10 flex h-12 w-12 flex-col items-center justify-center rounded-full border-2 border-foreground bg-secondary font-poster text-[6px] font-extrabold uppercase leading-tight tracking-wider text-foreground shadow-[2px_2px_0_hsl(var(--foreground))]"
-        >
-          <span>Made</span>
-          <span>in</span>
-          <span>Cairo</span>
-        </motion.div>
+      {/* ── Bottom marquee ticker ── */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 border-t-[2px] border-foreground bg-foreground py-3">
+        <MarqueeTicker speed={20}>
+          {[
+            "Outings",
+            "Workshops",
+            "Events",
+            "Products",
+            "Art",
+            "Culture",
+            "Cairo",
+            "Memories",
+            "Moments",
+            "Friends",
+          ].map((word) => (
+            <span key={word} className="mx-6 font-groovy text-xs font-bold uppercase tracking-[0.15em] text-background">
+              {word}
+              <Sparkle className="ml-6 inline-block h-2.5 w-2.5 text-secondary" />
+            </span>
+          ))}
+        </MarqueeTicker>
       </div>
     </section>
   );
