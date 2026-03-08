@@ -4,6 +4,11 @@ import { MotionDiv } from "@/components/shared/MotionDiv";
 import { staggerContainer, fadeUp } from "@/lib/motion";
 import { offerings } from "../data";
 
+const cardHover = {
+  rest: { y: 0, boxShadow: "var(--shadow-soft)" },
+  hover: { y: -6, boxShadow: "var(--shadow-elevated)" },
+};
+
 export function OfferingsSection() {
   return (
     <Section>
@@ -21,7 +26,7 @@ export function OfferingsSection() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-80px" }}
         variants={staggerContainer}
         className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
@@ -29,13 +34,24 @@ export function OfferingsSection() {
           <motion.div
             key={item.title}
             variants={fadeUp}
-            className="rounded-2xl border border-border bg-card p-6 text-center transition-shadow hover:shadow-card"
+            initial="rest"
+            whileHover="hover"
+            animate="rest"
+            className="rounded-2xl border border-border bg-card p-6 text-center transition-colors"
           >
-            <span className="text-4xl">{item.emoji}</span>
-            <h3 className="mt-4 font-display text-lg font-bold">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              {item.description}
-            </p>
+            <motion.div variants={cardHover} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+              <motion.span
+                className="inline-block text-4xl"
+                whileHover={{ scale: 1.25, rotate: 8 }}
+                transition={{ type: "spring", stiffness: 400, damping: 12 }}
+              >
+                {item.emoji}
+              </motion.span>
+              <h3 className="mt-4 font-display text-lg font-bold">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {item.description}
+              </p>
+            </motion.div>
           </motion.div>
         ))}
       </motion.div>
