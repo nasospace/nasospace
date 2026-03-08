@@ -2,11 +2,35 @@ import { motion } from "framer-motion";
 import { staggerSlow, fadeUp, popIn } from "@/lib/motion";
 import { StickerBadge, FlowerShape } from "@/components/shared/RetroElements";
 import { aboutHero } from "../data";
+import heroCollage from "@/assets/about-hero-collage.png";
 
 export function AboutHero() {
   return (
     <section className="relative overflow-hidden bg-card py-section-lg">
       <div className="absolute inset-0 naso-dotgrid opacity-50" />
+
+      {/* Decorative collage — left */}
+      <motion.img
+        src={heroCollage}
+        alt=""
+        aria-hidden
+        initial={{ opacity: 0, x: -40, rotate: -8 }}
+        animate={{ opacity: 0.18, x: 0, rotate: -6 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="pointer-events-none absolute -left-24 top-1/2 hidden w-[340px] -translate-y-1/2 select-none lg:block"
+      />
+
+      {/* Decorative collage — right */}
+      <motion.img
+        src={heroCollage}
+        alt=""
+        aria-hidden
+        initial={{ opacity: 0, x: 40, rotate: 8 }}
+        animate={{ opacity: 0.18, x: 0, rotate: 6 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.15 }}
+        className="pointer-events-none absolute -right-24 top-1/2 hidden w-[340px] -translate-y-1/2 -scale-x-100 select-none lg:block"
+      />
+
       <div className="container relative z-10">
         <motion.div
           initial="hidden"
