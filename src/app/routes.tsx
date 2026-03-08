@@ -4,6 +4,8 @@ import { ROUTES } from "@/config/routes";
 import HomePage from "@/pages/Index";
 import ExperiencesPage from "@/pages/Experiences";
 import ExperienceDetailPage from "@/pages/ExperienceDetail";
+import WorkshopsPage from "@/pages/Workshops";
+import WorkshopDetailPage from "@/pages/WorkshopDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -16,7 +18,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.HOME, element: <HomePage /> },
       { path: ROUTES.EXPERIENCES, element: <ExperiencesPage /> },
       { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
-      { path: ROUTES.WORKSHOPS, element: <PlaceholderPage title="Workshops" /> },
+      { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
+      { path: ROUTES.WORKSHOP_DETAIL, element: <WorkshopDetailPage /> },
       { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
       { path: ROUTES.PORTFOLIO, element: <PlaceholderPage title="Portfolio" /> },
       { path: ROUTES.BLOG, element: <PlaceholderPage title="Blog" /> },
