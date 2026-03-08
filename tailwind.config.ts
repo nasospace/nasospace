@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         display: ["Space Grotesk", "system-ui", "sans-serif"],
         poster: ["Syne", "system-ui", "sans-serif"],
+        groovy: ["Unbounded", "Syne", "system-ui", "sans-serif"],
         body: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
@@ -69,6 +70,10 @@ export default {
           purple: "hsl(var(--naso-purple))",
           lilac: "hsl(var(--naso-lilac))",
           white: "hsl(var(--naso-white))",
+          pink: "hsl(var(--naso-pink))",
+          coral: "hsl(var(--naso-coral))",
+          cream: "hsl(var(--naso-cream))",
+          lemon: "hsl(var(--naso-lemon))",
         },
       },
       boxShadow: {
@@ -76,6 +81,8 @@ export default {
         card: "var(--shadow-card)",
         elevated: "var(--shadow-elevated)",
         brand: "var(--shadow-brand)",
+        retro: "var(--shadow-retro)",
+        "retro-lg": "var(--shadow-retro-lg)",
       },
       borderRadius: {
         lg: "var(--radius)",
