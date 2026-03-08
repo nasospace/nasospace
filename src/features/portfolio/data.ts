@@ -45,7 +45,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "meditative, quiet, rainy-day calm",
     coverImage: { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80", alt: "Hands shaping clay on a pottery wheel" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=800&q=80", alt: "Close-up of hands on clay" },
+      { src: "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80", alt: "Close-up of hands on clay" },
       { src: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&q=80", alt: "Tea cups on a wooden table" },
       { src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80", alt: "Finished ceramic pieces drying" },
     ],
@@ -150,7 +150,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     gallery: [
       { src: "https://images.unsplash.com/photo-1504270997636-07ddfbd48945?w=800&q=80", alt: "Spread of vintage magazines" },
       { src: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80", alt: "Close-up of finished collage artwork" },
-      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
+      { src: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
     ],
     linkedWorkshopSlug: "collage-night-cut-and-compose",
     featured: false,
@@ -198,7 +198,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "hands-on, playful, maker energy",
     coverImage: { src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80", alt: "Hands pulling a screen print" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Ink-stained hands at the workshop" },
+      { src: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80", alt: "Ink-stained hands at the workshop" },
       { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80", alt: "Custom tote bag designs" },
       { src: "https://images.unsplash.com/photo-1529543544282-ea95407407db?w=800&q=80", alt: "Group showing off their prints" },
     ],
