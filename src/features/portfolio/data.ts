@@ -98,7 +98,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "romantic, intimate, cinematic",
     coverImage: { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80", alt: "Candlelit rooftop dinner for two" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=800&q=80", alt: "Handwritten menu on kraft paper" },
+      { src: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80", alt: "Handwritten menu on kraft paper" },
       { src: "https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=800&q=80", alt: "Vinyl turntable on the rooftop" },
       { src: "https://images.unsplash.com/photo-1549882167-945d8c0cde5a?w=800&q=80", alt: "Nile view at night" },
     ],
