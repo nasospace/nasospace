@@ -79,13 +79,7 @@ export function Header() {
               <img src={nasoLogo} alt={siteConfig.name} className="h-8 w-auto" />
             </SheetHeader>
             <nav className="mt-8 flex flex-col gap-1 px-4">
-              {[
-                { label: "Home", href: ROUTES.HOME },
-                { label: "Experiences", href: ROUTES.EXPERIENCES },
-                { label: "Workshops", href: ROUTES.WORKSHOPS },
-                { label: "Blog", href: ROUTES.BLOG },
-                { label: "Shop", href: ROUTES.SHOP },
-              ].map((item) => (
+              {siteConfig.nav.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
