@@ -24,8 +24,7 @@ export function WorkshopCategoryFilter({ active, onChange }: WorkshopCategoryFil
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="flex gap-2.5 overflow-x-auto pb-2 sm:flex-wrap sm:overflow-visible"
-      style={{ scrollbarWidth: "none" }}
+      className="naso-scrollbar-hide flex gap-2.5 overflow-x-auto pb-2 sm:flex-wrap sm:overflow-visible"
     >
       {allPills.map((pill) => {
         const isActive = active === pill.key;
