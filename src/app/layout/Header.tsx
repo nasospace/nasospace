@@ -19,17 +19,11 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* Detect if hero is dark (homepage) */
-  const isHome = pathname === "/" || pathname === ROUTES.HOME;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const showLight = isHome && !scrolled;
-
   return (
     <header
       className={cn(
