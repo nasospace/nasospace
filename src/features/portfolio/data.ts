@@ -100,7 +100,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     gallery: [
       { src: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80", alt: "Handwritten menu on kraft paper" },
       { src: "https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=800&q=80", alt: "Vinyl turntable on the rooftop" },
-      { src: "https://images.unsplash.com/photo-1549882167-945d8c0cde5a?w=800&q=80", alt: "Nile view at night" },
+      { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&q=80", alt: "Nile view at night" },
     ],
     featured: false,
     testimonialQuote: "He remembered the songs from our first date. I don't know how you pulled this off, but thank you.",
