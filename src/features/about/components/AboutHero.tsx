@@ -65,8 +65,3 @@ export function AboutHero() {
     </section>
   );
 }
-        </motion.div>
-      </div>
-    </section>
-  );
-}
