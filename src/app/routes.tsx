@@ -11,6 +11,8 @@ import PortfolioPage from "@/pages/Portfolio";
 import PortfolioDetailPage from "@/pages/PortfolioDetail";
 import BlogPage from "@/pages/Blog";
 import BlogDetailPage from "@/pages/BlogDetail";
+import ShopPage from "@/pages/Shop";
+import ProductDetailPage from "@/pages/ProductDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
