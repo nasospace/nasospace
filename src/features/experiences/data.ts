@@ -165,7 +165,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 16,
     difficulty: "challenging",
-    coverImage: { src: "/placeholder.svg", alt: "Fayoum Overnight" },
+    coverImage: { src: "https://images.unsplash.com/photo-1542401886-65d6c61db217?w=800&q=80", alt: "Fayoum Overnight" },
     gallery: [],
     featured: true,
   },

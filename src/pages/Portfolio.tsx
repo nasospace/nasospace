@@ -23,7 +23,7 @@ export default function PortfolioPage() {
         <div className="mb-8">
           <PortfolioCategoryFilter active={active} onChange={setActive} />
         </div>
-        <PortfolioGrid items={filtered} />
+        <PortfolioGrid key={active} items={filtered} />
       </Section>
     </>
   );

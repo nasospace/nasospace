@@ -182,7 +182,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "2 hours",
     skillLevel: "beginner",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Terrarium building workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80", alt: "Terrarium building workshop" },
     gallery: [],
     featured: false,
   },

@@ -23,7 +23,7 @@ export default function ExperiencesPage() {
         <div className="mb-8">
           <ExperienceCategoryFilter active={active} onChange={setActive} />
         </div>
-        <ExperienceGrid experiences={filtered} />
+        <ExperienceGrid key={active} experiences={filtered} />
       </Section>
     </>
   );
