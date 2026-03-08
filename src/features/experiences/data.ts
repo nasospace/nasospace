@@ -144,7 +144,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 30,
     difficulty: "easy",
-    coverImage: { src: "/placeholder.svg", alt: "Rooftop Film Club" },
+    coverImage: { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80", alt: "Rooftop Film Club" },
     gallery: [],
     featured: true,
   },
