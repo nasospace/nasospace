@@ -136,7 +136,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "2.5 hours",
     skillLevel: "beginner",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Screen printing workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80", alt: "Screen printing workshop" },
     gallery: [],
     featured: true,
   },
