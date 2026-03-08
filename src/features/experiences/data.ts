@@ -18,7 +18,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 25,
     difficulty: "easy",
-    coverImage: { src: "/placeholder.svg", alt: "Sunset at the Citadel" },
+    coverImage: { src: "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=800&q=80", alt: "Sunset at the Citadel" },
     gallery: [],
     featured: true,
   },
