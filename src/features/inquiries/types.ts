@@ -59,7 +59,7 @@ export interface InquiryFormData {
   groupSize: string;
   notes: string;
   /** Populated from URL context when booking a specific item */
-  itemType?: "experience" | "workshop";
+  itemType?: "experience" | "workshop" | "portfolio";
   itemSlug?: string;
   itemTitle?: string;
 }
