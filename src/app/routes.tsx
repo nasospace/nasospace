@@ -9,6 +9,8 @@ import WorkshopDetailPage from "@/pages/WorkshopDetail";
 import InquiriesPage from "@/pages/Inquiries";
 import PortfolioPage from "@/pages/Portfolio";
 import PortfolioDetailPage from "@/pages/PortfolioDetail";
+import BlogPage from "@/pages/Blog";
+import BlogDetailPage from "@/pages/BlogDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -26,7 +28,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
       { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
       { path: ROUTES.PORTFOLIO_DETAIL, element: <PortfolioDetailPage /> },
-      { path: ROUTES.BLOG, element: <PlaceholderPage title="Blog" /> },
+      { path: ROUTES.BLOG, element: <BlogPage /> },
+      { path: ROUTES.BLOG_DETAIL, element: <BlogDetailPage /> },
       { path: ROUTES.SHOP, element: <PlaceholderPage title="Shop" /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
