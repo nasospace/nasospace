@@ -14,6 +14,7 @@ export const ROUTES = {
   BLOG: "/blog",
   BLOG_DETAIL: "/blog/:slug",
   SHOP: "/shop",
+  SHOP_DETAIL: "/shop/:slug",
   INQUIRIES: "/inquiries",
   ACCOUNT: "/account",
 } as const;
