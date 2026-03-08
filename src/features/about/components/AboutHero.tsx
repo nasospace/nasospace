@@ -6,31 +6,8 @@ import heroCollage from "@/assets/about-hero-collage.png";
 
 export function AboutHero() {
   return (
-    <section className="relative overflow-hidden bg-card py-section-lg">
+    <section className="relative overflow-hidden bg-card py-section-lg pb-12">
       <div className="absolute inset-0 naso-dotgrid opacity-50" />
-
-      {/* Decorative collage — left, slow float */}
-      <motion.img
-        src={heroCollage}
-        alt=""
-        aria-hidden
-        initial={{ opacity: 0, x: -60, scale: 0.85 }}
-        animate={{ opacity: 0.7, x: 0, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="pointer-events-none absolute left-4 top-1/2 hidden w-[180px] -translate-y-1/2 select-none naso-float lg:block xl:left-12 xl:w-[200px]"
-      />
-
-      {/* Decorative collage — right, slow float (offset) */}
-      <motion.img
-        src={heroCollage}
-        alt=""
-        aria-hidden
-        initial={{ opacity: 0, x: 60, scale: 0.85 }}
-        animate={{ opacity: 0.7, x: 0, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut", delay: 0.2 }}
-        className="pointer-events-none absolute right-4 top-1/2 hidden w-[180px] -translate-y-1/2 -scale-x-100 select-none lg:block xl:right-12 xl:w-[200px]"
-        style={{ animationDelay: "2.5s", animationName: "gentle-float", animationDuration: "6s", animationIterationCount: "infinite", animationTimingFunction: "ease-in-out" }}
-      />
 
       <div className="container relative z-10">
         <motion.div
@@ -81,6 +58,21 @@ export function AboutHero() {
               className="h-3 w-3 rounded-full bg-naso-lilac"
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, delay: 0.8 }}
+            />
+          </motion.div>
+
+          {/* Sticker collage — centered below */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 flex justify-center"
+          >
+            <motion.img
+              src={heroCollage}
+              alt=""
+              aria-hidden
+              className="w-[140px] select-none naso-float sm:w-[170px] md:w-[200px]"
+              whileHover={{ scale: 1.08, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
             />
           </motion.div>
         </motion.div>
