@@ -1,34 +1,25 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
+import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   Sparkle,
   MagneticButton,
 } from "@/components/shared/RetroElements";
-import { staggerContainer, fadeUp } from "@/lib/motion";
+import { staggerContainer, fadeUp, popIn } from "@/lib/motion";
 
 export function BigCTASection() {
   return (
     <section className="relative overflow-hidden bg-primary py-section-lg text-primary-foreground">
       <div className="absolute inset-0 naso-dotgrid opacity-10" />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0, rotate: 0 }}
-        whileInView={{ opacity: 0.25, scale: 1, rotate: 15 }}
-        viewport={{ once: true }}
-        className="absolute right-[10%] top-[15%]"
-      >
+      <MotionDiv variants={popIn} className="absolute right-[10%] top-[15%] opacity-25 rotate-[15deg]">
         <Sparkle className="h-12 w-12 text-primary-foreground" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.15, scale: 1 }}
-        viewport={{ once: true }}
-        className="absolute left-[8%] bottom-[20%]"
-      >
+      </MotionDiv>
+      <MotionDiv variants={popIn} className="absolute left-[8%] bottom-[20%] opacity-15">
         <FlowerShape size={60} className="text-primary-foreground naso-flower-spin" />
-      </motion.div>
+      </MotionDiv>
 
       <div className="container relative z-10">
         <motion.div

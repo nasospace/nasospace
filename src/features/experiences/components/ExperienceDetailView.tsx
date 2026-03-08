@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
@@ -10,13 +10,11 @@ import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
 
 interface ExperienceDetailViewProps {
-  slug?: string;
+  slug: string;
 }
 
-export function ExperienceDetailView({ slug: slugProp }: ExperienceDetailViewProps) {
-  const { slug: paramSlug } = useParams<{ slug: string }>();
-  const slug = slugProp ?? paramSlug;
-  const experience = slug ? getExperienceBySlug(slug) : undefined;
+export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
+  const experience = getExperienceBySlug(slug);
 
   if (!experience) {
     return (

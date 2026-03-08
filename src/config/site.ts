@@ -9,6 +9,7 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: ROUTES.HOME },
     { label: "Experiences", href: ROUTES.EXPERIENCES },
+    { label: "Workshops", href: ROUTES.WORKSHOPS },
     { label: "Blog", href: ROUTES.BLOG },
     { label: "Shop", href: ROUTES.SHOP },
   ],

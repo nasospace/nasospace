@@ -2,34 +2,25 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
+import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   StickerBadge,
   Sparkle,
 } from "@/components/shared/RetroElements";
-import { staggerContainer, fadeUp, slideInLeft, slideInRight } from "@/lib/motion";
+import { staggerContainer, fadeUp, slideInLeft, slideInRight, popIn } from "@/lib/motion";
 
 export function MoreToExploreSection() {
   return (
     <section className="relative overflow-hidden border-y-[2.5px] border-foreground bg-secondary/15 py-section-lg">
       <div className="absolute inset-0 naso-checkerboard opacity-30" />
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.15, scale: 1 }}
-        viewport={{ once: true }}
-        className="absolute -left-12 top-20"
-      >
+      <MotionDiv variants={popIn} className="absolute -left-12 top-20 opacity-15">
         <FlowerShape size={120} className="text-naso-purple naso-flower-spin" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.1, scale: 1 }}
-        viewport={{ once: true }}
-        className="absolute -right-8 bottom-16"
-      >
+      </MotionDiv>
+      <MotionDiv variants={popIn} className="absolute -right-8 bottom-16 opacity-10">
         <FlowerShape size={80} className="text-primary naso-flower-spin" />
-      </motion.div>
+      </MotionDiv>
 
       <div className="container relative z-10">
         <motion.div

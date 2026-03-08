@@ -50,7 +50,7 @@ export function Header() {
               to={item.href}
               className={cn(
                 "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
-                pathname === item.href
+                (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
@@ -85,7 +85,7 @@ export function Header() {
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
-                    pathname === item.href
+                    (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
                       ? "bg-foreground/5 text-foreground"
                       : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                   )}

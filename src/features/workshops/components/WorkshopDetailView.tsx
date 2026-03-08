@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
@@ -10,13 +10,11 @@ import { WORKSHOP_CATEGORY_META } from "../types";
 import { WorkshopGrid } from "./WorkshopGrid";
 
 interface WorkshopDetailViewProps {
-  slug?: string;
+  slug: string;
 }
 
-export function WorkshopDetailView({ slug: slugProp }: WorkshopDetailViewProps) {
-  const { slug: paramSlug } = useParams<{ slug: string }>();
-  const slug = slugProp ?? paramSlug;
-  const workshop = slug ? getWorkshopBySlug(slug) : undefined;
+export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
+  const workshop = getWorkshopBySlug(slug);
 
   if (!workshop) {
     return (

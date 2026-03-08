@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { StickerBadge } from "@/components/shared/RetroElements";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, routeHelpers } from "@/config/routes";
 import { staggerContainer, fadeUp } from "@/lib/motion";
-import { featuredExperiences } from "@/features/home/data";
+import { MOCK_EXPERIENCES } from "@/features/experiences/data";
+import { CATEGORY_META } from "@/features/experiences/types";
+
+const featuredExperiences = MOCK_EXPERIENCES.filter((e) => e.featured).slice(0, 3);
 
 export function FeaturedExperiencesSection() {
   return (
@@ -38,35 +41,42 @@ export function FeaturedExperiencesSection() {
           </motion.div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredExperiences.map((item, i) => (
-              <motion.div
-                key={item.title}
-                variants={fadeUp}
-                whileHover={{ y: -6, rotate: i % 2 === 0 ? 1 : -1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group cursor-pointer overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card shadow-retro transition-shadow hover:shadow-retro-lg"
-              >
-                <div className={`relative h-44 ${item.color}`}>
-                  <div className="absolute inset-0 naso-halftone" />
-                  <div className="absolute right-3 top-3">
-                    <StickerBadge rotate={3} className="bg-card text-foreground">
-                      {item.tag}
-                    </StickerBadge>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <p className="font-groovy text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                    {item.date}
-                  </p>
-                  <h3 className="mt-1.5 font-groovy text-lg font-bold text-foreground">
-                    {item.title}
-                  </h3>
-                  <span className="mt-3 inline-flex items-center gap-1 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-primary transition-transform duration-200 group-hover:translate-x-1">
-                    Details <ArrowRight className="h-3 w-3" />
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+            {featuredExperiences.map((item, i) => {
+              const meta = CATEGORY_META[item.category];
+              return (
+                <motion.div
+                  key={item.id}
+                  variants={fadeUp}
+                  whileHover={{ y: -6, rotate: i % 2 === 0 ? 1 : -1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <Link
+                    to={routeHelpers.experienceDetail(item.slug)}
+                    className="group block cursor-pointer overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card shadow-retro transition-shadow hover:shadow-retro-lg"
+                  >
+                    <div className={`relative h-44 ${meta.color}`}>
+                      <div className="absolute inset-0 naso-halftone" />
+                      <div className="absolute right-3 top-3">
+                        <StickerBadge rotate={3} className="bg-card text-foreground">
+                          {meta.label}
+                        </StickerBadge>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <p className="font-groovy text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                        {item.date}
+                      </p>
+                      <h3 className="mt-1.5 font-groovy text-lg font-bold text-foreground">
+                        {item.title}
+                      </h3>
+                      <span className="mt-3 inline-flex items-center gap-1 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-primary transition-transform duration-200 group-hover:translate-x-1">
+                        Details <ArrowRight className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
