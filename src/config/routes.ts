@@ -23,6 +23,7 @@ export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
 export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
   workshopDetail: (slug: string) => `/workshops/${slug}` as const,
+  portfolioDetail: (slug: string) => `/portfolio/${slug}` as const,
 } as const;
 
 /** Build an inquiry path with optional context for prefill */
