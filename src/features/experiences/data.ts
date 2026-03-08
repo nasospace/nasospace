@@ -102,7 +102,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 20,
     difficulty: "moderate",
-    coverImage: { src: "/placeholder.svg", alt: "Wadi Degla Hike" },
+    coverImage: { src: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&q=80", alt: "Wadi Degla Hike" },
     gallery: [],
     featured: false,
   },
