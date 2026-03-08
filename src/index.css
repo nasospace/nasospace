@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 /*
-  NASO Design System
-  Brand direction: retro-cool · premium · playful but controlled · artistic
-  Colors: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF
+  NASO Design System — Sprint 1
+  Brand: retro-cool · premium · playful but controlled · artistic
+  Palette: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF
 */
 
 @layer base {
@@ -48,6 +48,15 @@
     --ring: 217 100% 44%;
 
     --radius: 0.625rem;
+
+    /* === Spacing Rhythm === */
+    --section-y: 5rem;
+    --section-y-lg: 7rem;
+
+    /* === Shadows === */
+    --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.1);
+    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.15);
 
     /* === Layout === */
     --sidebar-background: 0 0% 98%;
@@ -93,6 +102,10 @@
     --input: 0 0% 18%;
     --ring: 217 100% 50%;
 
+    --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.3);
+    --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.35);
+    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.5);
+
     --sidebar-background: 0 0% 6%;
     --sidebar-foreground: 0 0% 90%;
     --sidebar-primary: 217 100% 50%;
@@ -116,4 +129,10 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
   }
+
+  /* Typography scale — consistent across the site */
+  h1 { @apply text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl font-bold tracking-tight md:text-4xl; }
+  h3 { @apply text-2xl font-semibold tracking-tight md:text-3xl; }
+  h4 { @apply text-xl font-semibold; }
 }
