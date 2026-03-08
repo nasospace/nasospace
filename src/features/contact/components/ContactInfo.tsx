@@ -84,31 +84,27 @@ export function ContactInfo() {
           </div>
         </div>
 
-        {/* Inquiry CTA card */}
-        <MotionDiv>
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h3 className="font-groovy text-xl font-bold">
-              Have something specific in mind?
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              If you're looking to book an experience, plan an event, or ask about a product — our inquiry form is the fastest way to get a detailed response.
-            </p>
-            <Button asChild className="mt-6 w-full" size="lg">
-              <Link to={ROUTES.INQUIRIES}>
-                Go to inquiries
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+        {/* Quick message form + Inquiry CTA */}
+        <div className="space-y-6">
+          <ContactForm />
 
-            <div className="mt-6 rounded-lg bg-muted/50 p-4">
-              <p className="text-xs leading-relaxed text-muted-foreground">
-                <strong className="text-foreground">Quick note:</strong> We respond to
-                every message within 1–2 business days. If it's urgent, DM us on
-                Instagram — we're always around.
+          <MotionDiv>
+            <div className="rounded-2xl border border-border bg-card p-6">
+              <h3 className="font-groovy text-base font-bold">
+                Something bigger in mind?
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                For bookings, events, or detailed requests — use our inquiry form.
               </p>
+              <Button asChild variant="outline" className="mt-4 w-full" size="lg">
+                <Link to={ROUTES.INQUIRIES}>
+                  Go to inquiries
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
-          </div>
-        </MotionDiv>
+          </MotionDiv>
+        </div>
       </div>
     </Section>
   );
