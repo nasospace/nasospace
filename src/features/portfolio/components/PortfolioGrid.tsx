@@ -28,7 +28,7 @@ export function PortfolioGrid({ items }: PortfolioGridProps) {
       viewport={{ once: true, margin: "-64px" }}
       className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {items.map((item, i) => (
           <PortfolioCard key={item.id} item={item} index={i} />
         ))}
