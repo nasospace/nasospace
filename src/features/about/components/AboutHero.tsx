@@ -17,7 +17,7 @@ export function AboutHero() {
         initial={{ opacity: 0, x: -60, scale: 0.85 }}
         animate={{ opacity: 0.7, x: 0, scale: 1 }}
         transition={{ duration: 1.4, ease: "easeOut" }}
-        className="pointer-events-none absolute -left-16 top-1/2 hidden w-[300px] -translate-y-1/2 select-none naso-float lg:block xl:-left-8 xl:w-[360px]"
+        className="pointer-events-none absolute left-4 top-1/2 hidden w-[180px] -translate-y-1/2 select-none naso-float lg:block xl:left-12 xl:w-[200px]"
       />
 
       {/* Decorative collage — right, slow float (offset) */}
