@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 /*
-  NASO Design System — Sprint 1
-  Brand: retro-cool · premium · playful but controlled · artistic
+  NASO Design System — Visual Refinement Sprint
+  Brand: retro-cool · premium · playful but controlled · artistic · layered
   Palette: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
@@ -19,7 +21,7 @@
     --naso-white: 0 0% 100%;
 
     /* === Semantic Tokens === */
-    --background: 0 0% 100%;
+    --background: 48 20% 97%;
     --foreground: 0 0% 0%;
 
     --card: 0 0% 100%;
@@ -47,16 +49,17 @@
     --input: 0 0% 88%;
     --ring: 217 100% 44%;
 
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
     /* === Spacing Rhythm === */
     --section-y: 5rem;
-    --section-y-lg: 7rem;
+    --section-y-lg: 7.5rem;
 
     /* === Shadows === */
-    --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.08);
-    --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.1);
-    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.15);
+    --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.06);
+    --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.08);
+    --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.14);
+    --shadow-brand: 0 8px 32px -8px hsl(217 100% 44% / 0.2);
 
     /* === Layout === */
     --sidebar-background: 0 0% 98%;
@@ -105,6 +108,7 @@
     --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.3);
     --shadow-card: 0 4px 24px -8px hsl(0 0% 0% / 0.35);
     --shadow-elevated: 0 12px 40px -12px hsl(0 0% 0% / 0.5);
+    --shadow-brand: 0 8px 32px -8px hsl(217 100% 50% / 0.3);
 
     --sidebar-background: 0 0% 6%;
     --sidebar-foreground: 0 0% 90%;
@@ -128,11 +132,39 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 
-  /* Typography scale — consistent across the site */
-  h1 { @apply text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl; }
-  h2 { @apply text-3xl font-bold tracking-tight md:text-4xl; }
-  h3 { @apply text-2xl font-semibold tracking-tight md:text-3xl; }
+  /* Typography scale */
+  h1 { @apply text-4xl font-bold md:text-6xl lg:text-7xl; }
+  h2 { @apply text-3xl font-bold md:text-4xl lg:text-5xl; }
+  h3 { @apply text-2xl font-semibold md:text-3xl; }
   h4 { @apply text-xl font-semibold; }
+}
+
+@layer components {
+  /* Retro sticker accent — reusable decorative element */
+  .naso-sticker {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-foreground px-4 py-1.5 font-display text-xs font-semibold uppercase tracking-widest;
+    transform: rotate(-3deg);
+  }
+
+  /* Blob/organic shape accent */
+  .naso-blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: blob-morph 8s ease-in-out infinite;
+  }
+
+  @keyframes blob-morph {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  }
+
+  /* Retro grid pattern */
+  .naso-grid-bg {
+    background-image: 
+      linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
 }
