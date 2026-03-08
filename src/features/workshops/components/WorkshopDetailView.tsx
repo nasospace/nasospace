@@ -99,7 +99,7 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
 
           {/* Right — info card */}
           <MotionDiv>
-            <div className="rounded-3xl border-[3px] border-foreground bg-card p-6 shadow-retro">
+            <div className="rounded-2xl border-[2.5px] border-foreground bg-card p-6 shadow-retro">
               <dl className="space-y-4">
                 <InfoRow label="Price" value={`${workshop.price} ${workshop.currency}`} />
                 <InfoRow label="Duration" value={workshop.duration} />

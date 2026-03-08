@@ -103,16 +103,3 @@ function formatDate(dateStr: string): string {
   const d = new Date(dateStr);
   return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
-
-/** Map category to a CSS variable hue name for inline color */
-function getCategoryHue(category: string): string {
-  const map: Record<string, string> = {
-    "outing-ideas": "green",
-    "cairo-guides": "coral",
-    "creative-living": "pink",
-    "workshop-stories": "lilac",
-    "event-inspiration": "lemon",
-    "naso-journal": "purple",
-  };
-  return map[category] ?? "blue";
-}

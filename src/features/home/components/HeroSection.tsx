@@ -107,7 +107,7 @@ function HeroBackground({ bgY }: { bgY: ReturnType<typeof useTransform> }) {
       <div className="absolute inset-0 naso-dotgrid opacity-50" />
       <div className="absolute -right-[15%] -top-[10%] h-[55vh] w-[40vw] rounded-[50%] bg-secondary/25 blur-[100px]" />
       <div className="absolute -left-[10%] bottom-[0%] h-[40vh] w-[35vw] rounded-[50%] bg-naso-lilac/20 blur-[80px]" />
-      <div className="absolute left-[30%] top-[20%] h-[25vh] w-[20vw] rounded-[50%] bg-primary/8 blur-[60px]" />
+      <div className="absolute left-[30%] top-[20%] h-[25vh] w-[20vw] rounded-[50%] bg-primary/[0.08] blur-[60px]" />
     </motion.div>
   );
 }
