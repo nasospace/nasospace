@@ -217,12 +217,38 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
           variants={fadeUp}
           className="grid gap-4 sm:grid-cols-2"
         >
-          <Field
-            label="Preferred Date"
-            value={form.preferredDate}
-            onChange={(v) => update("preferredDate", v)}
-            placeholder="e.g. April 20, 2026"
-          />
+          <div>
+            <Label>Preferred Date</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className={cn(
+                    "mt-2 flex w-full items-center gap-2 rounded-xl border-2 border-foreground bg-card px-4 py-2.5",
+                    "font-body text-sm text-foreground",
+                    "outline-none transition-shadow focus:shadow-retro",
+                    !selectedDate && "text-muted-foreground/60"
+                  )}
+                >
+                  <CalendarIcon className="h-4 w-4 shrink-0" />
+                  {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    setSelectedDate(date);
+                    update("preferredDate", date ? format(date, "PPP") : "");
+                  }}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
           <Field
             label="Group Size"
             value={form.groupSize}
