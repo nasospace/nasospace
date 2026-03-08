@@ -14,28 +14,25 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <Section spacing="lg" className="relative overflow-hidden naso-grid-bg">
-        {/* Decorative shapes */}
+        {/* Decorative shapes — composed, restrained */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {/* Green blob */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 0.6, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="naso-blob absolute -right-20 -top-20 h-72 w-72 bg-secondary md:h-96 md:w-96"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 0.35, scale: 1 }}
+            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            className="naso-blob absolute -right-10 -top-10 h-52 w-52 bg-secondary md:h-72 md:w-72"
           />
-          {/* Purple blob */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 0.4, scale: 1 }}
-            transition={{ duration: 1.4, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="naso-blob absolute -bottom-32 -left-20 h-80 w-80 bg-accent md:h-[28rem] md:w-[28rem]"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 0.25, scale: 1 }}
+            transition={{ duration: 1.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="naso-blob absolute -bottom-16 -left-12 h-56 w-56 bg-accent md:h-80 md:w-80"
           />
-          {/* Lilac circle */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.3 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="absolute right-1/4 top-1/3 h-40 w-40 rounded-full bg-naso-lilac md:h-56 md:w-56"
+            animate={{ opacity: 0.18 }}
+            transition={{ duration: 1.2, delay: 0.4 }}
+            className="absolute right-[18%] top-[28%] h-28 w-28 rounded-full bg-naso-lilac md:h-40 md:w-40"
           />
         </div>
 
@@ -43,31 +40,32 @@ export default function HomePage() {
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="relative flex flex-col items-center gap-8 text-center"
+          className="relative flex flex-col items-center gap-6 text-center md:gap-7"
         >
           {/* Sticker badge */}
           <motion.div variants={fadeUp}>
-            <span className="naso-sticker border-foreground/20 bg-background text-foreground">
+            <span className="naso-sticker border-foreground/15 bg-background/80 text-foreground backdrop-blur-sm">
               Cairo, Egypt ✦
             </span>
           </motion.div>
 
-          {/* Logo mark — large and expressive */}
-          <motion.img
-            src={nasoLogo}
-            alt="NASO"
-            className="h-16 w-auto drop-shadow-lg md:h-24 lg:h-28"
-            variants={scaleIn}
-          />
+          {/* Logo — integrated with subtle glow */}
+          <motion.div variants={scaleIn} className="relative">
+            <div className="absolute inset-0 scale-150 rounded-full bg-secondary/10 blur-2xl" />
+            <img
+              src={nasoLogo}
+              alt="NASO"
+              className="relative h-14 w-auto md:h-20 lg:h-24"
+            />
+          </motion.div>
 
           {/* Headline */}
-          <motion.h1 variants={fadeUp} className="max-w-4xl leading-[1.05]">
+          <motion.h1 variants={fadeUp} className="max-w-3xl leading-[1.08] mt-1">
             Creative experiences
             <br />
             <span className="relative inline-block">
               <span className="relative z-10">worth remembering</span>
-              {/* Hand-drawn underline effect */}
-              <span className="absolute -bottom-1 left-0 right-0 z-0 h-3 -skew-x-3 bg-secondary/60 md:-bottom-2 md:h-4" />
+              <span className="absolute bottom-1 left-0 right-0 z-0 h-[0.18em] -skew-x-2 rounded-full bg-secondary/50" />
             </span>
             <span className="text-primary">.</span>
           </motion.h1>
@@ -75,13 +73,13 @@ export default function HomePage() {
           {/* Subline */}
           <motion.p
             variants={fadeUp}
-            className="max-w-lg font-display text-lg font-medium tracking-wide text-muted-foreground md:text-xl"
+            className="max-w-md font-display text-base font-medium tracking-wide text-muted-foreground md:text-lg"
           >
             Outings · Workshops · Events · Products
           </motion.p>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 pt-2">
+          <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-4 pt-3">
             <Button asChild size="lg" variant="brand">
               <Link to={ROUTES.EXPERIENCES}>
                 Explore experiences
