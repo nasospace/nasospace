@@ -28,7 +28,7 @@ export function AboutHero() {
         initial={{ opacity: 0, x: 60, scale: 0.85 }}
         animate={{ opacity: 0.7, x: 0, scale: 1 }}
         transition={{ duration: 1.4, ease: "easeOut", delay: 0.2 }}
-        className="pointer-events-none absolute -right-16 top-1/2 hidden w-[300px] -translate-y-1/2 -scale-x-100 select-none lg:block xl:-right-8 xl:w-[360px]"
+        className="pointer-events-none absolute right-4 top-1/2 hidden w-[180px] -translate-y-1/2 -scale-x-100 select-none lg:block xl:right-12 xl:w-[200px]"
         style={{ animationDelay: "2.5s", animationName: "gentle-float", animationDuration: "6s", animationIterationCount: "infinite", animationTimingFunction: "ease-in-out" }}
       />
 
