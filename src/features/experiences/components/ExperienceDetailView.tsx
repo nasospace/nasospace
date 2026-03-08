@@ -4,13 +4,18 @@ import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
-import { ROUTES } from "@/config/routes";
+import { ROUTES, buildInquiryPath } from "@/config/routes";
 import { getExperienceBySlug, getRelatedExperiences } from "../data";
 import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
 
-export function ExperienceDetailView() {
-  const { slug } = useParams<{ slug: string }>();
+interface ExperienceDetailViewProps {
+  slug?: string;
+}
+
+export function ExperienceDetailView({ slug: slugProp }: ExperienceDetailViewProps) {
+  const { slug: paramSlug } = useParams<{ slug: string }>();
+  const slug = slugProp ?? paramSlug;
   const experience = slug ? getExperienceBySlug(slug) : undefined;
 
   if (!experience) {
@@ -106,7 +111,11 @@ export function ExperienceDetailView() {
 
               <div className="mt-6">
                 <MagneticButton
-                  to={ROUTES.INQUIRIES}
+                  to={buildInquiryPath({
+                    type: "experience",
+                    slug: experience.slug,
+                    title: experience.title,
+                  })}
                   className={cn(
                     "flex w-full items-center justify-center rounded-full border-[2.5px] border-foreground px-6 py-3",
                     "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",

@@ -28,7 +28,7 @@ export function WorkshopGrid({ workshops }: WorkshopGridProps) {
       viewport={{ once: true, margin: "-48px" }}
       className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
     >
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {workshops.map((workshop, i) => (
           <WorkshopCard key={workshop.id} workshop={workshop} index={i} />
         ))}

@@ -28,7 +28,7 @@ export function ExperienceGrid({ experiences }: ExperienceGridProps) {
       viewport={{ once: true, margin: "-64px" }}
       className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3"
     >
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence>
         {experiences.map((exp, i) => (
           <ExperienceCard key={exp.id} experience={exp} index={i} />
         ))}
