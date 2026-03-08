@@ -1,42 +1,50 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 
-/* ── Motion config ── */
+/* ── Motion ── */
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const stagger = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.15 },
-  },
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
 };
 
 const fadeUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease, delay } },
-});
-
-const stickerPop = (delay = 0, rotate = 0) => ({
-  hidden: { opacity: 0, scale: 0.3, rotate: rotate - 15 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    rotate,
-    transition: { type: "spring" as const, stiffness: 420, damping: 18, delay },
-  },
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease, delay } },
 });
 
 const wipe = (delay = 0) => ({
   hidden: { scaleX: 0 },
-  visible: { scaleX: 1, transition: { duration: 0.5, ease, delay } },
+  visible: { scaleX: 1, transition: { duration: 0.55, ease, delay } },
 });
 
-/* ── Magnetic button ── */
-function MagneticButton({
+const posterEnter = {
+  hidden: { opacity: 0, y: 50, rotate: -6 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: -2.5,
+    transition: { type: "spring" as const, stiffness: 200, damping: 22, delay: 0.5 },
+  },
+};
+
+const badgePop = (delay = 0, rotate = 0) => ({
+  hidden: { opacity: 0, scale: 0.2, rotate: rotate - 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate,
+    transition: { type: "spring" as const, stiffness: 400, damping: 16, delay },
+  },
+});
+
+/* ── Magnetic CTA ── */
+function MagneticCTA({
   children,
   className,
   ...props
@@ -44,30 +52,23 @@ function MagneticButton({
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 20 });
-  const springY = useSpring(y, { stiffness: 300, damping: 20 });
+  const sx = useSpring(x, { stiffness: 280, damping: 20 });
+  const sy = useSpring(y, { stiffness: 280, damping: 20 });
 
-  const handleMouse = (e: React.MouseEvent) => {
+  const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    x.set((e.clientX - cx) * 0.25);
-    y.set((e.clientY - cy) * 0.25);
-  };
-
-  const reset = () => {
-    x.set(0);
-    y.set(0);
+    const r = el.getBoundingClientRect();
+    x.set((e.clientX - r.left - r.width / 2) * 0.2);
+    y.set((e.clientY - r.top - r.height / 2) * 0.2);
   };
 
   return (
-    <motion.div style={{ x: springX, y: springY }} className="inline-block">
+    <motion.div style={{ x: sx, y: sy }} className="inline-block">
       <Link
         ref={ref}
-        onMouseMove={handleMouse}
-        onMouseLeave={reset}
+        onMouseMove={onMove}
+        onMouseLeave={() => { x.set(0); y.set(0); }}
         className={className}
         {...props}
       >
@@ -77,282 +78,212 @@ function MagneticButton({
   );
 }
 
-/* ── Decorative SVGs ── */
-function Star({ className }: { className?: string }) {
+/* ── Sparkle SVG ── */
+function Sparkle({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 0l3.09 8.26L24 9.27l-6.91 5.52L19.18 24 12 19.27 4.82 24l2.09-9.21L0 9.27l8.91-1.01z" />
+    <svg viewBox="0 0 32 32" fill="currentColor" className={className}>
+      <path d="M16 0l2.35 13.65L32 16l-13.65 2.35L16 32l-2.35-13.65L0 16l13.65-2.35z" />
     </svg>
   );
 }
 
-function Squiggle({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 20" fill="none" className={className}>
-      <motion.path
-        d="M2 10c10-8 20 8 30 0s20 8 30 0 20 8 30 0 20 8 26 0"
-        stroke="currentColor"
-        strokeWidth="3"
-        strokeLinecap="round"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: 1.2, ease, delay: 1.4 }}
-      />
-    </svg>
-  );
-}
-
-/* ── Floating sticker wrapper ── */
-function FloatingSticker({
-  children,
-  className,
-  amplitude = 4,
-  duration = 5,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  amplitude?: number;
-  duration?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      animate={{ y: [-amplitude, amplitude, -amplitude] }}
-      transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ════════════════════════════════════════════════
-   HERO SECTION
-   ════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════ */
 export function HeroSection() {
   return (
     <section className="relative min-h-[100svh] overflow-hidden bg-background">
-      {/* ── Paper texture ── */}
+      {/* Dot-grid texture */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.3]"
+        className="pointer-events-none absolute inset-0 opacity-30"
         style={{
           backgroundImage:
-            "radial-gradient(circle, hsl(var(--foreground) / 0.04) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+            "radial-gradient(circle, hsl(var(--foreground) / 0.045) 1px, transparent 1px)",
+          backgroundSize: "22px 22px",
         }}
       />
 
-      {/* ── Poster color blocks — asymmetric background shapes ── */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease, delay: 0.1 }}
-        className="pointer-events-none absolute -right-20 top-[8%] h-[55vh] w-[45vw] rounded-[3rem] bg-secondary/15 blur-sm"
-        style={{ transform: "rotate(-6deg)" }}
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease, delay: 0.2 }}
-        className="pointer-events-none absolute -left-16 bottom-[5%] h-[35vh] w-[30vw] rounded-[3rem] bg-primary/8 blur-sm"
-        style={{ transform: "rotate(3deg)" }}
-      />
+      {/* Soft ambient color wash — just two shapes */}
+      <div className="pointer-events-none absolute -right-32 top-[12%] h-[50vh] w-[40vw] rounded-[4rem] bg-secondary/10 blur-2xl" />
+      <div className="pointer-events-none absolute -left-24 bottom-[10%] h-[30vh] w-[25vw] rounded-[4rem] bg-naso-lilac/8 blur-2xl" />
 
-      {/* ── Main content ── */}
-      <div className="container relative flex min-h-[100svh] items-center px-4 py-32 sm:px-6 lg:px-8">
-        <div className="grid w-full gap-12 lg:grid-cols-[1fr,auto] lg:items-center lg:gap-16">
+      {/* ── 2-column layout ── */}
+      <div className="container relative flex min-h-[100svh] items-center px-5 py-28 sm:px-6 lg:px-8">
+        <div className="grid w-full items-center gap-16 lg:grid-cols-[1.1fr_auto] lg:gap-20">
 
-          {/* ════ LEFT: Typography + CTAs ════ */}
+          {/* ═══ LEFT COLUMN ═══ */}
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="visible"
-            className="relative z-10 max-w-2xl"
+            className="relative z-10 max-w-[620px]"
           >
-            {/* Eyebrow */}
-            <motion.div variants={fadeUp(0)} className="mb-6 flex items-center gap-3">
-              <img src={nasoLogo} alt="NASO" className="h-7 w-auto" />
-              <span className="h-px w-8 bg-foreground/20" />
-              <span className="font-display text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            {/* Location kicker */}
+            <motion.div variants={fadeUp(0)} className="mb-7 flex items-center gap-3">
+              <img src={nasoLogo} alt="NASO" className="h-6 w-auto" />
+              <span className="h-px w-6 bg-foreground/20" />
+              <span className="font-display text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
                 Cairo, Egypt
               </span>
             </motion.div>
 
-            {/* ── Headline ── */}
+            {/* Headline */}
             <motion.h1
-              variants={fadeUp(0.1)}
-              className="font-poster text-[clamp(3.5rem,9.5vw,7.5rem)] font-extrabold leading-[0.9] tracking-[-0.04em] text-foreground"
+              variants={fadeUp(0.12)}
+              className="font-poster text-[clamp(3.2rem,9vw,7.8rem)] font-extrabold leading-[0.88] tracking-[-0.045em] text-foreground"
             >
               <span className="block">Go out</span>
               <span className="relative mt-1 inline-block lg:mt-2">
-                {/* Green highlight wipe */}
+                {/* Green highlight wipe — the ONE treatment */}
                 <motion.span
-                  variants={wipe(0.7)}
-                  className="absolute inset-y-[0.05em] -inset-x-[0.12em] origin-left -skew-x-3 rounded-md bg-secondary"
+                  variants={wipe(0.65)}
+                  className="absolute -inset-x-[0.1em] inset-y-[0.02em] origin-left -skew-x-2 rounded-md bg-secondary"
                   aria-hidden
                 />
                 <span className="relative z-10">different</span>
               </span>
-              <span className="relative z-10 text-primary">ly.</span>
+              <span className="text-primary">ly.</span>
             </motion.h1>
-
-            {/* Squiggle accent */}
-            <Squiggle className="mt-3 h-3 w-28 text-accent lg:w-36" />
 
             {/* Subtext */}
             <motion.p
-              variants={fadeUp(0.35)}
-              className="mt-6 max-w-md text-[15px] leading-[1.8] text-muted-foreground lg:text-base"
+              variants={fadeUp(0.32)}
+              className="mt-7 max-w-[26rem] text-[15px] leading-[1.75] text-muted-foreground lg:text-base"
             >
-              Curated outings, creative workshops &amp; original products
-              for people who collect moments, not things.
+              Curated outings, creative workshops &amp; original products — for
+              people who collect moments, not things.
             </motion.p>
 
             {/* CTAs */}
             <motion.div
-              variants={fadeUp(0.5)}
-              className="mt-8 flex flex-wrap items-center gap-3.5"
+              variants={fadeUp(0.48)}
+              className="mt-9 flex flex-wrap items-center gap-3.5"
             >
-              <MagneticButton
+              <MagneticCTA
                 to={ROUTES.EXPERIENCES}
-                className="group inline-flex h-[52px] items-center gap-2.5 rounded-full bg-foreground px-8 font-display text-sm font-bold tracking-wide text-background shadow-elevated transition-shadow duration-300 hover:shadow-[0_16px_48px_-10px_hsl(var(--foreground)/0.35)] active:scale-[0.96]"
+                className="group inline-flex h-[52px] items-center gap-2.5 rounded-full bg-foreground px-8 font-display text-sm font-bold tracking-wide text-background shadow-elevated transition-shadow duration-300 hover:shadow-[0_14px_44px_-8px_hsl(var(--foreground)/0.3)] active:scale-[0.97]"
               >
                 Explore experiences
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </MagneticButton>
-              <MagneticButton
+              </MagneticCTA>
+              <MagneticCTA
                 to={ROUTES.SHOP}
-                className="inline-flex h-[52px] items-center rounded-full border-[2.5px] border-foreground/15 px-8 font-display text-sm font-bold tracking-wide text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/[0.03] active:scale-[0.96]"
+                className="inline-flex h-[52px] items-center rounded-full border-[2.5px] border-foreground/15 px-8 font-display text-sm font-bold tracking-wide text-foreground transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/[0.04] active:scale-[0.97]"
               >
                 Visit shop
-              </MagneticButton>
+              </MagneticCTA>
+            </motion.div>
+
+            {/* Tiny supporting detail */}
+            <motion.div
+              variants={fadeUp(0.6)}
+              className="mt-5 flex items-center gap-2 text-muted-foreground/50"
+            >
+              <Sparkle className="h-3 w-3" />
+              <span className="font-display text-[10px] font-semibold uppercase tracking-[0.15em]">
+                Experiences · Workshops · Products
+              </span>
             </motion.div>
           </motion.div>
 
-          {/* ════ RIGHT: Poster composition ════ */}
+          {/* ═══ RIGHT COLUMN — Poster block ═══ */}
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={stagger}
-            className="relative hidden h-[480px] w-[380px] lg:block xl:h-[520px] xl:w-[420px]"
+            className="relative hidden h-[500px] w-[380px] lg:block xl:h-[540px] xl:w-[410px]"
           >
-            {/* ── Main poster frame ── */}
+            {/* Main poster frame */}
             <motion.div
-              variants={stickerPop(0.4, -3)}
-              className="absolute inset-0 overflow-hidden rounded-2xl border-[3px] border-foreground bg-card shadow-[6px_6px_0_hsl(var(--foreground))]"
+              variants={posterEnter}
+              className="absolute inset-0 overflow-hidden rounded-2xl border-[3px] border-foreground bg-card shadow-[8px_8px_0_hsl(var(--foreground))]"
             >
-              {/* Inner poster content */}
-              <div className="flex h-full flex-col items-center justify-center p-8 text-center">
-                {/* Big NASO wordmark */}
-                <div className="font-poster text-[5.5rem] font-extrabold leading-none tracking-[-0.06em] text-foreground xl:text-[6.5rem]">
+              <div className="flex h-full flex-col items-center justify-center p-10">
+                {/* NASO wordmark */}
+                <span className="font-poster text-[6rem] font-extrabold leading-none tracking-[-0.06em] text-foreground xl:text-[7rem]">
                   NASO
-                </div>
-                {/* Tagline strip */}
-                <div className="mt-4 flex items-center gap-2">
-                  <span className="h-px w-6 bg-foreground/25" />
-                  <span className="font-display text-[9px] font-bold uppercase tracking-[0.25em] text-muted-foreground">
+                </span>
+
+                {/* Tagline */}
+                <div className="mt-5 flex items-center gap-2.5">
+                  <span className="h-px w-7 bg-foreground/20" />
+                  <span className="font-display text-[9px] font-bold uppercase tracking-[0.28em] text-muted-foreground">
                     Creative moments
                   </span>
-                  <span className="h-px w-6 bg-foreground/25" />
+                  <span className="h-px w-7 bg-foreground/20" />
                 </div>
-                {/* Color bar */}
-                <div className="mt-6 flex gap-1.5">
-                  {[
-                    "bg-primary",
-                    "bg-secondary",
-                    "bg-accent",
-                    "bg-[hsl(var(--naso-lilac))]",
-                    "bg-foreground",
-                  ].map((c, i) => (
-                    <div key={i} className={`h-3 w-8 rounded-sm ${c}`} />
-                  ))}
+
+                {/* Brand color bar */}
+                <div className="mt-7 flex gap-1.5">
+                  {["bg-primary", "bg-secondary", "bg-accent", "bg-naso-lilac", "bg-foreground"].map(
+                    (c, i) => (
+                      <div key={i} className={`h-3.5 w-9 rounded-sm ${c}`} />
+                    )
+                  )}
                 </div>
-                {/* Year */}
-                <div className="mt-6 font-poster text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground/50">
+
+                {/* Year stamp */}
+                <span className="mt-8 font-poster text-[10px] font-bold uppercase tracking-[0.35em] text-muted-foreground/40">
                   Est. Cairo 2024
-                </div>
+                </span>
               </div>
             </motion.div>
 
-            {/* ── "Made in Cairo" circular badge ── */}
-            <FloatingSticker
-              className="absolute -left-10 -top-6 z-20 xl:-left-14"
-              amplitude={3}
-              duration={4.5}
-            >
-              <motion.div
-                variants={stickerPop(0.6, -8)}
-                whileHover={{ scale: 1.1, rotate: -2 }}
-                className="flex h-[72px] w-[72px] cursor-default flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-secondary font-poster text-[8px] font-extrabold uppercase leading-tight tracking-[0.1em] text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] xl:h-20 xl:w-20 xl:text-[9px]"
-              >
-                <span>Made</span>
-                <span>in</span>
-                <span>Cairo</span>
-              </motion.div>
-            </FloatingSticker>
-
-            {/* ── Star accent — top right ── */}
-            <FloatingSticker
-              className="absolute -right-5 -top-3 z-20"
-              amplitude={2.5}
-              duration={5.5}
-            >
-              <motion.div variants={stickerPop(0.85, 15)}>
-                <Star className="h-8 w-8 text-primary xl:h-9 xl:w-9" />
-              </motion.div>
-            </FloatingSticker>
-
-            {/* ── Lilac sticker label ── */}
-            <FloatingSticker
-              className="absolute -right-8 bottom-20 z-20 xl:-right-12"
-              amplitude={3.5}
-              duration={6}
-            >
-              <motion.div
-                variants={stickerPop(0.95, 5)}
-                whileHover={{ scale: 1.08, rotate: 0 }}
-                className="cursor-default rounded-full border-2 border-foreground bg-[hsl(var(--naso-lilac))] px-4 py-1.5 font-poster text-[10px] font-bold uppercase tracking-[0.12em] text-foreground shadow-[2px_2px_0_hsl(var(--foreground))] xl:text-[11px]"
-              >
-                ✦ Outings &amp; Vibes
-              </motion.div>
-            </FloatingSticker>
-
-            {/* ── Small purple star — bottom-left ── */}
+            {/* "Made in Cairo" badge — top-left, gently floating */}
             <motion.div
-              variants={stickerPop(1.1, -10)}
-              className="absolute -bottom-4 left-4 z-20"
+              variants={badgePop(0.75, -7)}
+              whileHover={{ scale: 1.1, rotate: -2 }}
+              animate={{ y: [0, -4, 0] }}
+              transition={{ y: { duration: 4.5, repeat: Infinity, ease: "easeInOut" } }}
+              className="absolute -left-10 -top-6 z-20 flex h-[76px] w-[76px] cursor-default flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-secondary font-poster text-[8px] font-extrabold uppercase leading-tight tracking-[0.12em] text-foreground shadow-[3px_3px_0_hsl(var(--foreground))] xl:-left-14 xl:h-[88px] xl:w-[88px] xl:text-[9px]"
             >
-              <Star className="h-5 w-5 text-accent" />
+              <span>Made</span>
+              <span>in</span>
+              <span>Cairo</span>
             </motion.div>
+
+            {/* Sparkle accent — top-right */}
+            <motion.div
+              variants={badgePop(0.9, 12)}
+              className="absolute -right-4 -top-2 z-20"
+            >
+              <Sparkle className="h-7 w-7 text-primary xl:h-8 xl:w-8" />
+            </motion.div>
+
+            {/* Small lilac dot — bottom-left */}
+            <motion.div
+              variants={badgePop(1.05, 0)}
+              className="absolute -bottom-3 left-8 z-20 h-4 w-4 rounded-full bg-naso-lilac border-2 border-foreground"
+            />
           </motion.div>
         </div>
       </div>
 
-      {/* ── Mobile poster composition (simplified) ── */}
-      <div className="container relative z-10 -mt-8 mb-16 px-4 lg:hidden">
+      {/* ── Mobile poster (simplified) ── */}
+      <div className="container relative z-10 -mt-4 mb-20 px-5 lg:hidden">
         <motion.div
           initial={{ opacity: 0, y: 30, rotate: -2 }}
           animate={{ opacity: 1, y: 0, rotate: -2 }}
-          transition={{ duration: 0.7, ease, delay: 0.6 }}
-          className="mx-auto max-w-[280px] rounded-xl border-[2.5px] border-foreground bg-card p-6 text-center shadow-[5px_5px_0_hsl(var(--foreground))]"
+          transition={{ duration: 0.7, ease, delay: 0.55 }}
+          className="mx-auto max-w-[260px] rounded-xl border-[2.5px] border-foreground bg-card p-6 text-center shadow-[5px_5px_0_hsl(var(--foreground))]"
         >
-          <div className="font-poster text-4xl font-extrabold tracking-[-0.04em] text-foreground">
+          <div className="font-poster text-4xl font-extrabold tracking-[-0.05em] text-foreground">
             NASO
           </div>
           <div className="mt-2 font-display text-[8px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
             Creative moments · Cairo
           </div>
-          <div className="mx-auto mt-4 flex justify-center gap-1">
-            {["bg-primary", "bg-secondary", "bg-accent", "bg-[hsl(var(--naso-lilac))]"].map((c, i) => (
-              <div key={i} className={`h-2 w-6 rounded-sm ${c}`} />
+          <div className="mx-auto mt-3 flex justify-center gap-1">
+            {["bg-primary", "bg-secondary", "bg-accent", "bg-naso-lilac"].map((c, i) => (
+              <div key={i} className={`h-2 w-5 rounded-sm ${c}`} />
             ))}
           </div>
         </motion.div>
-        {/* Mobile sticker */}
+        {/* Mobile badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.3 }}
+          initial={{ opacity: 0, scale: 0.2 }}
           animate={{ opacity: 1, scale: 1, rotate: -6 }}
-          transition={{ type: "spring", stiffness: 400, damping: 18, delay: 0.9 }}
-          className="absolute -top-6 right-8 flex h-14 w-14 flex-col items-center justify-center rounded-full border-2 border-foreground bg-secondary font-poster text-[7px] font-extrabold uppercase leading-tight tracking-wider text-foreground shadow-[2px_2px_0_hsl(var(--foreground))]"
+          transition={{ type: "spring", stiffness: 380, damping: 16, delay: 0.85 }}
+          className="absolute -top-5 right-10 flex h-12 w-12 flex-col items-center justify-center rounded-full border-2 border-foreground bg-secondary font-poster text-[6px] font-extrabold uppercase leading-tight tracking-wider text-foreground shadow-[2px_2px_0_hsl(var(--foreground))]"
         >
           <span>Made</span>
           <span>in</span>
