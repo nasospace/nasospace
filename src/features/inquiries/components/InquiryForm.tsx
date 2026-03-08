@@ -77,13 +77,12 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  function update(field: keyof InquiryFormData, value: string) {
+  function update<K extends keyof InquiryFormData>(field: K, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
-    // Clear field error on change
-    if (errors[field]) {
+    if (errors[field as string]) {
       setErrors((prev) => {
         const next = { ...prev };
-        delete next[field];
+        delete next[field as string];
         return next;
       });
     }
