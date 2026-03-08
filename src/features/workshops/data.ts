@@ -44,7 +44,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "2.5 hours",
     skillLevel: "all-levels",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Collage night workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80", alt: "Collage night workshop" },
     gallery: [],
     featured: true,
   },
