@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
-import { Section, StickerBadge, MagneticButton } from "@/components/shared";
+import { Section, StickerBadge, MagneticButton, InfoRow } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { getPortfolioBySlug, getRelatedPortfolio } from "../data";
