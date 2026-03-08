@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/config/routes";
 
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 const contactMethods = [
   {
     icon: Mail,
@@ -18,6 +24,12 @@ const contactMethods = [
     label: "Instagram",
     value: "@naso",
     href: siteConfig.social.instagram,
+  },
+  {
+    icon: TikTokIcon,
+    label: "TikTok",
+    value: "@naso",
+    href: siteConfig.social.tiktok,
   },
   {
     icon: MapPin,
