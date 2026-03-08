@@ -15,13 +15,6 @@ export function WhatNasoIsSection() {
           variants={staggerSlow}
           className="mx-auto max-w-3xl text-center"
         >
-          <motion.div variants={fadeUp} className="mb-6 flex items-center justify-center gap-3">
-            <Sparkle className="h-5 w-5 text-naso-coral" />
-            <span className="font-groovy text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              The short version
-            </span>
-            <Sparkle className="h-5 w-5 text-naso-coral" />
-          </motion.div>
 
           <motion.p
             variants={fadeUp}
