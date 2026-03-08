@@ -45,7 +45,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "meditative, quiet, rainy-day calm",
     coverImage: { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80", alt: "Hands shaping clay on a pottery wheel" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=800&q=80", alt: "Close-up of hands on clay" },
+      { src: "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80", alt: "Close-up of hands on clay" },
       { src: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&q=80", alt: "Tea cups on a wooden table" },
       { src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80", alt: "Finished ceramic pieces drying" },
     ],
