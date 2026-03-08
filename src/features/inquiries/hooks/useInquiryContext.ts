@@ -13,7 +13,7 @@ export function useInquiryContext(): InquiryPageContext {
   const title = searchParams.get("title");
 
   return {
-    ref: ref === "experience" || ref === "workshop" || ref === "portfolio" ? ref : null,
+    ref: ref === "experience" || ref === "workshop" || ref === "portfolio" || ref === "product" ? ref : null,
     slug: slug || null,
     title: title ? decodeURIComponent(title) : null,
   };
@@ -24,5 +24,6 @@ export function contextToInquiryType(ref: string | null): InquiryType {
   if (ref === "experience") return "experience";
   if (ref === "workshop") return "workshop";
   if (ref === "portfolio") return "custom-event";
+  if (ref === "product") return "product";
   return "general";
 }

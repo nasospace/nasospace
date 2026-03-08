@@ -8,6 +8,7 @@ export const INQUIRY_TYPES = [
   "experience",
   "workshop",
   "custom-event",
+  "product",
   "corporate",
   "general",
 ] as const;
@@ -36,6 +37,11 @@ export const INQUIRY_TYPE_META: Record<InquiryType, InquiryTypeMeta> = {
     emoji: "🎉",
     description: "Plan a private or custom NASO event",
   },
+  product: {
+    label: "Product Inquiry",
+    emoji: "🛍️",
+    description: "Questions about a NASO shop product",
+  },
   corporate: {
     label: "Corporate Inquiry",
     emoji: "🏢",
@@ -59,7 +65,7 @@ export interface InquiryFormData {
   groupSize: string;
   notes: string;
   /** Populated from URL context when booking a specific item */
-  itemType?: "experience" | "workshop" | "portfolio";
+  itemType?: "experience" | "workshop" | "portfolio" | "product";
   itemSlug?: string;
   itemTitle?: string;
 }
@@ -67,7 +73,7 @@ export interface InquiryFormData {
 /* ═══ Parsed URL Context ═══ */
 
 export interface InquiryPageContext {
-  ref: "experience" | "workshop" | "portfolio" | null;
+  ref: "experience" | "workshop" | "portfolio" | "product" | null;
   slug: string | null;
   title: string | null;
 }
