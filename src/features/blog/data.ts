@@ -97,7 +97,7 @@ export const MOCK_BLOG_POSTS: BlogPost[] = [
     tags: ["journal", "update", "spring", "community"],
     publishDate: "2026-03-01",
     readingTime: "4 min read",
-    coverImage: { src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80", alt: "Spring light over Cairo rooftops" },
+    coverImage: { src: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=800&q=80", alt: "Spring light over Cairo rooftops" },
     featured: true,
     authorName: "NASO Team",
     linkedExperienceSlug: "sunset-at-the-citadel",

@@ -198,7 +198,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "hands-on, playful, maker energy",
     coverImage: { src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80", alt: "Hands pulling a screen print" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Ink-stained hands at the workshop" },
+      { src: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80", alt: "Ink-stained hands at the workshop" },
       { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80", alt: "Custom tote bag designs" },
       { src: "https://images.unsplash.com/photo-1529543544282-ea95407407db?w=800&q=80", alt: "Group showing off their prints" },
     ],
