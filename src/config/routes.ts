@@ -10,6 +10,7 @@ export const ROUTES = {
   WORKSHOP_DETAIL: "/workshops/:slug",
   SERVICES: "/services",
   PORTFOLIO: "/portfolio",
+  PORTFOLIO_DETAIL: "/portfolio/:slug",
   BLOG: "/blog",
   SHOP: "/shop",
   INQUIRIES: "/inquiries",
