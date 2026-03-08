@@ -111,7 +111,11 @@ export function ExperienceDetailView({ slug: slugProp }: ExperienceDetailViewPro
 
               <div className="mt-6">
                 <MagneticButton
-                  to={ROUTES.INQUIRIES}
+                  to={buildInquiryPath({
+                    type: "experience",
+                    slug: experience.slug,
+                    title: experience.title,
+                  })}
                   className={cn(
                     "flex w-full items-center justify-center rounded-full border-[2.5px] border-foreground px-6 py-3",
                     "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
