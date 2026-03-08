@@ -49,7 +49,7 @@ export const MOCK_BLOG_POSTS: BlogPost[] = [
     coverImage: { src: "https://images.unsplash.com/photo-1452860606245-08b6dc28b2db?w=800&q=80", alt: "Hands covered in clay working on pottery" },
     featured: true,
     authorName: "NASO Team",
-    linkedWorkshopSlug: "weekend-pottery-studio",
+    linkedWorkshopSlug: "pottery-and-chill",
   },
   {
     id: "blog-004",
