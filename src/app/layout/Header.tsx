@@ -67,7 +67,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className={cn("md:hidden", showLight && "text-white hover:bg-white/10")}
+              className="md:hidden"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
