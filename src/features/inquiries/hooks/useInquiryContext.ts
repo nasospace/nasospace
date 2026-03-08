@@ -23,5 +23,6 @@ export function useInquiryContext(): InquiryPageContext {
 export function contextToInquiryType(ref: string | null): InquiryType {
   if (ref === "experience") return "experience";
   if (ref === "workshop") return "workshop";
+  if (ref === "portfolio") return "custom-event";
   return "general";
 }

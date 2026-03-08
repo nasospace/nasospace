@@ -13,10 +13,14 @@ export function InquiryContextCard({ context }: InquiryContextCardProps) {
   const detailPath =
     context.ref === "workshop"
       ? routeHelpers.workshopDetail(context.slug)
-      : routeHelpers.experienceDetail(context.slug);
+      : context.ref === "portfolio"
+        ? routeHelpers.portfolioDetail(context.slug)
+        : routeHelpers.experienceDetail(context.slug);
 
-  const emoji = context.ref === "workshop" ? "🎨" : "🌿";
-  const typeLabel = context.ref === "workshop" ? "Workshop" : "Experience";
+  const emojiMap = { workshop: "🎨", experience: "🌿", portfolio: "✦" } as const;
+  const labelMap = { workshop: "Workshop", experience: "Experience", portfolio: "Portfolio" } as const;
+  const emoji = emojiMap[context.ref] ?? "🌿";
+  const typeLabel = labelMap[context.ref] ?? "Experience";
 
   return (
     <div

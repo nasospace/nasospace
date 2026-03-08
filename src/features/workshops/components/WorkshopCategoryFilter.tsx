@@ -39,7 +39,7 @@ export function WorkshopCategoryFilter({ active, onChange }: WorkshopCategoryFil
             style={isActive ? { rotate: -2 } : undefined}
             className={cn(
               "shrink-0 rounded-full border-2 border-foreground px-4 py-2",
-              "font-groovy text-[11px] font-bold uppercase tracking-wider",
+              "font-groovy text-[10px] font-bold uppercase tracking-[0.12em]",
               "transition-colors",
               isActive && meta
                 ? cn(meta.color, meta.textColor, "shadow-retro")

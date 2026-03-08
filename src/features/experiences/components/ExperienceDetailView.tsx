@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
-import { Section, StickerBadge, MagneticButton } from "@/components/shared";
+import { Section, StickerBadge, MagneticButton, InfoRow } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath } from "@/config/routes";
 import { getExperienceBySlug, getRelatedExperiences } from "../data";
@@ -142,13 +142,3 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
   );
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-baseline justify-between gap-4">
-      <dt className="font-display text-xs uppercase tracking-wider text-muted-foreground">
-        {label}
-      </dt>
-      <dd className="font-display text-sm font-semibold capitalize">{value}</dd>
-    </div>
-  );
-}

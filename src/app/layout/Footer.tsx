@@ -9,6 +9,7 @@ export function Footer() {
   const footerNav = [
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
+    { label: "Portfolio", href: ROUTES.PORTFOLIO },
     { label: "Blog", href: ROUTES.BLOG },
     { label: "Shop", href: ROUTES.SHOP },
     { label: "Inquiries", href: ROUTES.INQUIRIES },

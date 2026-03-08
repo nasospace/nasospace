@@ -13,7 +13,7 @@ export function ExperienceGrid({ experiences }: ExperienceGridProps) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <FlowerShape className="mb-4 text-muted-foreground/40" size={48} />
-        <p className="font-groovy text-sm text-muted-foreground">
+        <p className="font-display text-sm text-muted-foreground">
           No experiences found — try another category.
         </p>
       </div>

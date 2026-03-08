@@ -3,8 +3,6 @@ import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   StickerBadge,
-  Sparkle,
-  WavyDivider,
 } from "@/components/shared/RetroElements";
 import {
   staggerSlow,
