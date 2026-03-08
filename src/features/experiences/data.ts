@@ -60,7 +60,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 40,
     difficulty: "easy",
-    coverImage: { src: "/placeholder.svg", alt: "Cairo Jazz Night" },
+    coverImage: { src: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80", alt: "Cairo Jazz Night" },
     gallery: [],
     featured: false,
   },
