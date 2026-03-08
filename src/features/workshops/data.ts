@@ -159,7 +159,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "2 hours",
     skillLevel: "all-levels",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Journaling workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&q=80", alt: "Journaling workshop" },
     gallery: [],
     featured: false,
   },
