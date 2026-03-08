@@ -1,3 +1,4 @@
+import { SEOHead } from "@/components/shared/SEOHead";
 import { FAQHero, FAQAccordion, FAQCTA } from "@/features/faq";
 import { faqCategories } from "@/features/faq/data";
 import { useEffect } from "react";
@@ -35,6 +36,11 @@ export default function FAQPage() {
 
   return (
     <>
+      <SEOHead
+        title="FAQ"
+        description="Find answers to common questions about NASO experiences, workshops, bookings, pricing, private events, and products — all based in Cairo, Egypt."
+        canonical="https://naso.co/faq"
+      />
       <FAQHero />
       <FAQAccordion />
       <FAQCTA />
