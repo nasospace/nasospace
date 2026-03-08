@@ -148,7 +148,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "late-night, lo-fi, immersive",
     coverImage: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80", alt: "Hands cutting magazine pages under warm light" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1452860606245-08b6178ee5a4?w=800&q=80", alt: "Spread of vintage magazines" },
+      { src: "https://images.unsplash.com/photo-1504270997636-07ddfbd48945?w=800&q=80", alt: "Spread of vintage magazines" },
       { src: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80", alt: "Close-up of finished collage artwork" },
       { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
     ],
