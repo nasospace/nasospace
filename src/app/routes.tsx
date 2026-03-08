@@ -7,6 +7,8 @@ import ExperienceDetailPage from "@/pages/ExperienceDetail";
 import WorkshopsPage from "@/pages/Workshops";
 import WorkshopDetailPage from "@/pages/WorkshopDetail";
 import InquiriesPage from "@/pages/Inquiries";
+import PortfolioPage from "@/pages/Portfolio";
+import PortfolioDetailPage from "@/pages/PortfolioDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
