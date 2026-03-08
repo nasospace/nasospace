@@ -7,6 +7,7 @@ export const ROUTES = {
   EXPERIENCES: "/experiences",
   EXPERIENCE_DETAIL: "/experiences/:slug",
   WORKSHOPS: "/workshops",
+  WORKSHOP_DETAIL: "/workshops/:slug",
   SERVICES: "/services",
   PORTFOLIO: "/portfolio",
   BLOG: "/blog",
@@ -20,4 +21,5 @@ export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
 /** Route path helpers for dynamic segments */
 export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
+  workshopDetail: (slug: string) => `/workshops/${slug}` as const,
 } as const;
