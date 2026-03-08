@@ -5,6 +5,7 @@
 export const ROUTES = {
   HOME: "/",
   EXPERIENCES: "/experiences",
+  EXPERIENCE_DETAIL: "/experiences/:slug",
   WORKSHOPS: "/workshops",
   SERVICES: "/services",
   PORTFOLIO: "/portfolio",

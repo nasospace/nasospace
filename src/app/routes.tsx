@@ -2,18 +2,20 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/app/layout";
 import { ROUTES } from "@/config/routes";
 import HomePage from "@/pages/Index";
+import ExperiencesPage from "@/pages/Experiences";
+import ExperienceDetailPage from "@/pages/ExperienceDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
  * Central route definitions.
- * Each route maps to a page component — easy to migrate to Next.js file-based routing.
  */
 export const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
       { path: ROUTES.HOME, element: <HomePage /> },
-      { path: ROUTES.EXPERIENCES, element: <PlaceholderPage title="Experiences" /> },
+      { path: ROUTES.EXPERIENCES, element: <ExperiencesPage /> },
+      { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
       { path: ROUTES.WORKSHOPS, element: <PlaceholderPage title="Workshops" /> },
       { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
       { path: ROUTES.PORTFOLIO, element: <PlaceholderPage title="Portfolio" /> },
