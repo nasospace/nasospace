@@ -80,6 +80,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
