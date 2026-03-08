@@ -7,6 +7,8 @@ import ExperienceDetailPage from "@/pages/ExperienceDetail";
 import WorkshopsPage from "@/pages/Workshops";
 import WorkshopDetailPage from "@/pages/WorkshopDetail";
 import InquiriesPage from "@/pages/Inquiries";
+import PortfolioPage from "@/pages/Portfolio";
+import PortfolioDetailPage from "@/pages/PortfolioDetail";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -22,7 +24,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
       { path: ROUTES.WORKSHOP_DETAIL, element: <WorkshopDetailPage /> },
       { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
-      { path: ROUTES.PORTFOLIO, element: <PlaceholderPage title="Portfolio" /> },
+      { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
+      { path: ROUTES.PORTFOLIO_DETAIL, element: <PortfolioDetailPage /> },
       { path: ROUTES.BLOG, element: <PlaceholderPage title="Blog" /> },
       { path: ROUTES.SHOP, element: <PlaceholderPage title="Shop" /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },

@@ -10,6 +10,7 @@ export const ROUTES = {
   WORKSHOP_DETAIL: "/workshops/:slug",
   SERVICES: "/services",
   PORTFOLIO: "/portfolio",
+  PORTFOLIO_DETAIL: "/portfolio/:slug",
   BLOG: "/blog",
   SHOP: "/shop",
   INQUIRIES: "/inquiries",
@@ -22,11 +23,12 @@ export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
 export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
   workshopDetail: (slug: string) => `/workshops/${slug}` as const,
+  portfolioDetail: (slug: string) => `/portfolio/${slug}` as const,
 } as const;
 
 /** Build an inquiry path with optional context for prefill */
 export interface InquiryContext {
-  type: "experience" | "workshop";
+  type: "experience" | "workshop" | "portfolio";
   slug: string;
   title: string;
 }
