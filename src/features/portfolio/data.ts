@@ -150,7 +150,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     gallery: [
       { src: "https://images.unsplash.com/photo-1504270997636-07ddfbd48945?w=800&q=80", alt: "Spread of vintage magazines" },
       { src: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80", alt: "Close-up of finished collage artwork" },
-      { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
+      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
     ],
     linkedWorkshopSlug: "collage-night-cut-and-compose",
     featured: false,
