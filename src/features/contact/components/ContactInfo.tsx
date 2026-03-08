@@ -3,6 +3,7 @@ import { Mail, MapPin, Clock, Instagram, ArrowRight } from "lucide-react";
 import { Section } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "./ContactForm";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/config/routes";
 
