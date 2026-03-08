@@ -50,14 +50,10 @@ export function Header() {
               key={item.href}
               to={item.href}
               className={cn(
-                "font-display text-[13px] font-medium uppercase tracking-[0.08em] transition-colors duration-200",
-                showLight
-                  ? pathname === item.href
-                    ? "text-white"
-                    : "text-white/50 hover:text-white"
-                  : pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
+                pathname === item.href
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               )}
             >
               {item.label}
