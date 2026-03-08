@@ -26,7 +26,7 @@ const stickerPop = (delay = 0, rotate = 0) => ({
     opacity: 1,
     scale: 1,
     rotate,
-    transition: { type: "spring", stiffness: 420, damping: 18, delay },
+    transition: { type: "spring" as const, stiffness: 420, damping: 18, delay },
   },
 });
 
