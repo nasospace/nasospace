@@ -20,7 +20,7 @@ export const MOCK_WORKSHOPS: WorkshopDetail[] = [
     duration: "3 hours",
     skillLevel: "beginner",
     materialsIncluded: true,
-    coverImage: { src: "/placeholder.svg", alt: "Pottery workshop" },
+    coverImage: { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80", alt: "Pottery workshop" },
     gallery: [],
     featured: true,
     seo: { title: "Pottery & Chill — NASO Workshop", description: "Hands-on ceramic workshop in Downtown Cairo" },
