@@ -6,6 +6,7 @@ import ExperiencesPage from "@/pages/Experiences";
 import ExperienceDetailPage from "@/pages/ExperienceDetail";
 import WorkshopsPage from "@/pages/Workshops";
 import WorkshopDetailPage from "@/pages/WorkshopDetail";
+import InquiriesPage from "@/pages/Inquiries";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.PORTFOLIO, element: <PlaceholderPage title="Portfolio" /> },
       { path: ROUTES.BLOG, element: <PlaceholderPage title="Blog" /> },
       { path: ROUTES.SHOP, element: <PlaceholderPage title="Shop" /> },
-      { path: ROUTES.INQUIRIES, element: <PlaceholderPage title="Inquiries" /> },
+      { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
       { path: "*", element: <NotFound /> },
     ],
