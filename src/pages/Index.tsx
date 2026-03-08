@@ -10,9 +10,9 @@ import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 
 /* ─── motion presets ─── */
-const smooth = { duration: 1, ease: [0.16, 1, 0.3, 1] };
-const smoothSlow = { duration: 1.4, ease: [0.16, 1, 0.3, 1] };
-const bouncy = { type: "spring", stiffness: 120, damping: 14 };
+const smooth = { duration: 1, ease: [0.16, 1, 0.3, 1] as const };
+const smoothSlow = { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const };
+const bouncy = { type: "spring" as const, stiffness: 120, damping: 14 };
 
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null);
