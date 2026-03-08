@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { staggerSlow, fadeUp, popIn } from "@/lib/motion";
 import { StickerBadge, FlowerShape } from "@/components/shared/RetroElements";
 import { aboutHero } from "../data";
-import heroCollage from "@/assets/about-hero-collage.png";
 
 export function AboutHero() {
   return (
