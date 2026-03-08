@@ -9,8 +9,13 @@ import { getExperienceBySlug, getRelatedExperiences } from "../data";
 import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
 
-export function ExperienceDetailView() {
-  const { slug } = useParams<{ slug: string }>();
+interface ExperienceDetailViewProps {
+  slug?: string;
+}
+
+export function ExperienceDetailView({ slug: slugProp }: ExperienceDetailViewProps) {
+  const { slug: paramSlug } = useParams<{ slug: string }>();
+  const slug = slugProp ?? paramSlug;
   const experience = slug ? getExperienceBySlug(slug) : undefined;
 
   if (!experience) {

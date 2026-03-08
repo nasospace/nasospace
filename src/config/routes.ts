@@ -23,3 +23,20 @@ export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
   workshopDetail: (slug: string) => `/workshops/${slug}` as const,
 } as const;
+
+/** Build an inquiry path with optional context for prefill */
+export interface InquiryContext {
+  type: "experience" | "workshop";
+  slug: string;
+  title: string;
+}
+
+export function buildInquiryPath(context?: InquiryContext): string {
+  if (!context) return ROUTES.INQUIRIES;
+  const params = new URLSearchParams({
+    ref: context.type,
+    slug: context.slug,
+    title: context.title,
+  });
+  return `${ROUTES.INQUIRIES}?${params.toString()}`;
+}
