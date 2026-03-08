@@ -60,20 +60,11 @@ export function AboutHero() {
             />
           </motion.div>
 
-          {/* Sticker collage — centered below */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex justify-center"
-          >
-            <motion.img
-              src={heroCollage}
-              alt=""
-              aria-hidden
-              className="w-[140px] select-none naso-float sm:w-[170px] md:w-[200px]"
-              whileHover={{ scale: 1.08, rotate: 5 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            />
-          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
         </motion.div>
       </div>
     </section>
