@@ -46,7 +46,7 @@ export const MOCK_BLOG_POSTS: BlogPost[] = [
     tags: ["creativity", "wellness", "hands-on", "mindfulness"],
     publishDate: "2026-02-02",
     readingTime: "4 min read",
-    coverImage: { src: "https://images.unsplash.com/photo-1452860606245-08b6dc28b2db?w=800&q=80", alt: "Hands covered in clay working on pottery" },
+    coverImage: { src: "https://images.unsplash.com/photo-1606585486091-44e3b58f0299?w=800&q=80", alt: "Hands covered in clay working on pottery" },
     featured: true,
     authorName: "NASO Team",
     linkedWorkshopSlug: "pottery-and-chill",
