@@ -74,7 +74,9 @@ export function AboutHero() {
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, delay: 0.4 }}
             />
-            <FlowerShape size={28} className="text-naso-pink naso-flower-spin" style={{ animationDirection: "reverse" }} />
+            <div className="naso-flower-spin" style={{ animationDirection: "reverse" }}>
+              <FlowerShape size={28} className="text-naso-pink" />
+            </div>
             <motion.span
               className="h-3 w-3 rounded-full bg-naso-lilac"
               animate={{ scale: [1, 1.3, 1] }}
