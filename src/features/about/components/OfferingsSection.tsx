@@ -11,7 +11,7 @@ const cardHover = {
 
 export function OfferingsSection() {
   return (
-    <Section>
+    <Section className="bg-card">
       <div className="mx-auto max-w-3xl text-center">
         <MotionDiv>
           <h2 className="font-groovy text-[clamp(1.5rem,4vw,2.5rem)] font-bold">
@@ -37,7 +37,7 @@ export function OfferingsSection() {
             initial="rest"
             whileHover="hover"
             animate="rest"
-            className="rounded-2xl border border-border bg-card p-6 text-center transition-colors"
+            className="rounded-2xl border border-border bg-background p-6 text-center transition-colors"
           >
             <motion.div variants={cardHover} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
               <motion.span

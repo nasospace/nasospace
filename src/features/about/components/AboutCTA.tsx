@@ -9,7 +9,7 @@ import { popIn } from "@/lib/motion";
 
 export function AboutCTA() {
   return (
-    <Section className="relative overflow-hidden">
+    <Section className="relative overflow-hidden bg-primary/5">
       {/* Decorative flowers */}
       <motion.div
         initial={{ opacity: 0, scale: 0 }}
