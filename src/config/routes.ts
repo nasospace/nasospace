@@ -16,3 +16,8 @@ export const ROUTES = {
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
+
+/** Route path helpers for dynamic segments */
+export const routeHelpers = {
+  experienceDetail: (slug: string) => `/experiences/${slug}` as const,
+} as const;
