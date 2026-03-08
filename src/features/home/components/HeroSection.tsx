@@ -1,344 +1,334 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { motion, useAnimationControls } from "framer-motion";
 import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-const bouncy = { type: "spring", stiffness: 380, damping: 22 } as const;
+const pop = { type: "spring", stiffness: 500, damping: 20 } as const;
 
-/* 5-point retro star */
-function RetroStar({ className }: { className?: string }) {
+/* ── Decorative SVG shapes ── */
+function StarBurst({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 0l3.09 8.26L24 9.27l-6.91 5.52L19.09 24 12 18.9 4.91 24l1.91-9.21L0 9.27l8.91-1.01z" />
+    <svg viewBox="0 0 100 100" fill="currentColor" className={className}>
+      <polygon points="50,0 61,35 100,35 68,57 79,91 50,70 21,91 32,57 0,35 39,35" />
     </svg>
   );
 }
 
-/* 4-point sparkle */
-function Sparkle4({ className }: { className?: string }) {
+function Squiggle({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" fill="currentColor" className={className}>
-      <path d="M16 0C16 0 18 12 16 16C14 12 16 0 16 0ZM16 32C16 32 14 20 16 16C18 20 16 32 16 32ZM0 16C0 16 12 14 16 16C12 18 0 16 0 16ZM32 16C32 16 20 18 16 16C20 14 32 16 32 16Z" />
+    <svg viewBox="0 0 120 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={className}>
+      <path d="M2 10 C 20 2, 30 18, 45 10 C 60 2, 70 18, 85 10 C 100 2, 110 18, 118 10" />
+    </svg>
+  );
+}
+
+function ZigZag({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 80 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <polyline points="2,14 12,2 22,14 32,2 42,14 52,2 62,14 72,2 78,10" />
+    </svg>
+  );
+}
+
+function CrossMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className={className}>
+      <line x1="4" y1="4" x2="20" y2="20" />
+      <line x1="20" y1="4" x2="4" y2="20" />
     </svg>
   );
 }
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-foreground pt-[72px]">
-      {/* ── Background layers ── */}
+    <section className="relative min-h-[100svh] overflow-hidden bg-foreground">
+      {/* ── Background: bold color blocks ── */}
       <div className="pointer-events-none absolute inset-0">
+        {/* Big green wedge — right side */}
         <motion.div
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, ease }}
-          className="absolute -right-16 top-0 h-[65%] w-[40%] origin-top-right -skew-x-6 bg-secondary/12"
+          initial={{ x: "100%" }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.9, ease }}
+          className="absolute right-0 top-0 h-full w-[55%] bg-secondary/[0.08] [clip-path:polygon(25%_0,100%_0,100%_100%,0%_100%)]"
         />
+        {/* Blue corner — bottom left */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.2 }}
-          className="absolute bottom-0 left-0 h-[30%] w-[25%] bg-primary/8"
+          initial={{ y: "100%" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.7, ease, delay: 0.15 }}
+          className="absolute bottom-0 left-0 h-[45%] w-[35%] bg-primary/[0.06] [clip-path:polygon(0_20%,100%_0,100%_100%,0_100%)]"
         />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 0.1, scale: 1 }}
-          transition={{ duration: 1.4, ease }}
-          className="absolute right-[12%] top-[50%] h-[240px] w-[240px] rounded-full bg-naso-lilac blur-[80px]"
+        {/* Lilac glow */}
+        <div className="absolute left-[60%] top-[30%] h-[300px] w-[300px] rounded-full bg-naso-lilac/[0.06] blur-[100px]" />
+        {/* Dot grid texture */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "radial-gradient(circle, hsl(var(--naso-white)) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
         />
-        <div className="absolute inset-0 naso-grid-bg opacity-[0.05]" />
       </div>
 
-      <div className="container relative flex min-h-[calc(100svh-72px)] flex-col justify-center py-12 lg:py-0">
-        {/* ── Center content ── */}
-        <div className="relative z-10 flex flex-col items-center text-center">
-          {/* Location pill */}
-          <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, ease, delay: 0.1 }}
-          >
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/[0.05] px-5 py-2 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-secondary" />
-              </span>
-              Cairo, Egypt
-            </span>
-          </motion.div>
+      <div className="container relative flex min-h-[100svh] flex-col items-center justify-center px-4 py-20 sm:px-6 lg:py-0">
+        {/* ═══════ COLLAGE LAYOUT ═══════ */}
+        <div className="relative w-full max-w-5xl">
 
-          {/* ── Headline ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease, delay: 0.2 }}
-            className="relative mt-8 lg:mt-10"
-          >
-            <h1 className="font-display text-[clamp(3rem,9vw,7.5rem)] font-bold leading-[0.92] tracking-[-0.045em] text-white">
-              <span className="block">Make it</span>
-              <span className="relative mt-1 inline-block lg:mt-2">
-                <span className="bg-gradient-to-r from-secondary to-secondary bg-clip-text text-transparent">
-                  memorable
+          {/* ── CENTER: Headline block ── */}
+          <div className="relative z-20 flex flex-col items-center py-8 text-center lg:py-12">
+            {/* Top badge row */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease, delay: 0.15 }}
+              className="mb-6 flex items-center gap-3"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-secondary/40 bg-secondary/10 px-4 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-50" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary" />
                 </span>
-                {/* Hand-drawn underline — wavy, organic */}
-                <motion.svg
-                  viewBox="0 0 320 14"
-                  fill="none"
-                  className="absolute -bottom-1 left-0 w-full lg:-bottom-2"
-                  aria-hidden
-                >
-                  <motion.path
-                    d="M3 9C30 4 65 6 100 5C140 4 175 8 215 6C250 4 285 7 317 5"
-                    stroke="hsl(var(--naso-green))"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.9, ease, delay: 0.95 }}
-                  />
-                  <motion.path
-                    d="M8 11.5C45 8 90 10 140 8.5C185 7 240 10 310 8"
-                    stroke="hsl(var(--naso-green))"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeOpacity="0.4"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.7, ease, delay: 1.15 }}
-                  />
-                </motion.svg>
-                <span className="text-primary">.</span>
+                Live from Cairo
               </span>
-            </h1>
-
-            {/* Star accent — top-right of headline */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0, rotate: -20 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ ...bouncy, delay: 0.75 }}
-              className="absolute -right-5 -top-3 lg:-right-14 lg:-top-6"
-            >
-              <RetroStar className="h-7 w-7 text-secondary lg:h-10 lg:w-10" />
+              <span className="hidden rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-display text-[9px] font-bold uppercase tracking-[0.15em] text-primary sm:inline-flex">
+                Est. 2024
+              </span>
             </motion.div>
 
-            {/* Sparkle accent — left of headline */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.7, scale: 1 }}
-              transition={{ ...bouncy, delay: 0.95 }}
-              className="absolute -left-3 top-1 lg:-left-10 lg:top-3"
+            {/* Main headline — BIG, expressive, multi-line */}
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, ease, delay: 0.25 }}
+              className="font-display text-[clamp(3.2rem,11vw,9rem)] font-bold leading-[0.88] tracking-[-0.05em]"
             >
-              <Sparkle4 className="h-4 w-4 text-primary lg:h-6 lg:w-6" />
+              <span className="block text-white">Make</span>
+              <span className="block text-white">it{" "}
+                <span className="relative inline-block">
+                  <span className="relative z-10 text-foreground bg-secondary px-3 py-0 -skew-x-2 inline-block lg:px-5">
+                    fun
+                  </span>
+                </span>
+              </span>
+              <span className="block italic text-naso-lilac/80 font-bold">
+                & memorable
+                <span className="not-italic text-primary">.</span>
+              </span>
+            </motion.h1>
+
+            {/* Squiggle under headline */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.7, ease, delay: 0.85 }}
+              className="mt-3 origin-center"
+            >
+              <Squiggle className="h-4 w-32 text-secondary/60 lg:w-44" />
             </motion.div>
+
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease, delay: 0.5 }}
+              className="mt-6 max-w-sm text-[14px] leading-[1.8] text-white/40 lg:max-w-md lg:text-base"
+            >
+              Curated outings, creative workshops & original products —
+              for people who collect moments, not things.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease, delay: 0.6 }}
+              className="mt-8 flex flex-wrap items-center justify-center gap-3"
+            >
+              <Link
+                to={ROUTES.EXPERIENCES}
+                className="group inline-flex h-12 items-center gap-2 rounded-full bg-secondary px-7 font-display text-sm font-bold tracking-wide text-foreground shadow-[0_6px_28px_-4px_hsl(var(--naso-green)/0.4)] transition-all duration-200 hover:shadow-[0_10px_36px_-4px_hsl(var(--naso-green)/0.5)] hover:brightness-110 active:scale-[0.96]"
+              >
+                Explore experiences
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                to={ROUTES.SHOP}
+                className="inline-flex h-12 items-center rounded-full border-2 border-white/15 px-7 font-display text-sm font-bold tracking-wide text-white/70 transition-all duration-200 hover:border-white/30 hover:text-white active:scale-[0.96]"
+              >
+                Visit shop
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* ═══════ FLOATING COLLAGE PIECES ═══════ */}
+
+          {/* ── Piece 1: NASO logo stamp — top-left ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.4, rotate: -20 }}
+            animate={{ opacity: 1, scale: 1, rotate: -12 }}
+            transition={{ ...pop, delay: 0.4 }}
+            whileHover={{ rotate: -4, scale: 1.08 }}
+            className="absolute -left-2 top-[8%] z-30 cursor-default sm:left-[2%] lg:left-[3%] lg:top-[10%]"
+          >
+            <div className="relative rounded-2xl border-[3px] border-white/20 bg-foreground p-4 shadow-[0_8px_30px_rgba(0,0,0,0.4)] lg:p-5">
+              <img src={nasoLogo} alt="NASO" className="h-6 w-auto brightness-0 invert lg:h-8" />
+              <div className="mt-2 flex gap-1">
+                <div className="h-1.5 w-4 rounded-full bg-secondary" />
+                <div className="h-1.5 w-4 rounded-full bg-primary" />
+                <div className="h-1.5 w-4 rounded-full bg-accent" />
+              </div>
+              {/* Corner fold effect */}
+              <div className="absolute -right-1 -top-1 h-4 w-4 rounded-bl-md bg-secondary" />
+            </div>
           </motion.div>
 
-          {/* Subtext */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: 0.4 }}
-            className="mt-7 max-w-[26rem] text-[14px] leading-[1.75] text-white/45 lg:text-[15px]"
-          >
-            Curated outings, hands-on workshops & original products.
-            <br className="hidden sm:block" />
-            Your next favorite memory starts here.
-          </motion.p>
-
-          {/* CTAs */}
+          {/* ── Piece 2: "Made in Cairo" circle sticker ── */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: 0.55 }}
-            className="mt-9 flex flex-wrap items-center justify-center gap-3.5"
+            initial={{ opacity: 0, scale: 0.3, rotate: 20 }}
+            animate={{ opacity: 1, scale: 1, rotate: 8 }}
+            transition={{ ...pop, delay: 0.55 }}
+            whileHover={{ rotate: 0, scale: 1.1 }}
+            className="absolute -right-1 top-[5%] z-30 cursor-default sm:right-[3%] lg:right-[5%] lg:top-[8%]"
           >
-            <Button
-              asChild
-              size="lg"
-              className="group h-12 rounded-full bg-secondary px-7 font-display text-sm font-bold tracking-wide text-foreground shadow-[0_6px_24px_-4px_hsl(var(--naso-green)/0.35)] transition-all duration-200 hover:bg-secondary/90 hover:shadow-[0_8px_32px_-4px_hsl(var(--naso-green)/0.45)] active:scale-[0.97]"
-            >
-              <Link to={ROUTES.EXPERIENCES}>
-                Explore experiences
-                <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full border-2 border-white/15 bg-transparent px-7 font-display text-sm font-bold tracking-wide text-white/80 transition-all duration-200 hover:border-white/30 hover:bg-white/[0.06] hover:text-white active:scale-[0.97]"
-            >
-              <Link to={ROUTES.SHOP}>Visit shop</Link>
-            </Button>
+            <div className="flex h-20 w-20 flex-col items-center justify-center rounded-full border-[3px] border-foreground bg-secondary font-display text-[9px] font-black uppercase leading-tight tracking-[0.08em] text-foreground shadow-[4px_4px_0_hsl(var(--foreground))] lg:h-24 lg:w-24 lg:text-[11px]">
+              <span>Made</span>
+              <span>in</span>
+              <span>Cairo ☀</span>
+            </div>
+          </motion.div>
+
+          {/* ── Piece 3: Event ticket — bottom-right ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 60, rotate: 6 }}
+            animate={{ opacity: 1, x: 0, rotate: 3 }}
+            transition={{ duration: 0.8, ease, delay: 0.5 }}
+            whileHover={{ rotate: 0, y: -4 }}
+            className="absolute -right-2 bottom-[8%] z-30 hidden sm:block sm:right-[1%] lg:bottom-[10%] lg:right-[2%]"
+          >
+            <div className="w-[185px] rounded-xl border-[3px] border-white/15 bg-white/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.3)] backdrop-blur-lg lg:w-[210px]">
+              {/* Ticket stub top */}
+              <div className="rounded-t-[9px] bg-primary px-4 py-2">
+                <p className="font-display text-[9px] font-black uppercase tracking-[0.2em] text-white">
+                  ★ Next Experience
+                </p>
+              </div>
+              {/* Perforated edge */}
+              <div className="border-b-2 border-dashed border-white/10" />
+              <div className="p-4">
+                <p className="font-display text-base font-bold leading-tight text-white lg:text-lg">
+                  Old Cairo
+                  <br />
+                  Night Walk
+                </p>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="text-[10px] font-semibold text-white/35">Mar 2026</span>
+                  <span className="rounded-full bg-secondary px-2 py-0.5 font-display text-[8px] font-black uppercase tracking-wider text-foreground">
+                    Go!
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── Piece 4: Workshops tag — left side ── */}
+          <motion.div
+            initial={{ opacity: 0, x: -30, rotate: -10 }}
+            animate={{ opacity: 1, x: 0, rotate: -6 }}
+            transition={{ ...pop, delay: 0.65 }}
+            whileHover={{ rotate: 0, scale: 1.06 }}
+            className="absolute bottom-[18%] left-0 z-30 hidden md:block lg:bottom-[22%] lg:left-[2%]"
+          >
+            <div className="rounded-xl border-[3px] border-accent/50 bg-accent/15 px-5 py-3 font-display text-xs font-black uppercase tracking-[0.1em] text-accent shadow-[3px_3px_0_hsl(var(--accent)/0.3)] backdrop-blur-sm lg:text-sm">
+              ✦ Workshops
+            </div>
+          </motion.div>
+
+          {/* ── Piece 5: Shop sticker — bottom-left area ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, rotate: 15 }}
+            animate={{ opacity: 1, scale: 1, rotate: 6 }}
+            transition={{ ...pop, delay: 0.75 }}
+            whileHover={{ rotate: 0, scale: 1.08 }}
+            className="absolute bottom-[6%] left-[15%] z-30 hidden md:block lg:bottom-[8%] lg:left-[18%]"
+          >
+            <div className="rounded-full border-[3px] border-primary/40 bg-primary/15 px-5 py-2 font-display text-[11px] font-black uppercase tracking-[0.12em] text-primary shadow-[2px_2px_0_hsl(var(--primary)/0.2)] backdrop-blur-sm lg:text-xs">
+              Shop NASO →
+            </div>
+          </motion.div>
+
+          {/* ── Piece 6: Star burst — decorative ── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0, rotate: -45 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ ...pop, delay: 0.85 }}
+            className="absolute right-[18%] top-[3%] z-10 lg:right-[22%] lg:top-[5%]"
+          >
+            <StarBurst className="h-10 w-10 text-secondary/30 lg:h-14 lg:w-14" />
+          </motion.div>
+
+          {/* ── Piece 7: Cross marks — scattered ── */}
+          <motion.div
+            initial={{ opacity: 0, rotate: -20 }}
+            animate={{ opacity: 0.2, rotate: 15 }}
+            transition={{ ...pop, delay: 0.9 }}
+            className="absolute left-[20%] top-[6%] z-10"
+          >
+            <CrossMark className="h-5 w-5 text-primary lg:h-6 lg:w-6" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, rotate: 30 }}
+            animate={{ opacity: 0.15, rotate: 45 }}
+            transition={{ ...pop, delay: 1 }}
+            className="absolute bottom-[28%] right-[25%] z-10"
+          >
+            <CrossMark className="h-4 w-4 text-naso-lilac" />
+          </motion.div>
+
+          {/* ── Piece 8: Zigzag accent ── */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 0.25, scaleX: 1 }}
+            transition={{ duration: 0.6, ease, delay: 0.95 }}
+            className="absolute bottom-[35%] left-[5%] z-10 origin-left"
+          >
+            <ZigZag className="h-3 w-16 text-secondary lg:w-20" />
           </motion.div>
         </div>
-
-        {/* ════════ Floating sticker elements ════════ */}
-
-        {/* "Made in Cairo" — dashed circle sticker */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
-          animate={{ opacity: 1, scale: 1, rotate: -7 }}
-          transition={{ ...bouncy, delay: 0.6 }}
-          whileHover={{ rotate: 0, scale: 1.06 }}
-          className="absolute left-[4%] top-[62%] z-20 cursor-default lg:left-[7%] lg:top-[55%]"
-        >
-          <div className="flex h-[76px] w-[76px] flex-col items-center justify-center rounded-full border-[2px] border-dashed border-secondary/70 bg-secondary/10 font-display text-[8px] font-bold uppercase leading-tight tracking-[0.12em] text-secondary/90 backdrop-blur-sm lg:h-[92px] lg:w-[92px] lg:text-[10px]">
-            <span>Made</span>
-            <span>in</span>
-            <span>Cairo</span>
-          </div>
-        </motion.div>
-
-        {/* Logo badge — glassmorphism with brand stripe */}
-        <motion.div
-          initial={{ opacity: 0, y: 24, rotate: 4 }}
-          animate={{ opacity: 1, y: 0, rotate: 2.5 }}
-          transition={{ duration: 0.7, ease, delay: 0.5 }}
-          whileHover={{ rotate: 0, y: -3 }}
-          className="absolute right-[5%] top-[18%] z-20 lg:right-[9%] lg:top-[20%]"
-        >
-          <div className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.05] backdrop-blur-lg">
-            <div className="px-5 py-4">
-              <img
-                src={nasoLogo}
-                alt="NASO"
-                className="h-5 w-auto brightness-0 invert lg:h-7"
-              />
-              <p className="mt-1.5 font-display text-[8px] font-semibold uppercase tracking-[0.2em] text-white/25">
-                Creative Studio
-              </p>
-            </div>
-            {/* Tri-color bottom edge */}
-            <div className="flex h-1">
-              <div className="flex-1 bg-secondary" />
-              <div className="flex-1 bg-primary" />
-              <div className="flex-1 bg-accent" />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Event teaser — ticket-style card */}
-        <motion.div
-          initial={{ opacity: 0, x: 30, rotate: 3 }}
-          animate={{ opacity: 1, x: 0, rotate: 1.5 }}
-          transition={{ duration: 0.8, ease, delay: 0.65 }}
-          whileHover={{ rotate: 0, scale: 1.02 }}
-          className="absolute bottom-[13%] right-[3%] z-20 hidden sm:block lg:bottom-[16%] lg:right-[5%]"
-        >
-          <div className="w-[170px] overflow-hidden rounded-lg border border-white/10 bg-white/[0.05] backdrop-blur-lg lg:w-[195px]">
-            {/* Ticket header with perforated line */}
-            <div className="border-b border-dashed border-white/10 px-4 py-2.5">
-              <div className="flex items-center justify-between">
-                <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-secondary">
-                  Next up
-                </span>
-                <RetroStar className="h-2.5 w-2.5 text-secondary/60" />
-              </div>
-            </div>
-            {/* Ticket body */}
-            <div className="px-4 py-3.5">
-              <p className="font-display text-[13px] font-bold leading-[1.2] text-white lg:text-sm">
-                Old Cairo
-                <br />
-                Night Walk
-              </p>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] font-medium text-white/35">
-                  Mar 2026
-                </span>
-                <span className="rounded-full bg-secondary/15 px-2.5 py-0.5 font-display text-[8px] font-bold uppercase tracking-wider text-secondary">
-                  Limited
-                </span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Workshops pill */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7, rotate: 7 }}
-          animate={{ opacity: 1, scale: 1, rotate: 4 }}
-          transition={{ ...bouncy, delay: 0.75 }}
-          whileHover={{ rotate: 0, scale: 1.05 }}
-          className="absolute left-[3%] top-[26%] z-20 hidden md:block lg:left-[4%] lg:top-[28%]"
-        >
-          <div className="rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.14em] text-accent/80 backdrop-blur-sm lg:text-[11px]">
-            ✦ Workshops
-          </div>
-        </motion.div>
-
-        {/* Shop tag */}
-        <motion.div
-          initial={{ opacity: 0, y: -16, rotate: -5 }}
-          animate={{ opacity: 1, y: 0, rotate: -3 }}
-          transition={{ ...bouncy, delay: 0.85 }}
-          whileHover={{ rotate: 0, y: -2 }}
-          className="absolute bottom-[22%] left-[10%] z-20 hidden md:block lg:left-[14%]"
-        >
-          <div className="rounded-md border border-primary/25 bg-primary/10 px-3.5 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.14em] text-primary/70 backdrop-blur-sm lg:text-[11px]">
-            Shop →
-          </div>
-        </motion.div>
-
-        {/* ── Scattered decorative sparkles (subtle) ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.2, scale: 1 }}
-          transition={{ ...bouncy, delay: 1 }}
-          className="absolute right-[28%] top-[16%] z-0"
-        >
-          <Sparkle4 className="h-3.5 w-3.5 text-white" />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          transition={{ ...bouncy, delay: 1.1 }}
-          className="absolute bottom-[20%] left-[32%] z-0"
-        >
-          <RetroStar className="h-3 w-3 text-secondary" />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.12, scale: 1 }}
-          transition={{ ...bouncy, delay: 1.15 }}
-          className="absolute bottom-[32%] right-[20%] z-0"
-        >
-          <Sparkle4 className="h-2.5 w-2.5 text-accent" />
-        </motion.div>
-
-        {/* ── Bottom marquee ticker ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease, delay: 0.9 }}
-          className="absolute bottom-0 left-0 right-0 z-30 overflow-hidden border-t border-white/[0.06] bg-white/[0.02] py-2.5"
-        >
-          <div className="naso-marquee">
-            <div className="naso-marquee-inner flex w-max items-center gap-10 whitespace-nowrap">
-              {[...Array(2)].map((_, i) => (
-                <div key={i} className="flex items-center gap-10">
-                  {[
-                    "Experiences",
-                    "Workshops",
-                    "Original Products",
-                    "Cairo Nights",
-                    "Creative Moments",
-                  ].map((text, j) => (
-                    <span key={`${i}-${j}`} className="flex items-center gap-10">
-                      <span className="font-display text-[10px] font-semibold uppercase tracking-[0.22em] text-white/20">
-                        {text}
-                      </span>
-                      <span className="text-white/10">✦</span>
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
       </div>
+
+      {/* ── Bottom marquee strip ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease, delay: 0.8 }}
+        className="absolute bottom-0 left-0 right-0 z-40 overflow-hidden border-y-2 border-secondary/20 bg-secondary py-2.5"
+      >
+        <div className="naso-marquee">
+          <div className="naso-marquee-inner flex w-max items-center gap-6 whitespace-nowrap">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex items-center gap-6">
+                {[
+                  "Experiences",
+                  "Workshops",
+                  "Original Products",
+                  "Cairo Nights",
+                  "Creative Moments",
+                  "Make Memories",
+                ].map((text, j) => (
+                  <span key={`${i}-${j}`} className="flex items-center gap-6">
+                    <span className="font-display text-xs font-black uppercase tracking-[0.15em] text-foreground">
+                      {text}
+                    </span>
+                    <span className="text-foreground/40">★</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
