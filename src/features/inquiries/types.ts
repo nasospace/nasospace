@@ -37,6 +37,11 @@ export const INQUIRY_TYPE_META: Record<InquiryType, InquiryTypeMeta> = {
     emoji: "🎉",
     description: "Plan a private or custom NASO event",
   },
+  product: {
+    label: "Product Inquiry",
+    emoji: "🛍️",
+    description: "Questions about a NASO shop product",
+  },
   corporate: {
     label: "Corporate Inquiry",
     emoji: "🏢",
