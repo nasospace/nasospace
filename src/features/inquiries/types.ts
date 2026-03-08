@@ -8,6 +8,7 @@ export const INQUIRY_TYPES = [
   "experience",
   "workshop",
   "custom-event",
+  "product",
   "corporate",
   "general",
 ] as const;
