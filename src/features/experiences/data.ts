@@ -81,7 +81,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 15,
     difficulty: "easy",
-    coverImage: { src: "https://images.unsplash.com/photo-1569880153113-76d33dba5784?w=800&q=80", alt: "Street Art Walk: Muizz" },
+    coverImage: { src: "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&q=80", alt: "Street Art Walk: Muizz" },
     gallery: [],
     featured: true,
   },

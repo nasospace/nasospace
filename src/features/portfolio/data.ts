@@ -45,7 +45,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "meditative, quiet, rainy-day calm",
     coverImage: { src: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80", alt: "Hands shaping clay on a pottery wheel" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1606585486091-44e3b58f0299?w=800&q=80", alt: "Close-up of hands on clay" },
+      { src: "https://images.unsplash.com/photo-1603974372039-adc49044b6bd?w=800&q=80", alt: "Close-up of hands on clay" },
       { src: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800&q=80", alt: "Tea cups on a wooden table" },
       { src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80", alt: "Finished ceramic pieces drying" },
     ],
@@ -98,9 +98,9 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "romantic, intimate, cinematic",
     coverImage: { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80", alt: "Candlelit rooftop dinner for two" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=800&q=80", alt: "Handwritten menu on kraft paper" },
+      { src: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80", alt: "Handwritten menu on kraft paper" },
       { src: "https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=800&q=80", alt: "Vinyl turntable on the rooftop" },
-      { src: "https://images.unsplash.com/photo-1549882167-945d8c0cde5a?w=800&q=80", alt: "Nile view at night" },
+      { src: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=800&q=80", alt: "Nile view at night" },
     ],
     featured: false,
     testimonialQuote: "He remembered the songs from our first date. I don't know how you pulled this off, but thank you.",
@@ -148,9 +148,9 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "late-night, lo-fi, immersive",
     coverImage: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80", alt: "Hands cutting magazine pages under warm light" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1452860606245-08b6178ee5a4?w=800&q=80", alt: "Spread of vintage magazines" },
+      { src: "https://images.unsplash.com/photo-1504270997636-07ddfbd48945?w=800&q=80", alt: "Spread of vintage magazines" },
       { src: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80", alt: "Close-up of finished collage artwork" },
-      { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
+      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Lo-fi studio ambiance at night" },
     ],
     linkedWorkshopSlug: "collage-night-cut-and-compose",
     featured: false,
@@ -198,7 +198,7 @@ export const MOCK_PORTFOLIO: PortfolioItem[] = [
     vibe: "hands-on, playful, maker energy",
     coverImage: { src: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80", alt: "Hands pulling a screen print" },
     gallery: [
-      { src: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80", alt: "Ink-stained hands at the workshop" },
+      { src: "https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=800&q=80", alt: "Ink-stained hands at the workshop" },
       { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80", alt: "Custom tote bag designs" },
       { src: "https://images.unsplash.com/photo-1529543544282-ea95407407db?w=800&q=80", alt: "Group showing off their prints" },
     ],
