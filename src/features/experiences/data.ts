@@ -123,7 +123,7 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     currency: "EGP",
     capacity: 18,
     difficulty: "easy",
-    coverImage: { src: "/placeholder.svg", alt: "Collage Night" },
+    coverImage: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80", alt: "Collage Night" },
     gallery: [],
     featured: false,
   },
