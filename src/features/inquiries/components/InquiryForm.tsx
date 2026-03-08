@@ -112,8 +112,12 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
 
     setSubmitting(true);
     try {
-      // Mock submit — replace with real server action later
+      // TODO: Replace with real server action / API call
       await new Promise((resolve) => setTimeout(resolve, 1200));
+      toast({
+        title: "Request sent! ✦",
+        description: "This is a demo — in production, your inquiry would be emailed to the NASO team. We'll get back to you within 24 hours.",
+      });
       onSuccess();
     } catch {
       setSubmitError("Something went wrong. Please try again.");
