@@ -1,6 +1,7 @@
 export { Section } from "./Section";
 export { SectionHeader } from "./SectionHeader";
 export { MotionDiv } from "./MotionDiv";
+export { InfoRow } from "./InfoRow";
 export {
   FlowerShape,
   StickerBadge,

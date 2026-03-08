@@ -23,7 +23,7 @@ export function InquiryHero({ context }: InquiryHeroProps) {
           {hasBookingContext && (
             <motion.div variants={fadeUpDelay(0)}>
               <StickerBadge variant="filled" rotate={-2} className="bg-secondary text-secondary-foreground">
-                {context.ref === "workshop" ? "🎨" : "🌿"}{" "}
+                {context.ref === "workshop" ? "🎨" : context.ref === "portfolio" ? "✦" : "🌿"}{" "}
                 Booking Request
               </StickerBadge>
             </motion.div>
