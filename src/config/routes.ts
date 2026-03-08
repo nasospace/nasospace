@@ -28,7 +28,7 @@ export const routeHelpers = {
 
 /** Build an inquiry path with optional context for prefill */
 export interface InquiryContext {
-  type: "experience" | "workshop";
+  type: "experience" | "workshop" | "portfolio";
   slug: string;
   title: string;
 }

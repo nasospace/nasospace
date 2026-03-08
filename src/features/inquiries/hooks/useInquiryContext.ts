@@ -13,7 +13,7 @@ export function useInquiryContext(): InquiryPageContext {
   const title = searchParams.get("title");
 
   return {
-    ref: ref === "experience" || ref === "workshop" ? ref : null,
+    ref: ref === "experience" || ref === "workshop" || ref === "portfolio" ? ref : null,
     slug: slug || null,
     title: title ? decodeURIComponent(title) : null,
   };
