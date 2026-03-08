@@ -1,12 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
+import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   Sparkle,
   MagneticButton,
 } from "@/components/shared/RetroElements";
-import { staggerContainer, fadeUp } from "@/lib/motion";
+import { staggerContainer, fadeUp, popIn } from "@/lib/motion";
 
 export function BigCTASection() {
   return (

@@ -54,28 +54,6 @@ export const worldCards = [
   },
 ] as const;
 
-/* ═══ Featured Experiences ═══ */
-export const featuredExperiences = [
-  {
-    title: "Sunset at the Citadel",
-    tag: "Outing",
-    color: "bg-secondary",
-    date: "Mar 22",
-  },
-  {
-    title: "Pottery & Chill",
-    tag: "Workshop",
-    color: "bg-naso-purple",
-    date: "Mar 28",
-  },
-  {
-    title: "Cairo Jazz Night",
-    tag: "Experience",
-    color: "bg-primary",
-    date: "Apr 5",
-  },
-] as const;
-
 /* ═══ Bottom Ticker ═══ */
 export const bottomTickerWords = [
   "NASO",

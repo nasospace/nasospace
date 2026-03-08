@@ -77,7 +77,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  function update<K extends keyof InquiryFormData>(field: K, value: string) {
+  function update<K extends keyof InquiryFormData>(field: K, value: InquiryFormData[K]) {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (errors[field as string]) {
       setErrors((prev) => {

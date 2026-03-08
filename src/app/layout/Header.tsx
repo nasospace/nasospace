@@ -85,7 +85,7 @@ export function Header() {
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
-                    pathname === item.href
+                    (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
                       ? "bg-foreground/5 text-foreground"
                       : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                   )}

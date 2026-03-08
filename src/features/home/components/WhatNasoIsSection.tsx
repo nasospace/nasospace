@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import {

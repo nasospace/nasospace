@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
+import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   StickerBadge,
   Sparkle,
 } from "@/components/shared/RetroElements";
-import { staggerContainer, fadeUp, slideInLeft, slideInRight } from "@/lib/motion";
+import { staggerContainer, fadeUp, slideInLeft, slideInRight, popIn } from "@/lib/motion";
 
 export function MoreToExploreSection() {
   return (
