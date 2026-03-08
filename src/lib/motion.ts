@@ -1,16 +1,19 @@
 /**
  * NASO Motion Presets — Retro-Groovy Animation System
- * Rich, varied, creative motion for a poster-world homepage.
+ * Single source of truth for all animation variants and transitions.
  */
 import type { Variants, Transition } from "framer-motion";
 
-/* === Transitions === */
-export const easeOut: Transition = { duration: 0.5, ease: [0.16, 1, 0.3, 1] };
+/* ═══ Shared Easing ═══ */
+export const nasoEase = [0.16, 1, 0.3, 1] as const;
+
+/* ═══ Transitions ═══ */
+export const easeOut: Transition = { duration: 0.5, ease: nasoEase };
 export const easeInOut: Transition = { duration: 0.4, ease: [0.4, 0, 0.2, 1] };
 export const spring: Transition = { type: "spring", stiffness: 300, damping: 30 };
 export const springBouncy: Transition = { type: "spring", stiffness: 400, damping: 15 };
 
-/* === Fade variants === */
+/* ═══ Fade Variants ═══ */
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: easeOut },
@@ -26,7 +29,13 @@ export const fadeDown: Variants = {
   visible: { opacity: 1, y: 0, transition: easeOut },
 };
 
-/* === Scale variants === */
+/* ═══ Delayed fadeUp factory ═══ */
+export const fadeUpDelay = (delay = 0): Variants => ({
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: nasoEase, delay } },
+});
+
+/* ═══ Scale Variants ═══ */
 export const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: { opacity: 1, scale: 1, transition: easeOut },
@@ -37,12 +46,13 @@ export const popIn: Variants = {
   visible: { opacity: 1, scale: 1, transition: springBouncy },
 };
 
-/* === Rotate variants === */
+/* ═══ Rotate Variants ═══ */
 export const rotateIn: Variants = {
   hidden: { opacity: 0, rotate: -12, scale: 0.8 },
   visible: { opacity: 1, rotate: 0, scale: 1, transition: { type: "spring", stiffness: 200, damping: 18 } },
 };
 
+/* ═══ Sticker / Badge Drop ═══ */
 export const stickerPop = (delay = 0, rotate = 0): Variants => ({
   hidden: { opacity: 0, scale: 0.2, rotate: rotate - 20 },
   visible: {
@@ -53,47 +63,78 @@ export const stickerPop = (delay = 0, rotate = 0): Variants => ({
   },
 });
 
-/* === Wipe / reveal === */
-export const wipeIn = (delay = 0): Variants => ({
-  hidden: { scaleX: 0 },
-  visible: { scaleX: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay } },
+export const stickerDrop = (delay = 0, rotate = 0): Variants => ({
+  hidden: { opacity: 0, scale: 0, rotate: rotate - 30, y: -60 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate,
+    y: 0,
+    transition: { type: "spring", stiffness: 340, damping: 12, delay },
+  },
 });
 
-/* === Slide variants === */
+/* ═══ Wipe / Reveal ═══ */
+export const wipeIn = (delay = 0): Variants => ({
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 1, transition: { duration: 0.6, ease: nasoEase, delay } },
+});
+
+export const wipeRight = (delay = 0): Variants => ({
+  hidden: { scaleX: 0 },
+  visible: { scaleX: 1, transition: { duration: 0.7, ease: nasoEase, delay } },
+});
+
+/* ═══ Slide Variants ═══ */
 export const slideInLeft: Variants = {
   hidden: { x: -80, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: nasoEase } },
 };
 
 export const slideInRight: Variants = {
   hidden: { x: 80, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: nasoEase } },
   exit: { x: "100%", transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } },
 };
 
-/* === Stagger containers === */
+/* ═══ Character Reveal ═══ */
+export const charReveal: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
+
+export const charRevealDelay = (delay = 0): Variants => ({
+  hidden: { opacity: 0, y: 80, rotateX: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: { duration: 0.9, ease: nasoEase, delay },
+  },
+});
+
+/* ═══ Stagger Containers ═══ */
 export const staggerContainer: Variants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
 export const staggerFast: Variants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.05, delayChildren: 0.05 },
-  },
+  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
 };
 
 export const staggerSlow: Variants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
+  visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
 };
 
-/* === Card / poster entrance === */
+export const staggerHero: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+
+/* ═══ Card / Poster Entrance ═══ */
 export const posterEnter = (delay = 0, startRotate = -6): Variants => ({
   hidden: { opacity: 0, y: 50, rotate: startRotate },
   visible: {
@@ -104,8 +145,13 @@ export const posterEnter = (delay = 0, startRotate = -6): Variants => ({
   },
 });
 
-/* === Character-by-character text reveal === */
-export const charReveal: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-};
+export const posterEnterHero = (delay = 0): Variants => ({
+  hidden: { opacity: 0, y: 80, rotate: -12, scale: 0.85 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: -4,
+    scale: 1,
+    transition: { type: "spring", stiffness: 120, damping: 16, delay },
+  },
+});
