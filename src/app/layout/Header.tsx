@@ -39,10 +39,7 @@ export function Header() {
           <img
             src={nasoLogo}
             alt={siteConfig.name}
-            className={cn(
-              "h-8 w-auto transition-all duration-300 md:h-9",
-              showLight && "brightness-0 invert"
-            )}
+            className="h-8 w-auto transition-all duration-300 md:h-9"
           />
         </Link>
 
