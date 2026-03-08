@@ -5,13 +5,13 @@ import { fadeUp, staggerSlow } from "@/lib/motion";
 
 export function WhatNasoIsSection() {
   return (
-    <section className="relative overflow-hidden py-section-lg">
+    <section className="relative overflow-hidden py-section">
       <div className="absolute inset-0 naso-grid-bg" />
       <div className="container relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={staggerSlow}
           className="mx-auto max-w-3xl text-center"
         >
