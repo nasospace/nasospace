@@ -185,6 +185,84 @@ export type Database = {
         }
         Relationships: []
       }
+      cms_products: {
+        Row: {
+          category: string
+          colors: Json | null
+          cover_image_alt: string
+          cover_image_src: string
+          created_at: string
+          currency: string
+          description: string
+          featured: boolean
+          gallery: Json
+          id: string
+          limited_edition: boolean
+          linked_experience_slug: string | null
+          linked_portfolio_slug: string | null
+          linked_workshop_slug: string | null
+          price: number
+          published: boolean
+          sizes: Json | null
+          slug: string
+          stock_status: string
+          summary: string
+          tags: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          colors?: Json | null
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          description?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          limited_edition?: boolean
+          linked_experience_slug?: string | null
+          linked_portfolio_slug?: string | null
+          linked_workshop_slug?: string | null
+          price?: number
+          published?: boolean
+          sizes?: Json | null
+          slug: string
+          stock_status?: string
+          summary: string
+          tags?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          colors?: Json | null
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          description?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          limited_edition?: boolean
+          linked_experience_slug?: string | null
+          linked_portfolio_slug?: string | null
+          linked_workshop_slug?: string | null
+          price?: number
+          published?: boolean
+          sizes?: Json | null
+          slug?: string
+          stock_status?: string
+          summary?: string
+          tags?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cms_site_settings: {
         Row: {
           id: string
