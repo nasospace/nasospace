@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { CartProvider } from "@/features/cart";
+import { AuthProvider } from "@/lib/auth";
 import type { ReactNode } from "react";
 
 const queryClient = new QueryClient();
@@ -15,13 +16,15 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <CartProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            {children}
-          </TooltipProvider>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              {children}
+            </TooltipProvider>
+          </CartProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </HelmetProvider>
   );
