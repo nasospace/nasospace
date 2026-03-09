@@ -83,6 +83,7 @@ export default {
         brand: "var(--shadow-brand)",
         retro: "var(--shadow-retro)",
         "retro-lg": "var(--shadow-retro-lg)",
+        "retro-sm": "var(--shadow-retro-sm)",
       },
       borderRadius: {
         lg: "var(--radius)",
