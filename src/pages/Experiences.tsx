@@ -22,8 +22,9 @@ export default function ExperiencesPage() {
   return (
     <>
       <SEOHead
-        title="Experiences"
-        description="Discover unique immersive experiences crafted by NASO. From interactive installations to sensory journeys, explore our curated collection of memorable moments."
+        title="Experiences — Immersive Outings & Events by NASO"
+        description="Discover unique immersive experiences crafted by NASO in Cairo. From interactive installations to sensory journeys, explore our curated collection of memorable moments."
+        canonical="/experiences"
       />
       <ExperienceHero />
       <Section>

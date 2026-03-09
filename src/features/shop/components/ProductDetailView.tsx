@@ -5,8 +5,11 @@ import { Check, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, MagneticButton, SaveButton } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
+import { buildProductSchema } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 import { useToast } from "@/hooks/use-toast";
 import { useCart } from "@/features/cart";
 import { useProduct, useProducts } from "../hooks/useProducts";
@@ -111,8 +114,29 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
     title: product.title,
   });
 
+  const stockAvailability = isSoldOut
+    ? "OutOfStock" as const
+    : product.stockStatus === "low-stock"
+      ? "LimitedAvailability" as const
+      : "InStock" as const;
+
   return (
     <>
+      <SEOHead
+        title={`${product.title} — NASO Shop`}
+        description={product.summary || product.description.slice(0, 155)}
+        canonical={`/shop/${product.slug}`}
+        ogImage={product.coverImage.src}
+        jsonLd={buildProductSchema({
+          name: product.title,
+          description: product.summary || product.description.slice(0, 155),
+          url: `${siteConfig.url}/shop/${product.slug}`,
+          image: product.coverImage.src,
+          price: product.price,
+          currency: product.currency,
+          availability: stockAvailability,
+        })}
+      />
       {/* ── Product Hero ── */}
       <Section spacing="lg">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12">

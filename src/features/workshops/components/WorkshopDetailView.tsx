@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath } from "@/config/routes";
+import { buildEventSchema } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 import { useWorkshop, useRelatedWorkshops } from "../hooks/useWorkshops";
 import { WORKSHOP_CATEGORY_META } from "../types";
 import { WorkshopGrid } from "./WorkshopGrid";
@@ -55,6 +58,22 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
 
   return (
     <>
+      <SEOHead
+        title={`${workshop.title} — NASO Workshops`}
+        description={workshop.summary || workshop.description.slice(0, 155)}
+        canonical={`/workshops/${workshop.slug}`}
+        ogImage={workshop.coverImage?.src}
+        jsonLd={buildEventSchema({
+          name: workshop.title,
+          description: workshop.summary || workshop.description.slice(0, 155),
+          url: `${siteConfig.url}/workshops/${workshop.slug}`,
+          image: workshop.coverImage?.src,
+          startDate: workshop.date || undefined,
+          location: workshop.location || undefined,
+          price: workshop.price,
+          currency: workshop.currency,
+        })}
+      />
       {/* Hero zone */}
       <Section spacing="lg" fullBleed className={cn("relative", meta.color)}>
         <div className="naso-grid-bg absolute inset-0 opacity-30" />

@@ -1,4 +1,5 @@
 import { SEOHead } from "@/components/shared/SEOHead";
+import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo";
 import {
   HeroSection,
   WhatNasoIsSection,
@@ -13,9 +14,10 @@ export default function HomePage() {
   return (
     <>
       <SEOHead
-        title="Home"
+        title="NASO — Creative Experiences, Workshops & Products from Cairo"
         description="NASO is a Cairo-born creative brand crafting bold experiences, workshops, events, and products for people who want their free time to mean something."
-        canonical="https://naso.co"
+        canonical="/"
+        jsonLd={[buildOrganizationSchema(), buildWebSiteSchema()]}
       />
       <HeroSection />
       <WhatNasoIsSection />

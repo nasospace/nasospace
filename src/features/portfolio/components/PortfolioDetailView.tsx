@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton, InfoRow } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { usePortfolioItem, usePortfolioItems } from "../hooks/usePortfolio";
@@ -69,6 +70,12 @@ export function PortfolioDetailView({ slug }: PortfolioDetailViewProps) {
 
   return (
     <>
+      <SEOHead
+        title={`${item.title} — NASO Portfolio`}
+        description={item.summary || item.story.slice(0, 155)}
+        canonical={`/portfolio/${item.slug}`}
+        ogImage={item.coverImage.src}
+      />
       {/* Hero */}
       <Section spacing="lg">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12">

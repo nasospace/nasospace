@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, fadeUpDelay, staggerContainer } from "@/lib/motion";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
+import { buildArticleSchema } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 import { useBlogPost, useRelatedBlogPosts } from "../hooks/useBlogPosts";
 import { BLOG_CATEGORY_META } from "../types";
 import { BlogGrid } from "./BlogGrid";
@@ -84,9 +87,30 @@ export function BlogDetailView({ slug }: BlogDetailViewProps) {
       </p>
     );
   });
+  const articleUrl = `${siteConfig.url}/blog/${post.slug}`;
 
   return (
     <>
+      <SEOHead
+        title={`${post.title} — NASO Blog`}
+        description={post.excerpt || post.content.slice(0, 155)}
+        canonical={`/blog/${post.slug}`}
+        ogType="article"
+        ogImage={post.coverImage.src}
+        article={{
+          publishedTime: post.publishDate,
+          author: post.authorName || undefined,
+          tags: post.tags,
+        }}
+        jsonLd={buildArticleSchema({
+          title: post.title,
+          description: post.excerpt || post.content.slice(0, 155),
+          url: articleUrl,
+          image: post.coverImage.src,
+          publishedTime: post.publishDate,
+          authorName: post.authorName || undefined,
+        })}
+      />
       {/* Article hero */}
       <Section spacing="lg" fullBleed className="relative overflow-hidden bg-naso-cream naso-dotgrid">
         <div className="container relative">

@@ -13,8 +13,9 @@ export default function CommunityLove() {
   return (
     <>
       <SEOHead
-        title="Community Love"
+        title="Community Love — Real Stories from NASO People"
         description="Real stories from real humans. Memories, tiny revelations, and happy tears from NASO experiences, workshops, and events."
+        canonical="/community-love"
       />
 
       <TestimonialsHero />

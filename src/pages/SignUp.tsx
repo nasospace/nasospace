@@ -40,7 +40,11 @@ export default function SignUpPage() {
 
   return (
     <>
-      <SEOHead title="Sign Up — NASO" description="Create your NASO account." />
+      <SEOHead
+        title="Sign Up"
+        description="Create your NASO account."
+        noindex
+      />
       <div className="flex min-h-[70vh] items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center">

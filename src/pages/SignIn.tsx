@@ -42,7 +42,11 @@ export default function SignInPage() {
 
   return (
     <>
-      <SEOHead title="Sign In — NASO" description="Sign in to your NASO account." />
+      <SEOHead
+        title="Sign In"
+        description="Sign in to your NASO account."
+        noindex
+      />
       <div className="flex min-h-[70vh] items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center">

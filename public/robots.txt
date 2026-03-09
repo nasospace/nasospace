@@ -12,3 +12,13 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Private routes
+Disallow: /account
+Disallow: /account/*
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: https://naso.co/sitemap.xml
