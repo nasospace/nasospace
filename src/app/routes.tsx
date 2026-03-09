@@ -16,6 +16,7 @@ import ShopPage from "@/pages/Shop";
 import ProductDetailPage from "@/pages/ProductDetail";
 import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
+import CommunityLovePage from "@/pages/CommunityLove";
 import NotFound from "@/pages/NotFound";
 
 /**
