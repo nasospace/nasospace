@@ -104,6 +104,7 @@ export const router = createBrowserRouter([
       { path: "inquiries", element: <AdminInquiriesPage /> },
       { path: "users", element: <AdminUsersPage /> },
       { path: "saved", element: <AdminSavedItemsPage /> },
+      { path: "products", element: <AdminProductsPage /> },
     ],
   },
 ]);
