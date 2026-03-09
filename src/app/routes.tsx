@@ -14,6 +14,7 @@ import BlogPage from "@/pages/Blog";
 import BlogDetailPage from "@/pages/BlogDetail";
 import ShopPage from "@/pages/Shop";
 import ProductDetailPage from "@/pages/ProductDetail";
+import CartPage from "@/pages/Cart";
 import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
 import CommunityLovePage from "@/pages/CommunityLove";
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.BLOG_DETAIL, element: <BlogDetailPage /> },
       { path: ROUTES.SHOP, element: <ShopPage /> },
       { path: ROUTES.SHOP_DETAIL, element: <ProductDetailPage /> },
+      { path: ROUTES.CART, element: <CartPage /> },
       { path: ROUTES.FAQ, element: <FAQPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },

@@ -3,6 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { CartProvider } from "@/features/cart";
 import type { ReactNode } from "react";
 
 const queryClient = new QueryClient();
@@ -14,11 +15,13 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          {children}
-        </TooltipProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            {children}
+          </TooltipProvider>
+        </CartProvider>
       </QueryClientProvider>
     </HelmetProvider>
   );
