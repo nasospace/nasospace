@@ -105,10 +105,10 @@ export function Header() {
           </DropdownMenu>
           {/* Account icon */}
           <Link
-            to="/account"
+            to={ROUTES.ACCOUNT}
             className={cn(
               "ml-2 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive("/account")
+              isActive(ROUTES.ACCOUNT)
                 ? "border-foreground bg-foreground text-background"
                 : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
             )}
