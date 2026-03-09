@@ -13,19 +13,23 @@ export function BigCTASection() {
   return (
     <section className="relative overflow-hidden bg-primary py-section-lg text-primary-foreground">
       <div className="absolute inset-0 naso-dotgrid opacity-10" />
+      <div className="absolute inset-0 naso-noise opacity-30" />
 
-      <MotionDiv variants={popIn} className="absolute right-[10%] top-[15%] opacity-25 rotate-[15deg]">
-        <Sparkle className="h-12 w-12 text-primary-foreground" />
+      <MotionDiv variants={popIn} className="absolute right-[10%] top-[15%] opacity-20 rotate-[15deg]">
+        <Sparkle className="h-14 w-14 text-primary-foreground" />
       </MotionDiv>
-      <MotionDiv variants={popIn} className="absolute left-[8%] bottom-[20%] opacity-15">
-        <FlowerShape size={60} className="text-primary-foreground naso-flower-spin" />
+      <MotionDiv variants={popIn} className="absolute left-[8%] bottom-[20%] opacity-10">
+        <FlowerShape size={70} className="text-primary-foreground naso-flower-spin" />
+      </MotionDiv>
+      <MotionDiv variants={popIn} className="absolute right-[25%] bottom-[10%] opacity-10">
+        <FlowerShape size={40} className="text-secondary naso-flower-spin" />
       </MotionDiv>
 
       <div className="container relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
           className="mx-auto max-w-2xl text-center"
         >
@@ -50,14 +54,14 @@ export function BigCTASection() {
           >
             <MagneticButton
               to={ROUTES.EXPERIENCES}
-              className="group inline-flex h-[54px] items-center gap-2.5 rounded-full border-[2.5px] border-primary-foreground bg-primary-foreground px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-primary shadow-retro transition-all hover:shadow-retro-lg active:scale-[0.96]"
+              className="group inline-flex h-[54px] items-center gap-2.5 rounded-full border-[2.5px] border-primary-foreground bg-primary-foreground px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-primary shadow-retro transition-all hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
             >
               Explore now
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </MagneticButton>
             <MagneticButton
               to={ROUTES.SHOP}
-              className="inline-flex h-[54px] items-center rounded-full border-[2.5px] border-primary-foreground/40 px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-primary-foreground transition-all hover:border-primary-foreground hover:bg-primary-foreground/10 active:scale-[0.96]"
+              className="inline-flex h-[54px] items-center rounded-full border-[2.5px] border-primary-foreground/40 px-8 font-groovy text-xs font-bold uppercase tracking-[0.1em] text-primary-foreground transition-all hover:border-primary-foreground hover:bg-primary-foreground/10 active:translate-x-[2px] active:translate-y-[2px]"
             >
               Shop NASO
             </MagneticButton>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
-  NASO Design System — Retro-Groovy Gen Z Poster World
+  NASO Design System — Retro-Groovy Gen Z Poster World v2
   Brand: retro-cool · groovy · playful · Gen Z · artsy · Cairo creative culture
   Palette: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF + warm accents
 */
@@ -69,6 +69,7 @@
     --shadow-brand: 0 8px 32px -8px hsl(217 100% 44% / 0.2);
     --shadow-retro: 5px 5px 0px hsl(0 0% 0%);
     --shadow-retro-lg: 8px 8px 0px hsl(0 0% 0%);
+    --shadow-retro-sm: 3px 3px 0px hsl(0 0% 0%);
 
     /* === Layout === */
     --sidebar-background: 0 0% 98%;
@@ -110,6 +111,7 @@
     --shadow-brand: 0 8px 32px -8px hsl(217 100% 50% / 0.3);
     --shadow-retro: 5px 5px 0px hsl(0 0% 30%);
     --shadow-retro-lg: 8px 8px 0px hsl(0 0% 30%);
+    --shadow-retro-sm: 3px 3px 0px hsl(0 0% 30%);
     --sidebar-background: 0 0% 6%;
     --sidebar-foreground: 0 0% 90%;
     --sidebar-primary: 217 100% 50%;
@@ -128,6 +130,11 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+  }
+
+  /* Selection color */
+  ::selection {
+    background: hsl(var(--naso-lilac) / 0.4);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -186,6 +193,13 @@
       linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
+  }
+
+  /* Noise texture overlay */
+  .naso-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
   }
 
   /* Marquee */
@@ -252,5 +266,30 @@
 
   .naso-ticker {
     animation: ticker-slide 30s linear infinite;
+  }
+
+  /* Shimmer effect for loading states */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .naso-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.08) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  /* Gradient text utility */
+  .naso-gradient-text {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

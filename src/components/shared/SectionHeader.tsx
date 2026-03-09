@@ -10,6 +10,7 @@ interface SectionHeaderProps {
 
 /**
  * SectionHeader — consistent section title + optional eyebrow & description.
+ * Elevated typography with groovy font for titles.
  */
 export function SectionHeader({
   title,
@@ -27,13 +28,13 @@ export function SectionHeader({
       )}
     >
       {eyebrow && (
-        <p className="mb-3 font-display text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+        <p className="mb-3 font-groovy text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
           {eyebrow}
         </p>
       )}
-      <h2 className="font-groovy text-3xl md:text-4xl font-bold">{title}</h2>
+      <h2 className="font-groovy text-[clamp(1.6rem,4vw,2.5rem)] font-bold leading-tight">{title}</h2>
       {description && (
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+        <p className="mt-4 max-w-2xl text-base text-muted-foreground leading-relaxed lg:text-lg">
           {description}
         </p>
       )}

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { fadeUp, spring } from "@/lib/motion";
+import { fadeUp, cardHover } from "@/lib/motion";
 import { BLOG_CATEGORY_META, type BlogPost } from "../types";
 import { routeHelpers } from "@/config/routes";
 
@@ -23,15 +23,14 @@ export function BlogCard({ post, index = 0, featured = false }: BlogCardProps) {
       className="h-full"
     >
       <motion.div
-        whileHover={{ y: -4 }}
-        transition={spring}
+        whileHover={cardHover.lift}
         className="h-full"
       >
         <Link
           to={detailPath}
           className={cn(
             "group flex h-full flex-col overflow-hidden rounded-2xl bg-card",
-            "border border-border transition-shadow hover:shadow-card",
+            "border-[2px] border-foreground/10 transition-all duration-300 hover:border-foreground/25 hover:shadow-card",
             featured && "md:flex-row"
           )}
         >
@@ -47,7 +46,7 @@ export function BlogCard({ post, index = 0, featured = false }: BlogCardProps) {
             <img
               src={post.coverImage.src}
               alt={post.coverImage.alt}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               loading="lazy"
             />
           </div>
@@ -61,7 +60,7 @@ export function BlogCard({ post, index = 0, featured = false }: BlogCardProps) {
           >
             {/* Category label */}
             <span
-              className="mb-2 inline-block w-fit font-display text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground"
+              className="mb-2 inline-block w-fit font-groovy text-[9px] font-bold uppercase tracking-[0.16em] text-muted-foreground"
             >
               {meta.emoji} {meta.label}
             </span>

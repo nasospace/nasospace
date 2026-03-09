@@ -9,12 +9,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground rounded-full hover:bg-primary/90 active:scale-[0.97] shadow-brand hover:shadow-lg",
-        destructive: "bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90",
-        outline: "border-2 border-foreground bg-transparent text-foreground rounded-full hover:bg-foreground hover:text-background active:scale-[0.97]",
-        secondary: "bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80",
+        destructive: "bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90 active:scale-[0.97]",
+        outline: "border-[2.5px] border-foreground bg-transparent text-foreground rounded-full hover:bg-foreground hover:text-background active:scale-[0.97]",
+        secondary: "bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 active:scale-[0.97]",
         ghost: "hover:bg-accent/10 hover:text-accent-foreground rounded-lg",
         link: "text-primary underline-offset-4 hover:underline",
-        brand: "bg-foreground text-background rounded-full hover:bg-foreground/90 active:scale-[0.97] shadow-elevated",
+        brand: "bg-foreground text-background rounded-full border-[2.5px] border-foreground hover:bg-foreground/90 active:translate-x-[1px] active:translate-y-[1px] shadow-retro-sm hover:shadow-retro active:shadow-none",
+        retro: "bg-card text-foreground rounded-full border-[2.5px] border-foreground shadow-retro hover:shadow-retro-lg hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
       },
       size: {
         default: "h-11 px-6 py-2",

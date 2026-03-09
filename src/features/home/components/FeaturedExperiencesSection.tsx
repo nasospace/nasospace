@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { StickerBadge } from "@/components/shared/RetroElements";
 import { ROUTES, routeHelpers } from "@/config/routes";
-import { staggerContainer, fadeUp } from "@/lib/motion";
+import { staggerContainer, fadeUp, cardHover } from "@/lib/motion";
 import { useFeaturedExperiences } from "@/features/experiences/hooks/useExperiences";
 import { CATEGORY_META } from "@/features/experiences/types";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -14,12 +14,13 @@ export function FeaturedExperiencesSection() {
 
   return (
     <section className="relative overflow-hidden py-section-lg">
-      <div className="absolute inset-0 bg-naso-cream naso-dotgrid opacity-50" />
+      <div className="absolute inset-0 bg-naso-cream naso-dotgrid opacity-40" />
+      <div className="absolute inset-0 naso-noise" />
       <div className="container relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
         >
           <motion.div
@@ -45,7 +46,7 @@ export function FeaturedExperiencesSection() {
           {isLoading ? (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 3 }).map((_, i) => (
-                <Skeleton key={i} className="h-72 rounded-2xl" />
+                <Skeleton key={i} className="h-72 rounded-2xl naso-shimmer" />
               ))}
             </div>
           ) : (
@@ -56,8 +57,7 @@ export function FeaturedExperiencesSection() {
                   <motion.div
                     key={item.id}
                     variants={fadeUp}
-                    whileHover={{ y: -6, rotate: i % 2 === 0 ? 1 : -1 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    whileHover={i % 2 === 0 ? cardHover.tilt : cardHover.tiltAlt}
                   >
                     <Link
                       to={routeHelpers.experienceDetail(item.slug)}

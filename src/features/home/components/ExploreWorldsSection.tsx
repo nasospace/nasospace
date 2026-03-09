@@ -11,11 +11,12 @@ export function ExploreWorldsSection() {
       <WavyDivider className="text-foreground -mb-1" />
       <section className="relative bg-foreground py-section-lg text-background">
         <div className="absolute inset-0 naso-dotgrid opacity-10" />
+        <div className="absolute inset-0 naso-noise opacity-50" />
         <div className="container relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeUp} className="mb-12 text-center">
@@ -33,7 +34,7 @@ export function ExploreWorldsSection() {
                 <motion.div key={item.title} variants={rotateIn}>
                   <Link
                     to={item.href}
-                    className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-background/20 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-background/40"
+                    className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-background/20 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-background/40 hover:bg-background/[0.04]"
                     style={{ transform: `rotate(${item.rotate}deg)` }}
                   >
                     <div className={`absolute left-0 top-0 h-2 w-full ${item.bg}`} />

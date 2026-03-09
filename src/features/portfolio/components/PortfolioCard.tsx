@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { posterEnter, spring } from "@/lib/motion";
+import { posterEnter, cardHover } from "@/lib/motion";
 import { StickerBadge } from "@/components/shared";
 import { PORTFOLIO_CATEGORY_META, type PortfolioItem } from "../types";
 import { routeHelpers } from "@/config/routes";
@@ -22,8 +22,7 @@ export function PortfolioCard({ item, index = 0 }: PortfolioCardProps) {
       className="h-full"
     >
       <motion.div
-        whileHover={{ scale: 1.03 }}
-        transition={spring}
+        whileHover={cardHover.scale}
         className="h-full"
       >
         <Link
@@ -31,7 +30,7 @@ export function PortfolioCard({ item, index = 0 }: PortfolioCardProps) {
           className={cn(
             "group relative flex h-full flex-col overflow-hidden rounded-2xl",
             "border-[2.5px] border-foreground shadow-retro",
-            "transition-shadow hover:shadow-retro-lg"
+            "transition-shadow duration-300 hover:shadow-retro-lg"
           )}
         >
           {/* Full-bleed cover image */}
@@ -39,7 +38,7 @@ export function PortfolioCard({ item, index = 0 }: PortfolioCardProps) {
             <img
               src={item.coverImage.src}
               alt={item.coverImage.alt}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
 

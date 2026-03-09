@@ -13,12 +13,13 @@ import { staggerContainer, fadeUp, slideInLeft, slideInRight, popIn } from "@/li
 export function MoreToExploreSection() {
   return (
     <section className="relative overflow-hidden border-y-[2.5px] border-foreground bg-secondary/15 py-section-lg">
-      <div className="absolute inset-0 naso-checkerboard opacity-30" />
+      <div className="absolute inset-0 naso-checkerboard opacity-25" />
+      <div className="absolute inset-0 naso-noise" />
 
-      <MotionDiv variants={popIn} className="absolute -left-12 top-20 opacity-15">
+      <MotionDiv variants={popIn} className="absolute -left-12 top-20 opacity-10">
         <FlowerShape size={120} className="text-naso-purple naso-flower-spin" />
       </MotionDiv>
-      <MotionDiv variants={popIn} className="absolute -right-8 bottom-16 opacity-10">
+      <MotionDiv variants={popIn} className="absolute -right-8 bottom-16 opacity-8">
         <FlowerShape size={80} className="text-primary naso-flower-spin" />
       </MotionDiv>
 
@@ -26,7 +27,7 @@ export function MoreToExploreSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
         >
           <motion.div variants={fadeUp} className="mb-10 text-center">
@@ -42,7 +43,7 @@ export function MoreToExploreSection() {
             <motion.div variants={slideInLeft}>
               <Link
                 to={ROUTES.WORKSHOPS}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card p-8 shadow-retro transition-all hover:shadow-retro-lg lg:p-10"
+                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card p-8 shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg lg:p-10"
               >
                 <StickerBadge variant="filled" className="bg-naso-lilac" rotate={-4}>
                   Workshops
@@ -59,7 +60,7 @@ export function MoreToExploreSection() {
                 <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-primary transition-transform duration-200 group-hover:translate-x-1">
                   Browse workshops <ArrowRight className="h-3.5 w-3.5" />
                 </span>
-                <div className="absolute -bottom-4 -right-4 opacity-10">
+                <div className="absolute -bottom-4 -right-4 opacity-8">
                   <FlowerShape size={80} className="text-accent" />
                 </div>
               </Link>
@@ -68,7 +69,7 @@ export function MoreToExploreSection() {
             <motion.div variants={slideInRight}>
               <Link
                 to={ROUTES.SHOP}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-foreground p-8 text-background shadow-retro transition-all hover:shadow-retro-lg lg:p-10"
+                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-foreground p-8 text-background shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg lg:p-10"
               >
                 <StickerBadge
                   variant="filled"
@@ -89,7 +90,7 @@ export function MoreToExploreSection() {
                 <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-secondary transition-transform duration-200 group-hover:translate-x-1">
                   Visit shop <ArrowRight className="h-3.5 w-3.5" />
                 </span>
-                <div className="absolute -bottom-3 -right-3 opacity-15">
+                <div className="absolute -bottom-3 -right-3 opacity-10">
                   <Sparkle className="h-16 w-16 text-secondary" />
                 </div>
               </Link>

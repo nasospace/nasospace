@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { posterEnter, spring } from "@/lib/motion";
+import { posterEnter, cardHover } from "@/lib/motion";
 import { StickerBadge } from "@/components/shared";
 import { WORKSHOP_CATEGORY_META, type WorkshopDetail } from "../types";
 import { routeHelpers } from "@/config/routes";
@@ -22,8 +22,7 @@ export function WorkshopCard({ workshop, index = 0 }: WorkshopCardProps) {
       className="h-full"
     >
       <motion.div
-        whileHover={{ y: -5, rotate: -1, scale: 1.01 }}
-        transition={spring}
+        whileHover={cardHover.liftScale}
         className="h-full"
       >
         <Link
@@ -31,7 +30,7 @@ export function WorkshopCard({ workshop, index = 0 }: WorkshopCardProps) {
           className={cn(
             "group flex h-full flex-col overflow-hidden rounded-3xl",
             "border-[3px] border-foreground bg-card shadow-retro",
-            "transition-shadow hover:shadow-retro-lg"
+            "transition-shadow duration-300 hover:shadow-retro-lg"
           )}
         >
           {/* Top strip — taller, more expressive with grid texture */}
@@ -76,7 +75,7 @@ export function WorkshopCard({ workshop, index = 0 }: WorkshopCardProps) {
 
             {/* Footer — maker-style info strip */}
             <div className="mt-auto flex items-end justify-between gap-3 pt-4">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {workshop.materialsIncluded && (
                   <span className="rounded-full border border-foreground/20 px-2.5 py-0.5 font-display text-[10px] uppercase tracking-wider text-muted-foreground">
                     Materials incl.
