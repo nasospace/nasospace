@@ -1,0 +1,87 @@
+import type { Testimonial } from "./types";
+
+export const testimonials: Testimonial[] = [
+  {
+    id: "1",
+    name: "Nour El-Din",
+    quote: "The Fayoum sunrise trip changed how I see mornings. Didn't expect to cry at a lake — but here we are.",
+    sourceType: "experience",
+    contextTag: "Fayoum Sunrise",
+  },
+  {
+    id: "2",
+    name: "Salma H.",
+    quote: "I came for the pottery, stayed for the chaos. Best kind of chaos. My mug is ugly and I love it.",
+    sourceType: "workshop",
+    contextTag: "Pottery Workshop",
+  },
+  {
+    id: "3",
+    name: "Ahmed & Layla",
+    quote: "NASO designed our entire wedding weekend. Our guests are still talking about the treasure hunt at 2am.",
+    sourceType: "event",
+    contextTag: "Private Event",
+  },
+  {
+    id: "4",
+    name: "Mariam K.",
+    quote: "The candle smells like my grandmother's house in Aswan. I don't know how you did that but thank you.",
+    sourceType: "product",
+    contextTag: "NASO Candle",
+  },
+  {
+    id: "5",
+    name: "Youssef A.",
+    quote: "I've done corporate team buildings before. This wasn't that. We actually talked to each other. Like, really talked.",
+    sourceType: "event",
+    contextTag: "Corporate Experience",
+  },
+  {
+    id: "6",
+    name: "Dina M.",
+    quote: "Brought my mom to the calligraphy workshop. She hasn't stopped showing her friends. I'm a good daughter now.",
+    sourceType: "workshop",
+    contextTag: "Calligraphy Workshop",
+  },
+  {
+    id: "7",
+    name: "Karim S.",
+    quote: "The desert overnight was supposed to be a birthday thing. It became a life thing. Still processing.",
+    sourceType: "experience",
+    contextTag: "Desert Overnight",
+  },
+  {
+    id: "8",
+    name: "Farida & Tamer",
+    quote: "We've been married 8 years. The NASO date night made us feel like we just met. Highly recommend getting lost together.",
+    sourceType: "experience",
+    contextTag: "Couples Experience",
+  },
+  {
+    id: "9",
+    name: "Hana R.",
+    quote: "I bought the tote bag because it was cute. Now strangers ask me about NASO everywhere I go. Happy to spread the word.",
+    sourceType: "product",
+    contextTag: "NASO Tote",
+  },
+  {
+    id: "10",
+    name: "Omar B.",
+    quote: "My team thought I was joking when I said we're doing a creative retreat. They came back different people. Better people.",
+    sourceType: "event",
+    contextTag: "Team Retreat",
+  },
+  {
+    id: "11",
+    name: "Yasmine F.",
+    quote: "I learned to make paper. Actual paper. From plants. What even is my life now.",
+    sourceType: "workshop",
+    contextTag: "Paper Making",
+  },
+  {
+    id: "12",
+    name: "Mostafa L.",
+    quote: "The attention to detail is insane. They remembered I mentioned jasmine once and it showed up in three different moments.",
+    sourceType: "general",
+  },
+];

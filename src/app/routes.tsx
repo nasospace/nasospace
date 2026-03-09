@@ -16,6 +16,7 @@ import ShopPage from "@/pages/Shop";
 import ProductDetailPage from "@/pages/ProductDetail";
 import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
+import CommunityLovePage from "@/pages/CommunityLove";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.FAQ, element: <FAQPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
+      { path: ROUTES.COMMUNITY_LOVE, element: <CommunityLovePage /> },
       { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
       { path: "*", element: <NotFound /> },
     ],
