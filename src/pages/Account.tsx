@@ -49,7 +49,7 @@ export default function AccountPage() {
           <AccountSummaryCard emoji="📋" label="Requests" count={requestCount} href={ROUTES.ACCOUNT_REQUESTS} />
         </motion.div>
         <motion.div variants={fadeUp} className="col-span-2 md:col-span-1">
-          <AccountSummaryCard emoji="⚙️" label="Settings" count={0} href={ROUTES.ACCOUNT_SETTINGS} />
+          <AccountSummaryCard emoji="⚙️" label="Settings" href={ROUTES.ACCOUNT_SETTINGS} />
         </motion.div>
       </motion.div>
 

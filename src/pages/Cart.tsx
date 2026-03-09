@@ -21,7 +21,7 @@ export default function CartPage() {
       <SEOHead
         title="Your Cart"
         description="Review your NASO cart."
-        canonical="/cart"
+        noindex
       />
 
       {/* Hero */}
