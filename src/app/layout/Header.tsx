@@ -74,7 +74,7 @@ export function Header() {
           ))}
 
           {/* More dropdown */}
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger
               className={cn(
                 "inline-flex items-center gap-1 font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 outline-none",
