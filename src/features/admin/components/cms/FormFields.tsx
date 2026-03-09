@@ -1,6 +1,7 @@
 /**
  * Shared form field components for admin CMS forms.
  */
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -186,23 +187,21 @@ export function TagsField({ label, name, value, onChange }: TagsFieldProps) {
   return (
     <FormField label={label} name={name}>
       <div className="space-y-2">
-        <div className="flex gap-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Add a tag and press Enter"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                const tag = input.trim();
-                if (tag && !value.includes(tag)) {
-                  onChange([...value, tag]);
-                }
-                setInput("");
+        <Input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Add a tag and press Enter"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const tag = input.trim();
+              if (tag && !value.includes(tag)) {
+                onChange([...value, tag]);
               }
-            }}
-          />
-        </div>
+              setInput("");
+            }
+          }}
+        />
         {value.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {value.map((tag) => (
@@ -226,6 +225,3 @@ export function TagsField({ label, name, value, onChange }: TagsFieldProps) {
     </FormField>
   );
 }
-
-// Need this import for the TagsField state
-import { useState } from "react";

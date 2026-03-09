@@ -6,7 +6,6 @@
  * When migrating to owned Supabase, only update the client import.
  */
 import { supabase } from "@/integrations/supabase/client";
-import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type CmsTable =
   | "cms_experiences"
@@ -16,9 +15,7 @@ type CmsTable =
 
 /* ═══ Generic helpers ═══ */
 
-export async function fetchAllAdmin<T extends CmsTable>(
-  table: T
-): Promise<Tables<T>[]> {
+export async function fetchAllAdmin(table: CmsTable) {
   const { data, error } = await supabase
     .from(table)
     .select("*")
@@ -28,30 +25,24 @@ export async function fetchAllAdmin<T extends CmsTable>(
     console.error(`[admin-cms] fetchAll ${table}:`, error);
     throw new Error(error.message);
   }
-  return (data ?? []) as Tables<T>[];
+  return data ?? [];
 }
 
-export async function fetchOneAdmin<T extends CmsTable>(
-  table: T,
-  id: string
-): Promise<Tables<T>> {
+export async function fetchOneAdmin(table: CmsTable, id: string) {
   const { data, error } = await supabase
     .from(table)
     .select("*")
-    .eq("id", id)
+    .eq("id" as any, id)
     .single();
 
   if (error) {
     console.error(`[admin-cms] fetchOne ${table}:`, error);
     throw new Error(error.message);
   }
-  return data as Tables<T>;
+  return data;
 }
 
-export async function createAdmin<T extends CmsTable>(
-  table: T,
-  record: TablesInsert<T>
-): Promise<Tables<T>> {
+export async function createAdmin(table: CmsTable, record: Record<string, unknown>) {
   const { data, error } = await supabase
     .from(table)
     .insert(record as any)
@@ -62,18 +53,14 @@ export async function createAdmin<T extends CmsTable>(
     console.error(`[admin-cms] create ${table}:`, error);
     throw new Error(error.message);
   }
-  return data as Tables<T>;
+  return data;
 }
 
-export async function updateAdmin<T extends CmsTable>(
-  table: T,
-  id: string,
-  updates: TablesUpdate<T>
-): Promise<Tables<T>> {
+export async function updateAdmin(table: CmsTable, id: string, updates: Record<string, unknown>) {
   const { data, error } = await supabase
     .from(table)
     .update({ ...updates, updated_at: new Date().toISOString() } as any)
-    .eq("id", id)
+    .eq("id" as any, id)
     .select()
     .single();
 
@@ -81,11 +68,11 @@ export async function updateAdmin<T extends CmsTable>(
     console.error(`[admin-cms] update ${table}:`, error);
     throw new Error(error.message);
   }
-  return data as Tables<T>;
+  return data;
 }
 
 export async function deleteAdmin(table: CmsTable, id: string): Promise<void> {
-  const { error } = await supabase.from(table).delete().eq("id", id);
+  const { error } = await supabase.from(table).delete().eq("id" as any, id);
   if (error) {
     console.error(`[admin-cms] delete ${table}:`, error);
     throw new Error(error.message);

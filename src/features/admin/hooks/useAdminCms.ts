@@ -9,7 +9,6 @@ import {
   updateAdmin,
   deleteAdmin,
 } from "@/server/services/admin/cms";
-import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type CmsTable =
   | "cms_experiences"
@@ -17,7 +16,7 @@ type CmsTable =
   | "cms_products"
   | "cms_portfolio_items";
 
-export function useAdminList<T extends CmsTable>(table: T) {
+export function useAdminList(table: CmsTable) {
   return useQuery({
     queryKey: ["admin", table],
     queryFn: () => fetchAllAdmin(table),
@@ -25,7 +24,7 @@ export function useAdminList<T extends CmsTable>(table: T) {
   });
 }
 
-export function useAdminItem<T extends CmsTable>(table: T, id: string | null) {
+export function useAdminItem(table: CmsTable, id: string | null) {
   return useQuery({
     queryKey: ["admin", table, id],
     queryFn: () => fetchOneAdmin(table, id!),
@@ -34,22 +33,21 @@ export function useAdminItem<T extends CmsTable>(table: T, id: string | null) {
   });
 }
 
-export function useAdminCreate<T extends CmsTable>(table: T) {
+export function useAdminCreate(table: CmsTable) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (record: TablesInsert<T>) => createAdmin(table, record),
+    mutationFn: (record: Record<string, unknown>) => createAdmin(table, record),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", table] });
-      // Also invalidate public CMS queries
       qc.invalidateQueries({ queryKey: ["cms"] });
     },
   });
 }
 
-export function useAdminUpdate<T extends CmsTable>(table: T) {
+export function useAdminUpdate(table: CmsTable) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: TablesUpdate<T> }) =>
+    mutationFn: ({ id, updates }: { id: string; updates: Record<string, unknown> }) =>
       updateAdmin(table, id, updates),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", table] });
