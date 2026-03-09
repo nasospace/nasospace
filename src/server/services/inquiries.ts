@@ -1,18 +1,25 @@
 /**
  * Inquiry persistence service.
- * All DB access for inquiry submissions lives here.
+ * Now uses authenticated user_id when available.
  */
 import { supabase } from "@/integrations/supabase/client";
-import { getDeviceId } from "@/lib/deviceId";
 import type { InquiryFormData, InquirySubmissionResult } from "@/features/inquiries/types";
 import type { RequestHistoryItem, RequestStatus } from "@/features/account/types";
 import type { InquiryType } from "@/features/inquiries/types";
 
+async function getUserId(): Promise<string | null> {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user?.id ?? null;
+}
+
 export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmissionResult> {
+  const userId = await getUserId();
+
   const { error, data: row } = await supabase
     .from("inquiries")
     .insert({
-      device_id: getDeviceId(),
+      user_id: userId,
+      device_id: userId ?? "anonymous",
       name: data.name.trim(),
       email: data.email.trim(),
       phone: data.phone?.trim() || null,
@@ -36,10 +43,13 @@ export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmi
 }
 
 export async function getInquiries(): Promise<RequestHistoryItem[]> {
+  const userId = await getUserId();
+  if (!userId) return [];
+
   const { data, error } = await supabase
     .from("inquiries")
     .select("*")
-    .eq("device_id", getDeviceId())
+    .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -59,10 +69,13 @@ export async function getInquiries(): Promise<RequestHistoryItem[]> {
 }
 
 export async function getInquiryCount(): Promise<number> {
+  const userId = await getUserId();
+  if (!userId) return 0;
+
   const { count, error } = await supabase
     .from("inquiries")
     .select("*", { count: "exact", head: true })
-    .eq("device_id", getDeviceId());
+    .eq("user_id", userId);
 
   if (error) return 0;
   return count ?? 0;

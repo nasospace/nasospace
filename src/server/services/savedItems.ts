@@ -1,9 +1,8 @@
 /**
  * Saved items persistence service.
- * Manages save/unsave for experiences, workshops, and products.
+ * Now uses authenticated user_id. Falls back gracefully if unauthenticated.
  */
 import { supabase } from "@/integrations/supabase/client";
-import { getDeviceId } from "@/lib/deviceId";
 import type { SavedItemType } from "@/features/account/types";
 
 export interface SavedItemRow {
@@ -13,11 +12,19 @@ export interface SavedItemRow {
   created_at: string;
 }
 
+async function getUserId(): Promise<string | null> {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user?.id ?? null;
+}
+
 export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedItemRow[]> {
+  const userId = await getUserId();
+  if (!userId) return [];
+
   let query = supabase
     .from("saved_items")
     .select("*")
-    .eq("device_id", getDeviceId())
+    .eq("user_id", userId)
     .order("created_at", { ascending: false });
 
   if (typeFilter) {
@@ -33,10 +40,13 @@ export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedIt
 }
 
 export async function isItemSaved(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
+  const userId = await getUserId();
+  if (!userId) return false;
+
   const { count, error } = await supabase
     .from("saved_items")
     .select("*", { count: "exact", head: true })
-    .eq("device_id", getDeviceId())
+    .eq("user_id", userId)
     .eq("item_type", itemType)
     .eq("item_slug", itemSlug);
 
@@ -45,16 +55,19 @@ export async function isItemSaved(itemType: SavedItemType, itemSlug: string): Pr
 }
 
 export async function addSavedItem(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
+  const userId = await getUserId();
+  if (!userId) return false;
+
   const { error } = await supabase
     .from("saved_items")
     .insert({
-      device_id: getDeviceId(),
+      user_id: userId,
+      device_id: userId, // keep column populated for backwards compat
       item_type: itemType,
       item_slug: itemSlug,
     });
 
   if (error) {
-    // Unique constraint violation = already saved, treat as success
     if (error.code === "23505") return true;
     console.error("[savedItems] Add failed:", error);
     return false;
@@ -63,10 +76,13 @@ export async function addSavedItem(itemType: SavedItemType, itemSlug: string): P
 }
 
 export async function removeSavedItem(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
+  const userId = await getUserId();
+  if (!userId) return false;
+
   const { error } = await supabase
     .from("saved_items")
     .delete()
-    .eq("device_id", getDeviceId())
+    .eq("user_id", userId)
     .eq("item_type", itemType)
     .eq("item_slug", itemSlug);
 
@@ -78,10 +94,13 @@ export async function removeSavedItem(itemType: SavedItemType, itemSlug: string)
 }
 
 export async function getSavedItemCount(): Promise<number> {
+  const userId = await getUserId();
+  if (!userId) return 0;
+
   const { count, error } = await supabase
     .from("saved_items")
     .select("*", { count: "exact", head: true })
-    .eq("device_id", getDeviceId());
+    .eq("user_id", userId);
 
   if (error) return 0;
   return count ?? 0;

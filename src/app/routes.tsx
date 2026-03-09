@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "@/app/layout";
 import { ROUTES } from "@/config/routes";
+import { RequireAuth } from "@/lib/auth/RequireAuth";
 import HomePage from "@/pages/Index";
 import AboutPage from "@/pages/About";
 import ExperiencesPage from "@/pages/Experiences";
@@ -18,6 +19,8 @@ import CartPage from "@/pages/Cart";
 import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
 import CommunityLovePage from "@/pages/CommunityLove";
+import SignInPage from "@/pages/SignIn";
+import SignUpPage from "@/pages/SignUp";
 import NotFound from "@/pages/NotFound";
 import { AccountLayout } from "@/features/account/components/AccountLayout";
 import AccountPage from "@/pages/Account";
@@ -51,10 +54,18 @@ export const router = createBrowserRouter([
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.COMMUNITY_LOVE, element: <CommunityLovePage /> },
 
-      /* ═══ Account Area (nested layout) ═══ */
+      /* ═══ Auth Pages ═══ */
+      { path: ROUTES.SIGN_IN, element: <SignInPage /> },
+      { path: ROUTES.SIGN_UP, element: <SignUpPage /> },
+
+      /* ═══ Account Area (protected + nested layout) ═══ */
       {
         path: ROUTES.ACCOUNT,
-        element: <AccountLayout />,
+        element: (
+          <RequireAuth>
+            <AccountLayout />
+          </RequireAuth>
+        ),
         children: [
           { index: true, element: <AccountPage /> },
           { path: "saved", element: <AccountSavedPage /> },
