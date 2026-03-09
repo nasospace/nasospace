@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, User } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
