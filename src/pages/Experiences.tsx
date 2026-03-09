@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import {
   ExperienceHero,
   ExperienceCategoryFilter,
@@ -18,6 +19,10 @@ export default function ExperiencesPage() {
 
   return (
     <>
+      <SEOHead
+        title="Experiences"
+        description="Discover unique immersive experiences crafted by NASO. From interactive installations to sensory journeys, explore our curated collection of memorable moments."
+      />
       <ExperienceHero />
       <Section>
         <div className="mb-8">
