@@ -16,7 +16,7 @@ export default function CommunityLove() {
 
       <TestimonialsHero />
 
-      <Section>
+      <Section spacing="default">
         <TestimonialGrid testimonials={testimonials} />
       </Section>
 

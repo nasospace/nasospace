@@ -8,6 +8,14 @@ interface TestimonialCardProps {
   className?: string;
 }
 
+const sourceColors: Record<string, string> = {
+  experience: "bg-primary/10 text-primary",
+  workshop: "bg-secondary/40 text-secondary-foreground",
+  event: "bg-accent/15 text-accent",
+  product: "bg-naso-coral/15 text-naso-coral",
+  general: "bg-muted text-muted-foreground",
+};
+
 export function TestimonialCard({
   testimonial,
   featured = false,
@@ -16,26 +24,26 @@ export function TestimonialCard({
   return (
     <motion.article
       className={cn(
-        "group relative rounded-2xl border-2 border-foreground/10 bg-card p-6 md:p-8",
-        "shadow-soft transition-all duration-300",
-        "hover:border-foreground/20 hover:shadow-elevated hover:-translate-y-1",
-        featured && "md:col-span-2 md:row-span-2 md:p-10",
+        "group relative flex flex-col justify-between rounded-2xl border border-border bg-card p-6 md:p-8",
+        "shadow-soft transition-shadow duration-300",
+        "hover:shadow-card",
+        featured && "md:col-span-2 md:p-10",
         className
       )}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {/* Decorative quote mark */}
       <span
         className={cn(
-          "absolute -top-2 -left-1 font-groovy text-primary/20 select-none pointer-events-none",
-          featured ? "text-[6rem] md:text-[8rem]" : "text-[4rem] md:text-[5rem]"
+          "pointer-events-none absolute -top-3 left-4 select-none font-groovy leading-none text-primary/10",
+          featured ? "text-[7rem]" : "text-[5rem]"
         )}
         aria-hidden
       >
-        "
+        &ldquo;
       </span>
 
       {/* Quote */}
@@ -51,41 +59,28 @@ export function TestimonialCard({
       </blockquote>
 
       {/* Attribution */}
-      <footer className="mt-6 flex items-center gap-3">
-        {testimonial.image ? (
-          <img
-            src={testimonial.image}
-            alt={testimonial.name}
-            className="h-10 w-10 rounded-full object-cover border-2 border-foreground/10"
-          />
-        ) : (
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border-2 border-primary/20">
-            <span className="font-groovy text-sm font-bold text-primary">
-              {testimonial.name.charAt(0)}
-            </span>
-          </div>
-        )}
+      <footer className="mt-6 flex items-center gap-3 pt-4 border-t border-border/60">
+        {/* Avatar initial */}
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+          <span className="font-groovy text-xs font-bold text-primary">
+            {testimonial.name.charAt(0)}
+          </span>
+        </div>
 
-        <div className="flex flex-col">
-          <cite className="not-italic font-display font-semibold text-foreground text-sm">
+        <div className="flex flex-col gap-0.5">
+          <cite className="not-italic font-display text-sm font-semibold text-foreground">
             {testimonial.name}
           </cite>
           {testimonial.contextTag && (
-            <span className="text-xs text-muted-foreground">
+            <span className={cn(
+              "inline-block w-fit rounded-full px-2 py-0.5 text-[10px] font-display font-medium uppercase tracking-wider",
+              sourceColors[testimonial.sourceType] ?? sourceColors.general
+            )}>
               {testimonial.contextTag}
             </span>
           )}
         </div>
       </footer>
-
-      {/* Source type pill */}
-      {testimonial.sourceType !== "general" && (
-        <div className="absolute top-4 right-4">
-          <span className="inline-flex items-center rounded-full bg-secondary/50 px-2.5 py-0.5 text-[10px] font-display font-medium uppercase tracking-wider text-secondary-foreground/70">
-            {testimonial.sourceType}
-          </span>
-        </div>
-      )}
     </motion.article>
   );
 }
