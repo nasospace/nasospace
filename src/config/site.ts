@@ -12,6 +12,8 @@ export const siteConfig = {
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
     { label: "Shop", href: ROUTES.SHOP },
+    { label: "Community Love", href: ROUTES.COMMUNITY_LOVE },
+    { label: "FAQ", href: ROUTES.FAQ },
     { label: "Contact", href: ROUTES.CONTACT },
   ],
   social: {
