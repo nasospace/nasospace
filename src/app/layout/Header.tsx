@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, ChevronDown, User } from "lucide-react";
+import { Menu, ChevronDown, User, ShoppingBag } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/config/routes";
+import { useCart } from "@/features/cart";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
