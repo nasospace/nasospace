@@ -22,8 +22,9 @@ export default function ShopPage() {
   return (
     <>
       <SEOHead
-        title="Shop"
+        title="Shop — Creative Products & Merch by NASO"
         description="Browse NASO's curated collection of creative products, merchandise, and unique items crafted with intention and bold design."
+        canonical="/shop"
       />
       <ShopHero />
       <Section>

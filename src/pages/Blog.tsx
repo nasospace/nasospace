@@ -29,8 +29,9 @@ export default function BlogPage() {
   return (
     <>
       <SEOHead
-        title="Blog"
+        title="Blog — Stories, Insights & Behind the Scenes"
         description="Read stories, insights, and behind-the-scenes from NASO — covering creativity, culture, experiences, and everything in between."
+        canonical="/blog"
       />
       <BlogHero />
 

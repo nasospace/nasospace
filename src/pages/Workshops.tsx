@@ -22,8 +22,9 @@ export default function WorkshopsPage() {
   return (
     <>
       <SEOHead
-        title="Workshops"
-        description="Join NASO's creative workshops and learn from industry experts. Hands-on sessions covering design, art, technology, and more for all skill levels."
+        title="Workshops — Hands-On Creative Classes by NASO"
+        description="Join NASO's creative workshops in Cairo. Hands-on sessions covering design, art, technology, and more for all skill levels."
+        canonical="/workshops"
       />
       <WorkshopHero />
       <Section>
