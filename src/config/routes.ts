@@ -21,6 +21,9 @@ export const ROUTES = {
   INQUIRIES: "/inquiries",
   COMMUNITY_LOVE: "/community-love",
   ACCOUNT: "/account",
+  ACCOUNT_SAVED: "/account/saved",
+  ACCOUNT_REQUESTS: "/account/requests",
+  ACCOUNT_SETTINGS: "/account/settings",
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
