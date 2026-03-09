@@ -79,6 +79,12 @@ export default function SignInPage() {
                 placeholder="••••••••"
                 minLength={6}
               />
+              <Link
+                to={ROUTES.FORGOT_PASSWORD}
+                className="self-end text-xs text-muted-foreground hover:text-primary"
+              >
+                Forgot password?
+              </Link>
             </div>
 
             {error && (
