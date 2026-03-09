@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { ROUTES } from "@/config/routes";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { lovable } from "@/integrations/lovable";
+import { isRateLimited, recordSubmission } from "@/lib/abuse-protection";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function SignUpPage() {
@@ -14,6 +15,7 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string })?.from || ROUTES.ACCOUNT;
+  const submittingRef = useRef(false);
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
@@ -40,17 +42,28 @@ export default function SignUpPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittingRef.current) return;
     setError("");
+
+    if (isRateLimited("sign-up", { maxAttempts: 3, windowMs: 120_000 })) {
+      setError("Too many sign-up attempts. Please wait a couple of minutes.");
+      return;
+    }
+
+    submittingRef.current = true;
     setLoading(true);
 
     const result = await signUp(email, password, displayName || undefined);
+    recordSubmission("sign-up");
+
     if (result.error) {
       setError(result.error);
       setLoading(false);
+      submittingRef.current = false;
     } else {
-      // Email confirmation may be required — show success message
       setSuccess(true);
       setLoading(false);
+      submittingRef.current = false;
     }
   };
 

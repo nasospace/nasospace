@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { format } from "date-fns";
@@ -8,6 +8,14 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
+import { HoneypotField } from "@/components/shared/HoneypotField";
+import {
+  isHoneypotTriggered,
+  isRateLimited,
+  recordSubmission,
+  isTooFast,
+  HONEYPOT_FIELD,
+} from "@/lib/abuse-protection";
 import {
   INQUIRY_TYPES,
   INQUIRY_TYPE_META,
@@ -65,6 +73,7 @@ interface InquiryFormProps {
 export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   const { toast } = useToast();
   const defaultType = contextToInquiryType(context.ref);
+  const mountedAt = useRef(Date.now());
 
   const [form, setForm] = useState<InquiryFormData>({
     name: "",
@@ -79,6 +88,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
     itemTitle: context.title ?? undefined,
   });
 
+  const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [submitting, setSubmitting] = useState(false);
@@ -99,6 +109,21 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
     e.preventDefault();
     setSubmitError(null);
 
+    // Abuse checks
+    if (isHoneypotTriggered({ [HONEYPOT_FIELD]: honeypot })) {
+      // Silently succeed for bots
+      onSuccess();
+      return;
+    }
+    if (isTooFast(mountedAt.current)) {
+      setSubmitError("Please take a moment to fill out the form.");
+      return;
+    }
+    if (isRateLimited("inquiry", { maxAttempts: 5, windowMs: 120_000 })) {
+      setSubmitError("You've submitted too many requests. Please wait a couple of minutes.");
+      return;
+    }
+
     const result = inquirySchema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
@@ -118,6 +143,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
         setSubmitError(result.message);
         return;
       }
+      recordSubmission("inquiry");
       toast({
         title: "Request sent! ✦",
         description: "Your inquiry has been submitted. We'll get back to you within 24 hours.",
@@ -144,6 +170,9 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
       className="space-y-6"
       noValidate
     >
+      {/* Honeypot — hidden from humans */}
+      <HoneypotField value={honeypot} onChange={setHoneypot} />
+
       {/* Booking context card */}
       {context.ref && context.title && (
         <motion.div variants={fadeUp}>
