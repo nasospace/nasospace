@@ -20,8 +20,8 @@ export function HoneypotField({ value, onChange }: HoneypotFieldProps) {
         opacity: 0,
         height: 0,
         overflow: "hidden",
-        tabIndex: -1,
       }}
+      tabIndex={-1}
     >
       <label htmlFor={HONEYPOT_FIELD}>Website</label>
       <input
