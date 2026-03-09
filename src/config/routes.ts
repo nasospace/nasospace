@@ -27,6 +27,8 @@ export const ROUTES = {
   ACCOUNT_SETTINGS: "/account/settings",
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
