@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton, InfoRow } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { usePortfolioItem, usePortfolioItems } from "../hooks/usePortfolio";
