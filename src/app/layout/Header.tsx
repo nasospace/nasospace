@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, ChevronDown, User } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { ROUTES } from "@/config/routes";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -104,10 +105,10 @@ export function Header() {
           </DropdownMenu>
           {/* Account icon */}
           <Link
-            to="/account"
+            to={ROUTES.ACCOUNT}
             className={cn(
               "ml-2 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive("/account")
+              isActive(ROUTES.ACCOUNT)
                 ? "border-foreground bg-foreground text-background"
                 : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
             )}
@@ -120,10 +121,10 @@ export function Header() {
         {/* Mobile: account icon + hamburger */}
         <div className="flex items-center gap-2 md:hidden">
           <Link
-            to="/account"
+            to={ROUTES.ACCOUNT}
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive("/account")
+              isActive(ROUTES.ACCOUNT)
                 ? "border-foreground bg-foreground text-background"
                 : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
             )}
@@ -167,11 +168,11 @@ export function Header() {
               {/* Account link in mobile menu */}
               <div className="mx-4 my-2 border-t border-border" />
               <Link
-                to="/account"
+                to={ROUTES.ACCOUNT}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
                   "flex items-center gap-2 rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
-                  isActive("/account")
+                  isActive(ROUTES.ACCOUNT)
                     ? "bg-foreground/5 text-foreground"
                     : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                 )}

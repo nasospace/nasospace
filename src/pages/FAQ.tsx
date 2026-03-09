@@ -1,14 +1,19 @@
+import { useEffect } from "react";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { FAQHero, FAQAccordion, FAQCTA } from "@/features/faq";
-import { faqCategories } from "@/features/faq/data";
-import { useEffect } from "react";
+import { useFaqCategories } from "@/features/faq/hooks/useFaq";
 
-function useFaqJsonLd() {
+/**
+ * Injects FAQ JSON-LD structured data from CMS-backed FAQ categories.
+ */
+function useFaqJsonLd(categories: { items: { question: string; answer: string }[] }[]) {
   useEffect(() => {
+    if (categories.length === 0) return;
+
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: faqCategories.flatMap((cat) =>
+      mainEntity: categories.flatMap((cat) =>
         cat.items.map((item) => ({
           "@type": "Question",
           name: item.question,
@@ -28,11 +33,12 @@ function useFaqJsonLd() {
     return () => {
       document.head.removeChild(script);
     };
-  }, []);
+  }, [categories]);
 }
 
 export default function FAQPage() {
-  useFaqJsonLd();
+  const { data: faqCategories = [] } = useFaqCategories();
+  useFaqJsonLd(faqCategories);
 
   return (
     <>
