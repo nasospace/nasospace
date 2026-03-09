@@ -5,6 +5,7 @@ import type { Testimonial } from "../types";
 interface TestimonialCardProps {
   testimonial: Testimonial;
   featured?: boolean;
+  index?: number;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ const sourceColors: Record<string, string> = {
 export function TestimonialCard({
   testimonial,
   featured = false,
+  index = 0,
   className,
 }: TestimonialCardProps) {
   return (
@@ -30,10 +32,14 @@ export function TestimonialCard({
         featured && "md:col-span-2 md:p-10",
         className
       )}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 32, scale: 0.97 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{
+        duration: 0.5,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay: (index % 3) * 0.1,
+      }}
     >
       {/* Decorative quote mark */}
       <span
@@ -60,7 +66,6 @@ export function TestimonialCard({
 
       {/* Attribution */}
       <footer className="mt-6 flex items-center gap-3 pt-4 border-t border-border/60">
-        {/* Avatar initial */}
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
           <span className="font-groovy text-xs font-bold text-primary">
             {testimonial.name.charAt(0)}
