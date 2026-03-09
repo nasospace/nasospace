@@ -34,7 +34,11 @@ export default function ForgotPasswordPage() {
 
   return (
     <>
-      <SEOHead title="Reset Password — NASO" description="Reset your NASO account password." />
+      <SEOHead
+        title="Reset Password"
+        description="Reset your NASO account password."
+        noindex
+      />
       <div className="flex min-h-[70vh] items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center">

@@ -18,7 +18,11 @@ export default function CartPage() {
 
   return (
     <>
-      <SEOHead title="Your Cart — NASO" description="Review your NASO cart." />
+      <SEOHead
+        title="Your Cart"
+        description="Review your NASO cart."
+        canonical="/cart"
+      />
 
       {/* Hero */}
       <Section spacing="lg" className="text-center">

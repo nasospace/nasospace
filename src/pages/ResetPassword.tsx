@@ -58,7 +58,11 @@ export default function ResetPasswordPage() {
 
   return (
     <>
-      <SEOHead title="Set New Password — NASO" description="Set a new password for your NASO account." />
+      <SEOHead
+        title="Set New Password"
+        description="Set a new password for your NASO account."
+        noindex
+      />
       <div className="flex min-h-[70vh] items-center justify-center px-4 py-16">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center">
