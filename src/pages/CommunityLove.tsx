@@ -3,10 +3,13 @@ import {
   TestimonialsHero,
   TestimonialGrid,
   TestimonialsCTA,
-  testimonials,
 } from "@/features/testimonials";
+import { useTestimonials } from "@/features/testimonials/hooks/useTestimonials";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CommunityLove() {
+  const { data: testimonials = [], isLoading } = useTestimonials();
+
   return (
     <>
       <SEOHead
@@ -17,7 +20,19 @@ export default function CommunityLove() {
       <TestimonialsHero />
 
       <Section spacing="default">
-        <TestimonialGrid testimonials={testimonials} />
+        {isLoading ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-48 w-full rounded-2xl" />
+            ))}
+          </div>
+        ) : testimonials.length === 0 ? (
+          <div className="py-16 text-center">
+            <p className="text-muted-foreground">No testimonials yet — stay tuned!</p>
+          </div>
+        ) : (
+          <TestimonialGrid testimonials={testimonials} />
+        )}
       </Section>
 
       <TestimonialsCTA />

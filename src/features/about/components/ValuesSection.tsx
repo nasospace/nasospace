@@ -3,9 +3,14 @@ import { Section } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { StickerBadge, Sparkle } from "@/components/shared/RetroElements";
 import { staggerContainer, fadeUp, popIn } from "@/lib/motion";
-import { values } from "../data";
+import { values as defaultValues } from "../data";
 
-export function ValuesSection() {
+interface ValuesSectionProps {
+  items?: Array<{ title: string; body: string }>;
+}
+
+export function ValuesSection({ items }: ValuesSectionProps) {
+  const data = items ?? defaultValues;
   return (
     <Section className="relative overflow-hidden bg-card">
       <div className="absolute inset-0 naso-checkerboard opacity-30" />
@@ -30,7 +35,7 @@ export function ValuesSection() {
           variants={staggerContainer}
           className="mx-auto mt-12 grid max-w-3xl gap-8 md:grid-cols-2"
         >
-          {values.map((v) => (
+          {data.map((v) => (
             <motion.div
               key={v.title}
               variants={fadeUp}

@@ -3,7 +3,14 @@ import { staggerSlow, fadeUp, popIn } from "@/lib/motion";
 import { StickerBadge, FlowerShape, WavyDivider } from "@/components/shared/RetroElements";
 import { aboutHero } from "../data";
 
-export function AboutHero() {
+interface AboutHeroProps {
+  headline?: string;
+  subline?: string;
+}
+
+export function AboutHero({ headline, subline }: AboutHeroProps) {
+  const h = headline ?? aboutHero.headline;
+  const s = subline ?? aboutHero.subline;
   return (
     <>
       <section className="relative overflow-hidden bg-card py-section-lg">
@@ -26,14 +33,14 @@ export function AboutHero() {
               variants={fadeUp}
               className="mt-8 font-groovy text-[clamp(2rem,6vw,4rem)] font-black leading-[1.05] tracking-[-0.02em]"
             >
-              {aboutHero.headline}
+              {h}
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
               className="mt-6 text-lg leading-relaxed text-muted-foreground lg:text-xl"
             >
-              {aboutHero.subline}
+              {s}
             </motion.p>
 
             <motion.div
