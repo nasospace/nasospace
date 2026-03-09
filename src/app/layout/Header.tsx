@@ -141,8 +141,25 @@ export function Header() {
           </Link>
         </nav>
 
-        {/* Mobile: account icon + hamburger */}
+        {/* Mobile: cart + account + hamburger */}
         <div className="flex items-center gap-2 md:hidden">
+          <Link
+            to={ROUTES.CART}
+            className={cn(
+              "relative flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+              isActive(ROUTES.CART)
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}
+            aria-label="Your cart"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            {cartCount > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
+                {cartCount > 9 ? "9+" : cartCount}
+              </span>
+            )}
+          </Link>
           <Link
             to={ROUTES.ACCOUNT}
             className={cn(
