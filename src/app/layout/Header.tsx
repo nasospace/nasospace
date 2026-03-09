@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
   const { pathname } = useLocation();
@@ -23,6 +29,14 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const moreIsActive = siteConfig.moreNav.some((item) => isActive(item.href));
+
+  const allMobileNav = [...siteConfig.nav, ...siteConfig.moreNav];
+
   return (
     <header
       className={cn(
@@ -50,7 +64,7 @@ export function Header() {
               to={item.href}
               className={cn(
                 "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
-                (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
+                isActive(item.href)
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
@@ -58,6 +72,36 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+
+          {/* More dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={cn(
+                "inline-flex items-center gap-1 font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 outline-none",
+                moreIsActive
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              More
+              <ChevronDown className="h-3 w-3" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[180px]">
+              {siteConfig.moreNav.map((item) => (
+                <DropdownMenuItem key={item.href} asChild>
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      "w-full font-display text-sm",
+                      isActive(item.href) && "font-semibold"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         {/* Mobile hamburger */}
@@ -78,14 +122,14 @@ export function Header() {
               <img src={nasoLogo} alt={siteConfig.name} className="h-8 w-auto" />
             </SheetHeader>
             <nav className="mt-8 flex flex-col gap-1 px-4">
-              {siteConfig.nav.map((item) => (
+              {allMobileNav.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
                     "rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
-                    (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href))
+                    isActive(item.href)
                       ? "bg-foreground/5 text-foreground"
                       : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                   )}
