@@ -19,6 +19,7 @@ export const ROUTES = {
   FAQ: "/faq",
   CONTACT: "/contact",
   INQUIRIES: "/inquiries",
+  COMMUNITY_LOVE: "/community-love",
   ACCOUNT: "/account",
 } as const;
 

@@ -42,6 +42,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.FAQ, element: <FAQPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
+      { path: ROUTES.COMMUNITY_LOVE, element: <CommunityLovePage /> },
       { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
       { path: "*", element: <NotFound /> },
     ],

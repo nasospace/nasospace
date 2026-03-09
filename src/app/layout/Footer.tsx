@@ -13,9 +13,9 @@ export function Footer() {
     { label: "Portfolio", href: ROUTES.PORTFOLIO },
     { label: "Blog", href: ROUTES.BLOG },
     { label: "Shop", href: ROUTES.SHOP },
+    { label: "Community Love", href: ROUTES.COMMUNITY_LOVE },
     { label: "FAQ", href: ROUTES.FAQ },
     { label: "Contact", href: ROUTES.CONTACT },
-    { label: "Inquiries", href: ROUTES.INQUIRIES },
   ];
 
   return (
