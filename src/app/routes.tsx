@@ -38,6 +38,9 @@ import AdminInquiriesPage from "@/pages/admin/AdminInquiries";
 import AdminUsersPage from "@/pages/admin/AdminUsers";
 import AdminSavedItemsPage from "@/pages/admin/AdminSavedItems";
 import AdminProductsPage from "@/pages/admin/AdminProducts";
+import AdminExperiencesPage from "@/pages/admin/AdminExperiences";
+import AdminWorkshopsPage from "@/pages/admin/AdminWorkshops";
+import AdminPortfolioPage from "@/pages/admin/AdminPortfolio";
 
 /**
  * Central route definitions.
@@ -105,6 +108,9 @@ export const router = createBrowserRouter([
       { path: "users", element: <AdminUsersPage /> },
       { path: "saved", element: <AdminSavedItemsPage /> },
       { path: "products", element: <AdminProductsPage /> },
+      { path: "experiences", element: <AdminExperiencesPage /> },
+      { path: "workshops", element: <AdminWorkshopsPage /> },
+      { path: "portfolio", element: <AdminPortfolioPage /> },
     ],
   },
 ]);
