@@ -46,7 +46,7 @@ export function FAQAccordion() {
         {!isLoading && filtered.length === 0 && (
           <p className="text-center text-sm text-muted-foreground">
             No questions match your search. Try different keywords or{" "}
-            <a href="/contact" className="text-primary underline">contact us</a>.
+            <a href="/contact" className="text-primary underline underline-offset-2 transition-colors hover:text-foreground">contact us</a>.
           </p>
         )}
 

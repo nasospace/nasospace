@@ -168,11 +168,11 @@ export function Header() {
               {/* Account link in mobile menu */}
               <div className="mx-4 my-2 border-t border-border" />
               <Link
-                to="/account"
+                to={ROUTES.ACCOUNT}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
                   "flex items-center gap-2 rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
-                  isActive("/account")
+                  isActive(ROUTES.ACCOUNT)
                     ? "bg-foreground/5 text-foreground"
                     : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                 )}
