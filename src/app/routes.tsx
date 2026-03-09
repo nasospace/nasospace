@@ -45,6 +45,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.BLOG_DETAIL, element: <BlogDetailPage /> },
       { path: ROUTES.SHOP, element: <ShopPage /> },
       { path: ROUTES.SHOP_DETAIL, element: <ProductDetailPage /> },
+      { path: ROUTES.CART, element: <CartPage /> },
       { path: ROUTES.FAQ, element: <FAQPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },

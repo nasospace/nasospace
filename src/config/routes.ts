@@ -16,6 +16,7 @@ export const ROUTES = {
   BLOG_DETAIL: "/blog/:slug",
   SHOP: "/shop",
   SHOP_DETAIL: "/shop/:slug",
+  CART: "/cart",
   FAQ: "/faq",
   CONTACT: "/contact",
   INQUIRIES: "/inquiries",

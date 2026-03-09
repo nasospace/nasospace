@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Check, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, MagneticButton, SaveButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { useToast } from "@/hooks/use-toast";
+import { useCart } from "@/features/cart";
 import { useProduct, useProducts } from "../hooks/useProducts";
 import { PRODUCT_CATEGORY_META } from "../types";
 import { ProductGrid } from "./ProductGrid";
@@ -19,6 +22,12 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
   const { data: product, isLoading } = useProduct(slug);
   const { data: allProducts = [] } = useProducts();
   const { toast } = useToast();
+  const { addItem } = useCart();
+
+  const [selectedSize, setSelectedSize] = useState<string | undefined>();
+  const [selectedColor, setSelectedColor] = useState<string | undefined>();
+  const [quantity, setQuantity] = useState(1);
+  const [justAdded, setJustAdded] = useState(false);
 
   if (isLoading) {
     return (
@@ -55,12 +64,16 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
   }
 
   const meta = PRODUCT_CATEGORY_META[product.category];
-  // Related: same category first, then others
   const related = [
     ...allProducts.filter((p) => p.category === product.category && p.id !== product.id),
     ...allProducts.filter((p) => p.category !== product.category && p.id !== product.id),
   ].slice(0, 4);
   const isSoldOut = product.stockStatus === "sold-out";
+  const hasSizes = product.sizes && product.sizes.length > 0;
+  const hasColors = product.colors && product.colors.length > 0;
+  const needsSize = hasSizes && !selectedSize;
+  const needsColor = hasColors && !selectedColor;
+  const canAdd = !isSoldOut && !needsSize && !needsColor;
 
   const hasLinkedExperience = !!product.linkedExperienceSlug;
   const hasLinkedWorkshop = !!product.linkedWorkshopSlug;
@@ -68,10 +81,28 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
   const hasLinks = hasLinkedExperience || hasLinkedWorkshop || hasLinkedPortfolio;
 
   const handleAddToCart = () => {
+    if (!canAdd) return;
+    addItem(
+      {
+        productId: product.id,
+        slug: product.slug,
+        title: product.title,
+        price: product.price,
+        currency: product.currency,
+        coverImageSrc: product.coverImage.src,
+        selectedSize,
+        selectedColor,
+        stockStatus: product.stockStatus,
+        limitedEdition: product.limitedEdition,
+      },
+      quantity
+    );
+    setJustAdded(true);
     toast({
-      title: "Cart coming soon ✦",
-      description: "Reach out to us to order this item — we'll sort it out personally.",
+      title: "Added to cart ✦",
+      description: `${product.title}${selectedSize ? ` — ${selectedSize}` : ""}${selectedColor ? ` / ${selectedColor}` : ""} × ${quantity}`,
     });
+    setTimeout(() => setJustAdded(false), 2000);
   };
 
   const inquiryPath = buildInquiryPath({
@@ -159,58 +190,104 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
             </motion.div>
 
             {/* Sizes */}
-            {product.sizes && product.sizes.length > 0 && (
+            {hasSizes && (
               <motion.div variants={fadeUpDelay(0.25)} className="flex flex-col gap-2">
                 <span className="font-display text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Sizes
+                  Size {needsSize && <span className="text-destructive">— select one</span>}
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {product.sizes.map((size) => (
-                    <span
+                  {product.sizes!.map((size) => (
+                    <button
                       key={size}
-                      className="inline-flex items-center justify-center rounded-lg border-2 border-foreground/20 px-3 py-1.5 font-display text-xs font-semibold"
+                      onClick={() => setSelectedSize(size)}
+                      className={cn(
+                        "inline-flex items-center justify-center rounded-lg border-2 px-3 py-1.5 font-display text-xs font-semibold transition-all",
+                        selectedSize === size
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-foreground/20 hover:border-foreground/50"
+                      )}
                     >
                       {size}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </motion.div>
             )}
 
             {/* Colors */}
-            {product.colors && product.colors.length > 0 && (
+            {hasColors && (
               <motion.div variants={fadeUpDelay(0.3)} className="flex flex-col gap-2">
                 <span className="font-display text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Colors
+                  Color {needsColor && <span className="text-destructive">— select one</span>}
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {product.colors.map((color) => (
-                    <span
+                  {product.colors!.map((color) => (
+                    <button
                       key={color}
-                      className="inline-flex items-center rounded-full border border-foreground/15 px-3 py-1 font-display text-xs"
+                      onClick={() => setSelectedColor(color)}
+                      className={cn(
+                        "inline-flex items-center rounded-full border px-3 py-1 font-display text-xs transition-all",
+                        selectedColor === color
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-foreground/15 hover:border-foreground/40"
+                      )}
                     >
                       {color}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </motion.div>
             )}
 
+            {/* Quantity */}
+            <motion.div variants={fadeUpDelay(0.32)} className="flex items-center gap-3">
+              <span className="font-display text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Qty
+              </span>
+              <div className="flex items-center gap-1 rounded-lg border border-border">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="px-3 py-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  −
+                </button>
+                <span className="w-8 text-center font-display text-sm font-semibold">{quantity}</span>
+                <button
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="px-3 py-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  +
+                </button>
+              </div>
+            </motion.div>
+
             {/* CTAs */}
             <motion.div variants={fadeUpDelay(0.35)} className="flex flex-col gap-3 pt-2 sm:flex-row">
               <button
                 onClick={handleAddToCart}
-                disabled={isSoldOut}
+                disabled={!canAdd}
                 className={cn(
-                  "inline-flex items-center justify-center rounded-full border-2 border-foreground px-8 py-3",
+                  "inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground px-8 py-3",
                   "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
-                  "transition-shadow hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
-                  isSoldOut
+                  "transition-all hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
+                  !canAdd
                     ? "cursor-not-allowed bg-muted text-muted-foreground"
-                    : "bg-primary text-primary-foreground"
+                    : justAdded
+                      ? "bg-secondary text-secondary-foreground"
+                      : "bg-primary text-primary-foreground"
                 )}
               >
-                {isSoldOut ? "Sold Out" : "Add to Cart"}
+                {isSoldOut ? (
+                  "Sold Out"
+                ) : justAdded ? (
+                  <>
+                    <Check className="h-4 w-4" /> Added!
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="h-4 w-4" /> Add to Cart
+                  </>
+                )}
               </button>
 
               <Link
@@ -235,7 +312,6 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
           <p className="whitespace-pre-line text-base leading-relaxed text-foreground/90">
             {product.description}
           </p>
-
           {product.tags.length > 0 && (
             <div className="mt-6 flex flex-wrap gap-2">
               {product.tags.map((tag) => (
