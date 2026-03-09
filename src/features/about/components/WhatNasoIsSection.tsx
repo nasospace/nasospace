@@ -3,7 +3,12 @@ import { MotionDiv } from "@/components/shared/MotionDiv";
 import { Sparkle } from "@/components/shared/RetroElements";
 import { fadeUp, staggerSlow } from "@/lib/motion";
 
-export function WhatNasoIsSection() {
+interface WhatNasoIsSectionProps {
+  title?: string;
+  body?: string;
+}
+
+export function WhatNasoIsSection({ title, body }: WhatNasoIsSectionProps) {
   return (
     <section className="relative overflow-hidden py-section">
       <div className="absolute inset-0 naso-grid-bg" />

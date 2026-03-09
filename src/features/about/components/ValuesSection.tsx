@@ -35,7 +35,7 @@ export function ValuesSection({ items }: ValuesSectionProps) {
           variants={staggerContainer}
           className="mx-auto mt-12 grid max-w-3xl gap-8 md:grid-cols-2"
         >
-          {values.map((v) => (
+          {data.map((v) => (
             <motion.div
               key={v.title}
               variants={fadeUp}

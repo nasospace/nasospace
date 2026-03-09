@@ -35,7 +35,7 @@ export function OfferingsSection({ items }: OfferingsSectionProps) {
         variants={staggerContainer}
         className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {offerings.map((item) => (
+        {data.map((item) => (
           <motion.div
             key={item.title}
             variants={fadeUp}
