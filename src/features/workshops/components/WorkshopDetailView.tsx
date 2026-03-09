@@ -54,15 +54,20 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
               </StickerBadge>
             </motion.div>
 
-            <motion.h1
-              variants={fadeUpDelay(0.1)}
-              className={cn(
-                "font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-6xl",
-                meta.textColor
-              )}
-            >
-              {workshop.title}
-            </motion.h1>
+            <div className="flex items-start justify-between gap-4">
+              <motion.h1
+                variants={fadeUpDelay(0.1)}
+                className={cn(
+                  "font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-6xl",
+                  meta.textColor
+                )}
+              >
+                {workshop.title}
+              </motion.h1>
+              <motion.div variants={fadeUpDelay(0.15)}>
+                <SaveButton itemType="workshop" title={workshop.title} />
+              </motion.div>
+            </div>
 
             <motion.p
               variants={fadeUpDelay(0.2)}

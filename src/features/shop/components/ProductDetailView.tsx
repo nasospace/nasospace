@@ -92,13 +92,13 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
               </span>
             </motion.div>
 
-            {/* Title */}
-            <motion.h1
-              variants={fadeUpDelay(0.05)}
-              className="font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
-            >
-              {product.title}
-            </motion.h1>
+            {/* Title + Save */}
+            <motion.div variants={fadeUpDelay(0.05)} className="flex items-start justify-between gap-4">
+              <h1 className="font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+                {product.title}
+              </h1>
+              <SaveButton itemType="product" title={product.title} />
+            </motion.div>
 
             {/* Summary */}
             <motion.p
