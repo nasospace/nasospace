@@ -6,16 +6,18 @@ import {
   ExperienceCategoryFilter,
   ExperienceGrid,
 } from "@/features/experiences/components";
-import { MOCK_EXPERIENCES } from "@/features/experiences/data";
+import { useExperiences } from "@/features/experiences/hooks/useExperiences";
 import type { ExperienceCategory } from "@/features/experiences/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ExperiencesPage() {
   const [active, setActive] = useState<ExperienceCategory | "all">("all");
+  const { data: experiences = [], isLoading } = useExperiences();
 
   const filtered =
     active === "all"
-      ? MOCK_EXPERIENCES
-      : MOCK_EXPERIENCES.filter((e) => e.category === active);
+      ? experiences
+      : experiences.filter((e) => e.category === active);
 
   return (
     <>
@@ -28,7 +30,15 @@ export default function ExperiencesPage() {
         <div className="mb-8">
           <ExperienceCategoryFilter active={active} onChange={setActive} />
         </div>
-        <ExperienceGrid key={active} experiences={filtered} />
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-72 rounded-2xl" />
+            ))}
+          </div>
+        ) : (
+          <ExperienceGrid key={active} experiences={filtered} />
+        )}
       </Section>
     </>
   );

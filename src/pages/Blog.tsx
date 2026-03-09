@@ -7,19 +7,20 @@ import {
   BlogCard,
   BlogGrid,
 } from "@/features/blog/components";
-import { MOCK_BLOG_POSTS, getFeaturedPost } from "@/features/blog/data";
+import { useBlogPosts, useFeaturedBlogPost } from "@/features/blog/hooks/useBlogPosts";
 import type { BlogCategory } from "@/features/blog/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function BlogPage() {
   const [active, setActive] = useState<BlogCategory | "all">("all");
+  const { data: posts = [], isLoading } = useBlogPosts();
+  const { data: featuredPost } = useFeaturedBlogPost();
 
-  const featuredPost = getFeaturedPost();
   const filtered =
     active === "all"
-      ? MOCK_BLOG_POSTS
-      : MOCK_BLOG_POSTS.filter((p) => p.category === active);
+      ? posts
+      : posts.filter((p) => p.category === active);
 
-  // Show featured card only when showing "all"
   const showFeatured = active === "all" && featuredPost;
   const gridPosts = showFeatured
     ? filtered.filter((p) => p.id !== featuredPost?.id)
@@ -38,14 +39,25 @@ export default function BlogPage() {
           <BlogCategoryFilter active={active} onChange={setActive} />
         </div>
 
-        {/* Featured post — horizontal card */}
-        {showFeatured && featuredPost && (
-          <div className="mb-10">
-            <BlogCard post={featuredPost} featured />
+        {isLoading ? (
+          <div className="space-y-6">
+            <Skeleton className="h-48 rounded-2xl" />
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-64 rounded-2xl" />
+              ))}
+            </div>
           </div>
+        ) : (
+          <>
+            {showFeatured && featuredPost && (
+              <div className="mb-10">
+                <BlogCard post={featuredPost} featured />
+              </div>
+            )}
+            <BlogGrid key={active} posts={gridPosts} />
+          </>
         )}
-
-        <BlogGrid key={active} posts={gridPosts} />
       </Section>
     </>
   );
