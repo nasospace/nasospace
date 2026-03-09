@@ -14,7 +14,111 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inquiries: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          device_id: string
+          email: string
+          group_size: string | null
+          id: string
+          inquiry_type: string
+          item_slug: string | null
+          item_title: string | null
+          item_type: string | null
+          last_updated: string
+          name: string
+          notes: string | null
+          phone: string | null
+          preferred_date: string | null
+          status: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          device_id: string
+          email: string
+          group_size?: string | null
+          id?: string
+          inquiry_type: string
+          item_slug?: string | null
+          item_title?: string | null
+          item_type?: string | null
+          last_updated?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          status?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          device_id?: string
+          email?: string
+          group_size?: string | null
+          id?: string
+          inquiry_type?: string
+          item_slug?: string | null
+          item_title?: string | null
+          item_type?: string | null
+          last_updated?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          device_id: string
+          display_name: string
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          device_id: string
+          display_name?: string
+          email?: string | null
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          display_name?: string
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      saved_items: {
+        Row: {
+          created_at: string
+          device_id: string
+          id: string
+          item_slug: string
+          item_type: string
+        }
+        Insert: {
+          created_at?: string
+          device_id: string
+          id?: string
+          item_slug: string
+          item_type: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          id?: string
+          item_slug?: string
+          item_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
