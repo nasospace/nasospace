@@ -6,17 +6,36 @@ import { Section, MagneticButton, SaveButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { useToast } from "@/hooks/use-toast";
-import { getProductBySlug, getRelatedProducts } from "../data";
+import { useProduct, useProducts } from "../hooks/useProducts";
 import { PRODUCT_CATEGORY_META } from "../types";
 import { ProductGrid } from "./ProductGrid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductDetailViewProps {
   slug: string;
 }
 
 export function ProductDetailView({ slug }: ProductDetailViewProps) {
-  const product = getProductBySlug(slug);
+  const { data: product, isLoading } = useProduct(slug);
+  const { data: allProducts = [] } = useProducts();
   const { toast } = useToast();
+
+  if (isLoading) {
+    return (
+      <Section spacing="lg">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+          <Skeleton className="aspect-[4/5] w-full rounded-2xl" />
+          <div className="flex flex-col gap-4">
+            <Skeleton className="h-6 w-24 rounded-full" />
+            <Skeleton className="h-10 w-3/4" />
+            <Skeleton className="h-5 w-full" />
+            <Skeleton className="h-8 w-32" />
+            <Skeleton className="h-12 w-48 rounded-full" />
+          </div>
+        </div>
+      </Section>
+    );
+  }
 
   if (!product) {
     return (
@@ -36,7 +55,11 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
   }
 
   const meta = PRODUCT_CATEGORY_META[product.category];
-  const related = getRelatedProducts(product, 4);
+  // Related: same category first, then others
+  const related = [
+    ...allProducts.filter((p) => p.category === product.category && p.id !== product.id),
+    ...allProducts.filter((p) => p.category !== product.category && p.id !== product.id),
+  ].slice(0, 4);
   const isSoldOut = product.stockStatus === "sold-out";
 
   const hasLinkedExperience = !!product.linkedExperienceSlug;

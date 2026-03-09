@@ -40,29 +40,14 @@ async function enrichSavedItems(
   const expMap = new Map((expResult.data ?? []).map((r) => [r.slug, r]));
   const wsMap = new Map((wsResult.data ?? []).map((r) => [r.slug, r]));
 
-  // For products, use mock data until commerce CMS is built
-  let prodMap = new Map<string, { slug: string; title: string; summary: string; cover_image_src: string; cover_image_alt: string; price: number; currency: string }>();
-  if (productSlugs.length > 0) {
-    try {
-      const { MOCK_PRODUCTS } = await import("@/features/shop/data");
-      for (const slug of productSlugs) {
-        const prod = MOCK_PRODUCTS.find((p) => p.slug === slug);
-        if (prod) {
-          prodMap.set(slug, {
-            slug: prod.slug,
-            title: prod.title,
-            summary: prod.summary,
-            cover_image_src: prod.coverImage.src,
-            cover_image_alt: prod.coverImage.alt,
-            price: prod.price,
-            currency: prod.currency,
-          });
-        }
-      }
-    } catch {
-      // Mock data unavailable — skip products
-    }
-  }
+  // Fetch products from CMS
+  const [prodResult] = await Promise.all([
+    productSlugs.length > 0
+      ? supabase.from("cms_products").select("slug, title, summary, cover_image_src, cover_image_alt, price, currency").in("slug", productSlugs)
+      : Promise.resolve({ data: [] }),
+  ]);
+
+  const prodMap = new Map((prodResult.data ?? []).map((r) => [r.slug, r]));
 
   // Map rows to SavedItem
   return rows
