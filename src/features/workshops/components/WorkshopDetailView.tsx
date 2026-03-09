@@ -65,7 +65,7 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
                 {workshop.title}
               </motion.h1>
               <motion.div variants={fadeUpDelay(0.15)}>
-                <SaveButton itemType="workshop" title={workshop.title} />
+                <SaveButton itemType="workshop" itemSlug={workshop.slug} title={workshop.title} />
               </motion.div>
             </div>
 
