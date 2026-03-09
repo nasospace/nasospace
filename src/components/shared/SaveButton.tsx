@@ -1,7 +1,10 @@
 import { Heart, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
 import { useSavedItemState } from "@/hooks/useSavedItemState";
+import { ROUTES } from "@/config/routes";
 import type { SavedItemType } from "@/features/account/types";
 
 interface SaveButtonProps {
@@ -9,7 +12,6 @@ interface SaveButtonProps {
   itemSlug: string;
   title: string;
   className?: string;
-  /** Render as a compact icon-only circle (default) or a labeled pill */
   variant?: "icon" | "pill";
 }
 
@@ -20,10 +22,20 @@ const TYPE_LABEL: Record<SavedItemType, string> = {
 };
 
 export function SaveButton({ itemType, itemSlug, title, className, variant = "icon" }: SaveButtonProps) {
+  const { isAuthenticated } = useAuth();
   const { isSaved, isLoading, isPending, toggle } = useSavedItemState(itemType, itemSlug);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleToggle = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in to save",
+        description: "Create an account to save items and track them later.",
+      });
+      navigate(ROUTES.SIGN_IN, { state: { from: window.location.pathname } });
+      return;
+    }
     toggle();
     toast({
       title: isSaved ? "Removed" : "Saved ♥",
