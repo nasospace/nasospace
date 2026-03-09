@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { posterEnter, spring } from "@/lib/motion";
+import { posterEnter, cardHover } from "@/lib/motion";
 import { StickerBadge } from "@/components/shared";
 import { CATEGORY_META, type ExperienceDetail } from "../types";
 import { routeHelpers } from "@/config/routes";
@@ -22,8 +22,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
       className="h-full"
     >
       <motion.div
-        whileHover={{ y: -6, rotate: 1 }}
-        transition={spring}
+        whileHover={index % 2 === 0 ? cardHover.tilt : cardHover.tiltAlt}
         className="h-full"
       >
         <Link
@@ -31,7 +30,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
           className={cn(
             "group flex h-full flex-col overflow-hidden rounded-2xl",
             "border-[2.5px] border-foreground bg-card shadow-retro",
-            "transition-shadow hover:shadow-retro-lg"
+            "transition-shadow duration-300 hover:shadow-retro-lg"
           )}
         >
           {/* Category color strip with halftone */}

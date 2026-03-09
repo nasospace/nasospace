@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { fadeUp, spring } from "@/lib/motion";
+import { fadeUp, cardHover } from "@/lib/motion";
 import { PRODUCT_CATEGORY_META, type ProductDetail } from "../types";
 import { routeHelpers } from "@/config/routes";
 
@@ -22,8 +22,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       className="h-full"
     >
       <motion.div
-        whileHover={{ scale: 1.03 }}
-        transition={spring}
+        whileHover={isSoldOut ? undefined : cardHover.lift}
         className="h-full"
       >
         <Link
@@ -31,7 +30,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           className={cn(
             "group relative flex h-full flex-col overflow-hidden rounded-2xl",
             "border-2 border-foreground shadow-retro",
-            "bg-card transition-shadow hover:shadow-retro-lg",
+            "bg-card transition-shadow duration-300 hover:shadow-retro-lg",
             isSoldOut && "opacity-75"
           )}
         >
@@ -40,7 +39,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             <img
               src={product.coverImage.src}
               alt={product.coverImage.alt}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
 
@@ -72,8 +71,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
             {/* Sold out overlay */}
             {isSoldOut && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-foreground/40">
-                <span className="rounded-full bg-card px-4 py-1.5 font-groovy text-xs font-bold uppercase tracking-wider text-foreground">
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-foreground/40 backdrop-blur-[2px]">
+                <span className="rounded-full bg-card px-4 py-1.5 font-groovy text-xs font-bold uppercase tracking-wider text-foreground shadow-retro-sm">
                   Sold Out
                 </span>
               </div>
