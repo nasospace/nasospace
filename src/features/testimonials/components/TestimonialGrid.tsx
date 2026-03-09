@@ -12,7 +12,7 @@ export function TestimonialGrid({ testimonials }: TestimonialGridProps) {
         <TestimonialCard
           key={testimonial.id}
           testimonial={testimonial}
-          /* Feature first and seventh cards for asymmetric rhythm */
+          index={index}
           featured={index === 0 || index === 6}
         />
       ))}
