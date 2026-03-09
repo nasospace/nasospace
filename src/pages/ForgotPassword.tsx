@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { ROUTES } from "@/config/routes";
@@ -6,6 +6,7 @@ import { SEOHead } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { isRateLimited, recordSubmission } from "@/lib/abuse-protection";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function ForgotPasswordPage() {
@@ -13,22 +14,34 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const submittingRef = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittingRef.current) return;
     setError("");
+
+    if (isRateLimited("forgot-password", { maxAttempts: 3, windowMs: 120_000 })) {
+      setError("Too many requests. Please wait a couple of minutes.");
+      return;
+    }
+
+    submittingRef.current = true;
     setLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
+    recordSubmission("forgot-password");
 
     if (error) {
       setError(error.message);
       setLoading(false);
+      submittingRef.current = false;
     } else {
       setSent(true);
       setLoading(false);
+      submittingRef.current = false;
     }
   };
 

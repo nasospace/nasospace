@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { ROUTES } from "@/config/routes";
@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { lovable } from "@/integrations/lovable";
+import { isRateLimited, recordSubmission } from "@/lib/abuse-protection";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function SignInPage() {
@@ -14,13 +15,13 @@ export default function SignInPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string })?.from || ROUTES.ACCOUNT;
+  const submittingRef = useRef(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already signed in — use effect to avoid render-time navigation
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       navigate(from, { replace: true });
@@ -39,13 +40,24 @@ export default function SignInPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submittingRef.current) return;
     setError("");
+
+    if (isRateLimited("sign-in", { maxAttempts: 5, windowMs: 60_000 })) {
+      setError("Too many sign-in attempts. Please wait a minute and try again.");
+      return;
+    }
+
+    submittingRef.current = true;
     setLoading(true);
 
     const result = await signIn(email, password);
+    recordSubmission("sign-in");
+
     if (result.error) {
       setError(result.error);
       setLoading(false);
+      submittingRef.current = false;
     }
     // On success, onAuthStateChange will update isAuthenticated → useEffect redirects
   };
