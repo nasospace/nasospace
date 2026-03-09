@@ -97,7 +97,7 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
               <h1 className="font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
                 {product.title}
               </h1>
-              <SaveButton itemType="product" title={product.title} />
+              <SaveButton itemType="product" itemSlug={product.slug} title={product.title} />
             </motion.div>
 
             {/* Summary */}

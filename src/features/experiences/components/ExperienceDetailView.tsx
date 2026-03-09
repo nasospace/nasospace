@@ -65,7 +65,7 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                 {experience.title}
               </motion.h1>
               <motion.div variants={fadeUpDelay(0.15)}>
-                <SaveButton itemType="experience" title={experience.title} />
+                <SaveButton itemType="experience" itemSlug={experience.slug} title={experience.title} />
               </motion.div>
             </div>
 

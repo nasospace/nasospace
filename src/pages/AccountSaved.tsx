@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { ROUTES } from "@/config/routes";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useSavedItems } from "@/features/account/hooks/useAccountData";
 import { AccountSectionHeader } from "@/features/account/components/AccountSectionHeader";
 import { SavedItemCard } from "@/features/account/components/SavedItemCard";
@@ -17,7 +18,7 @@ const FILTERS: { value: SavedItemType | "all"; label: string }[] = [
 ];
 
 export default function AccountSavedPage() {
-  const { items, filter, setFilter, counts } = useSavedItems();
+  const { items, filter, setFilter, counts, isLoading } = useSavedItems();
 
   return (
     <>
@@ -59,7 +60,13 @@ export default function AccountSavedPage() {
       </div>
 
       {/* Grid */}
-      {items.length > 0 ? (
+      {isLoading ? (
+        <div className="mt-6 grid gap-3 md:grid-cols-2">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-32 rounded-2xl" />
+          ))}
+        </div>
+      ) : items.length > 0 ? (
         <motion.div
           variants={staggerContainer}
           initial="hidden"

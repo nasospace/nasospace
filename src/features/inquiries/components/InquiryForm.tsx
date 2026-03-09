@@ -112,11 +112,15 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
 
     setSubmitting(true);
     try {
-      // TODO: Replace with real server action / API call
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const { submitInquiry } = await import("@/server/services/inquiries");
+      const result = await submitInquiry(form);
+      if (!result.success) {
+        setSubmitError(result.message);
+        return;
+      }
       toast({
         title: "Request sent! ✦",
-        description: "This is a demo — in production, your inquiry would be emailed to the NASO team. We'll get back to you within 24 hours.",
+        description: "Your inquiry has been submitted. We'll get back to you within 24 hours.",
       });
       onSuccess();
     } catch {

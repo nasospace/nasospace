@@ -1,53 +1,131 @@
 /**
- * useAccountData — single data access point for the account area.
+ * useAccountData — real data access point for the account area.
  *
- * Currently returns mock data. When auth/backend is added:
- * 1. Replace mock imports with API calls (e.g. via @tanstack/react-query)
- * 2. Add loading/error states
- * 3. No component changes needed — they consume these hooks unchanged.
+ * Uses React Query + Supabase services.
+ * When auth is added: swap getDeviceId() for auth.uid() in services — no hook changes.
  */
-import { useMemo, useState, useCallback } from "react";
-import { MOCK_USER, MOCK_SAVED_ITEMS, MOCK_REQUESTS } from "../data";
-import type { SavedItemType } from "../types";
+import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getOrCreateProfile } from "@/server/services/account";
+import { getSavedItems, getSavedItemCount } from "@/server/services/savedItems";
+import { getInquiries, getInquiryCount } from "@/server/services/inquiries";
+import { MOCK_EXPERIENCES } from "@/features/experiences/data";
+import { MOCK_WORKSHOPS } from "@/features/workshops/data";
+import { MOCK_PRODUCTS } from "@/features/shop/data";
+import type { SavedItem, SavedItemType } from "../types";
+
+/** Catalog lookup for enriching saved items with display data */
+function enrichSavedItem(itemType: string, itemSlug: string, savedAt: string, id: string): SavedItem | null {
+  if (itemType === "experience") {
+    const exp = MOCK_EXPERIENCES.find((e) => e.slug === itemSlug);
+    if (!exp) return null;
+    return {
+      id, type: "experience", slug: exp.slug, title: exp.title,
+      summary: exp.summary, coverImage: exp.coverImage, savedAt,
+      price: exp.price, currency: exp.currency, meta: exp.location,
+    };
+  }
+  if (itemType === "workshop") {
+    const ws = MOCK_WORKSHOPS.find((w) => w.slug === itemSlug);
+    if (!ws) return null;
+    return {
+      id, type: "workshop", slug: ws.slug, title: ws.title,
+      summary: ws.summary, coverImage: ws.coverImage, savedAt,
+      price: ws.price, currency: ws.currency, meta: ws.location,
+    };
+  }
+  if (itemType === "product") {
+    const prod = MOCK_PRODUCTS.find((p) => p.slug === itemSlug);
+    if (!prod) return null;
+    return {
+      id, type: "product", slug: prod.slug, title: prod.title,
+      summary: prod.summary, coverImage: prod.coverImage, savedAt,
+      price: prod.price, currency: prod.currency,
+    };
+  }
+  return null;
+}
 
 export function useAccountData() {
-  return useMemo(
-    () => ({
-      user: MOCK_USER,
-      savedItems: MOCK_SAVED_ITEMS,
-      requests: MOCK_REQUESTS,
-      savedCount: MOCK_SAVED_ITEMS.length,
-      requestCount: MOCK_REQUESTS.length,
-    }),
-    []
-  );
+  const profileQuery = useQuery({
+    queryKey: ["account-profile"],
+    queryFn: getOrCreateProfile,
+    staleTime: 60_000,
+  });
+
+  const savedCountQuery = useQuery({
+    queryKey: ["saved-items-count"],
+    queryFn: getSavedItemCount,
+    staleTime: 30_000,
+  });
+
+  const requestCountQuery = useQuery({
+    queryKey: ["inquiry-count"],
+    queryFn: getInquiryCount,
+    staleTime: 30_000,
+  });
+
+  return {
+    user: profileQuery.data ?? { id: "", name: "Explorer", email: "", joinedAt: "" },
+    savedCount: savedCountQuery.data ?? 0,
+    requestCount: requestCountQuery.data ?? 0,
+    isLoading: profileQuery.isLoading || savedCountQuery.isLoading || requestCountQuery.isLoading,
+    error: profileQuery.error || savedCountQuery.error || requestCountQuery.error,
+  };
 }
 
 export function useSavedItems() {
   const [filter, setFilter] = useState<SavedItemType | "all">("all");
 
+  const savedQuery = useQuery({
+    queryKey: ["saved-items"],
+    queryFn: () => getSavedItems(),
+    staleTime: 30_000,
+  });
+
+  const allItems = useMemo(() => {
+    if (!savedQuery.data) return [];
+    return savedQuery.data
+      .map((row) => enrichSavedItem(row.item_type, row.item_slug, row.created_at, row.id))
+      .filter((item): item is SavedItem => item !== null);
+  }, [savedQuery.data]);
+
   const items = useMemo(() => {
-    if (filter === "all") return MOCK_SAVED_ITEMS;
-    return MOCK_SAVED_ITEMS.filter((item) => item.type === filter);
-  }, [filter]);
+    if (filter === "all") return allItems;
+    return allItems.filter((item) => item.type === filter);
+  }, [allItems, filter]);
 
   const counts = useMemo(() => ({
-    all: MOCK_SAVED_ITEMS.length,
-    experience: MOCK_SAVED_ITEMS.filter((i) => i.type === "experience").length,
-    workshop: MOCK_SAVED_ITEMS.filter((i) => i.type === "workshop").length,
-    product: MOCK_SAVED_ITEMS.filter((i) => i.type === "product").length,
-  }), []);
+    all: allItems.length,
+    experience: allItems.filter((i) => i.type === "experience").length,
+    workshop: allItems.filter((i) => i.type === "workshop").length,
+    product: allItems.filter((i) => i.type === "product").length,
+  }), [allItems]);
 
-  return { items, filter, setFilter, counts };
+  return {
+    items,
+    filter,
+    setFilter,
+    counts,
+    isLoading: savedQuery.isLoading,
+    error: savedQuery.error,
+  };
 }
 
 export function useRequestHistory() {
-  return useMemo(
-    () => ({
-      requests: MOCK_REQUESTS,
-      activeCount: MOCK_REQUESTS.filter((r) => r.status !== "completed").length,
-      completedCount: MOCK_REQUESTS.filter((r) => r.status === "completed").length,
-    }),
-    []
-  );
+  const requestsQuery = useQuery({
+    queryKey: ["inquiries"],
+    queryFn: getInquiries,
+    staleTime: 30_000,
+  });
+
+  const requests = requestsQuery.data ?? [];
+
+  return {
+    requests,
+    activeCount: requests.filter((r) => r.status !== "completed").length,
+    completedCount: requests.filter((r) => r.status === "completed").length,
+    isLoading: requestsQuery.isLoading,
+    error: requestsQuery.error,
+  };
 }
