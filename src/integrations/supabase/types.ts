@@ -185,6 +185,111 @@ export type Database = {
         }
         Relationships: []
       }
+      cms_page_content: {
+        Row: {
+          content: Json
+          id: string
+          page_key: string
+          published: boolean
+          section_key: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          id?: string
+          page_key: string
+          published?: boolean
+          section_key: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          id?: string
+          page_key?: string
+          published?: boolean
+          section_key?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_portfolio_items: {
+        Row: {
+          audience_type: string | null
+          category: string
+          cover_image_alt: string
+          cover_image_src: string
+          created_at: string
+          date: string | null
+          featured: boolean
+          gallery: Json
+          id: string
+          linked_experience_slug: string | null
+          linked_workshop_slug: string | null
+          location: string | null
+          published: boolean
+          slug: string
+          story: string
+          summary: string
+          tags: Json
+          testimonial_name: string | null
+          testimonial_quote: string | null
+          title: string
+          updated_at: string
+          vibe: string | null
+        }
+        Insert: {
+          audience_type?: string | null
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          date?: string | null
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          linked_experience_slug?: string | null
+          linked_workshop_slug?: string | null
+          location?: string | null
+          published?: boolean
+          slug: string
+          story?: string
+          summary: string
+          tags?: Json
+          testimonial_name?: string | null
+          testimonial_quote?: string | null
+          title: string
+          updated_at?: string
+          vibe?: string | null
+        }
+        Update: {
+          audience_type?: string | null
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          date?: string | null
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          linked_experience_slug?: string | null
+          linked_workshop_slug?: string | null
+          location?: string | null
+          published?: boolean
+          slug?: string
+          story?: string
+          summary?: string
+          tags?: Json
+          testimonial_name?: string | null
+          testimonial_quote?: string | null
+          title?: string
+          updated_at?: string
+          vibe?: string | null
+        }
+        Relationships: []
+      }
       cms_products: {
         Row: {
           category: string
@@ -281,6 +386,45 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: Json
+        }
+        Relationships: []
+      }
+      cms_testimonials: {
+        Row: {
+          context_tag: string | null
+          created_at: string
+          featured: boolean
+          id: string
+          image_url: string | null
+          name: string
+          published: boolean
+          quote: string
+          sort_order: number
+          source_type: string
+        }
+        Insert: {
+          context_tag?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name: string
+          published?: boolean
+          quote: string
+          sort_order?: number
+          source_type?: string
+        }
+        Update: {
+          context_tag?: string | null
+          created_at?: string
+          featured?: boolean
+          id?: string
+          image_url?: string | null
+          name?: string
+          published?: boolean
+          quote?: string
+          sort_order?: number
+          source_type?: string
         }
         Relationships: []
       }
