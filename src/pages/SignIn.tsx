@@ -6,6 +6,7 @@ import { SEOHead } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { lovable } from "@/integrations/lovable";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function SignInPage() {
