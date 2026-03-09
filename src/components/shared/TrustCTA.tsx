@@ -19,7 +19,6 @@ interface TrustCTAProps {
 
 /**
  * TrustCTA — Reusable warm, inviting call-to-action section.
- * Keeps a lightweight feel with single headline + up to 2 buttons.
  */
 export function TrustCTA({
   headline,
@@ -32,14 +31,14 @@ export function TrustCTA({
     <Section className={className}>
       <MotionDiv
         variants={fadeUp}
-        className="mx-auto max-w-xl rounded-3xl border-2 border-foreground/10 bg-card p-8 md:p-12 text-center shadow-soft"
+        className="mx-auto max-w-2xl rounded-3xl border border-border bg-card px-8 py-12 md:px-14 md:py-16 text-center shadow-soft"
       >
-        <h2 className="font-groovy text-2xl md:text-3xl font-bold text-foreground">
+        <h2 className="font-groovy text-2xl md:text-3xl font-bold text-foreground leading-tight">
           {headline}
         </h2>
 
         {description && (
-          <p className="mt-4 text-muted-foreground leading-relaxed">
+          <p className="mt-4 text-muted-foreground leading-relaxed max-w-lg mx-auto">
             {description}
           </p>
         )}
