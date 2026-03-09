@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import {
   ShopHero,
   ProductCategoryFilter,
@@ -18,6 +19,10 @@ export default function ShopPage() {
 
   return (
     <>
+      <SEOHead
+        title="Shop"
+        description="Browse NASO's curated collection of creative products, merchandise, and unique items crafted with intention and bold design."
+      />
       <ShopHero />
       <Section>
         <div className="mb-8">

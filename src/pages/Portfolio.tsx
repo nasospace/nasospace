@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import {
   PortfolioHero,
   PortfolioCategoryFilter,
@@ -18,6 +19,10 @@ export default function PortfolioPage() {
 
   return (
     <>
+      <SEOHead
+        title="Portfolio"
+        description="Explore NASO's portfolio of past projects — immersive experiences, creative events, brand collaborations, and bold design work."
+      />
       <PortfolioHero />
       <Section>
         <div className="mb-8">

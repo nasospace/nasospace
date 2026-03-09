@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import {
   BlogHero,
   BlogCategoryFilter,
@@ -26,6 +27,10 @@ export default function BlogPage() {
 
   return (
     <>
+      <SEOHead
+        title="Blog"
+        description="Read stories, insights, and behind-the-scenes from NASO — covering creativity, culture, experiences, and everything in between."
+      />
       <BlogHero />
 
       <Section>
