@@ -21,6 +21,8 @@ import ContactPage from "@/pages/Contact";
 import CommunityLovePage from "@/pages/CommunityLove";
 import SignInPage from "@/pages/SignIn";
 import SignUpPage from "@/pages/SignUp";
+import ForgotPasswordPage from "@/pages/ForgotPassword";
+import ResetPasswordPage from "@/pages/ResetPassword";
 import NotFound from "@/pages/NotFound";
 import { AccountLayout } from "@/features/account/components/AccountLayout";
 import AccountPage from "@/pages/Account";
