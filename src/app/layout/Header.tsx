@@ -121,10 +121,10 @@ export function Header() {
         {/* Mobile: account icon + hamburger */}
         <div className="flex items-center gap-2 md:hidden">
           <Link
-            to="/account"
+            to={ROUTES.ACCOUNT}
             className={cn(
               "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive("/account")
+              isActive(ROUTES.ACCOUNT)
                 ? "border-foreground bg-foreground text-background"
                 : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
             )}
