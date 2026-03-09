@@ -108,6 +108,9 @@ export const router = createBrowserRouter([
       { path: "users", element: <AdminUsersPage /> },
       { path: "saved", element: <AdminSavedItemsPage /> },
       { path: "products", element: <AdminProductsPage /> },
+      { path: "experiences", element: <AdminExperiencesPage /> },
+      { path: "workshops", element: <AdminWorkshopsPage /> },
+      { path: "portfolio", element: <AdminPortfolioPage /> },
     ],
   },
 ]);
