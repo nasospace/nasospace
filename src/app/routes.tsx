@@ -14,6 +14,7 @@ import BlogPage from "@/pages/Blog";
 import BlogDetailPage from "@/pages/BlogDetail";
 import ShopPage from "@/pages/Shop";
 import ProductDetailPage from "@/pages/ProductDetail";
+import CartPage from "@/pages/Cart";
 import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
 import CommunityLovePage from "@/pages/CommunityLove";
