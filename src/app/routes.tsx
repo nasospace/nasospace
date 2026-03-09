@@ -30,6 +30,14 @@ import AccountSavedPage from "@/pages/AccountSaved";
 import AccountRequestsPage from "@/pages/AccountRequests";
 import AccountSettingsPage from "@/pages/AccountSettings";
 
+// Admin (lazy-ish but still static imports for router config)
+import { RequireAdmin } from "@/features/admin/components/RequireAdmin";
+import { AdminLayout } from "@/features/admin/components/AdminLayout";
+import AdminOverviewPage from "@/pages/admin/AdminOverview";
+import AdminInquiriesPage from "@/pages/admin/AdminInquiries";
+import AdminUsersPage from "@/pages/admin/AdminUsers";
+import AdminSavedItemsPage from "@/pages/admin/AdminSavedItems";
+
 /**
  * Central route definitions.
  */
@@ -79,6 +87,22 @@ export const router = createBrowserRouter([
       },
 
       { path: "*", element: <NotFound /> },
+    ],
+  },
+
+  /* ═══ Admin Area (separate layout, no public header/footer) ═══ */
+  {
+    path: ROUTES.ADMIN,
+    element: (
+      <RequireAdmin>
+        <AdminLayout />
+      </RequireAdmin>
+    ),
+    children: [
+      { index: true, element: <AdminOverviewPage /> },
+      { path: "inquiries", element: <AdminInquiriesPage /> },
+      { path: "users", element: <AdminUsersPage /> },
+      { path: "saved", element: <AdminSavedItemsPage /> },
     ],
   },
 ]);
