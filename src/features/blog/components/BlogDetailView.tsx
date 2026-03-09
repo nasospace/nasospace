@@ -5,16 +5,35 @@ import { fadeUp, fadeUpDelay, staggerContainer } from "@/lib/motion";
 import { Section } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
-import { getPostBySlug, getRelatedPosts } from "../data";
+import { useBlogPost, useRelatedBlogPosts } from "../hooks/useBlogPosts";
 import { BLOG_CATEGORY_META } from "../types";
 import { BlogGrid } from "./BlogGrid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface BlogDetailViewProps {
   slug: string;
 }
 
 export function BlogDetailView({ slug }: BlogDetailViewProps) {
-  const post = getPostBySlug(slug);
+  const { data: post, isLoading } = useBlogPost(slug);
+  const { data: related = [] } = useRelatedBlogPosts(
+    slug,
+    post?.category ?? "",
+    3
+  );
+
+  if (isLoading) {
+    return (
+      <Section>
+        <div className="mx-auto max-w-3xl space-y-6">
+          <Skeleton className="h-10 w-3/4" />
+          <Skeleton className="h-6 w-1/3" />
+          <Skeleton className="h-64 rounded-2xl" />
+          <Skeleton className="h-96 rounded-2xl" />
+        </div>
+      </Section>
+    );
+  }
 
   if (!post) {
     return (
@@ -34,7 +53,6 @@ export function BlogDetailView({ slug }: BlogDetailViewProps) {
   }
 
   const meta = BLOG_CATEGORY_META[post.category];
-  const related = getRelatedPosts(post, 3);
 
   // Render content with basic markdown-like heading support
   const contentBlocks = post.content.split("\n\n").map((block, i) => {
@@ -48,7 +66,6 @@ export function BlogDetailView({ slug }: BlogDetailViewProps) {
         </h2>
       );
     }
-    // Handle list items
     if (block.startsWith("- ")) {
       const items = block.split("\n").filter((l) => l.startsWith("- "));
       return (

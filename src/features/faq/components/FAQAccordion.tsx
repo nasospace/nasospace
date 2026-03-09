@@ -7,11 +7,13 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
+import { Skeleton } from "@/components/ui/skeleton";
 import { FAQSearch } from "./FAQSearch";
-import { faqCategories } from "../data";
+import { useFaqCategories } from "../hooks/useFaq";
 
 export function FAQAccordion() {
   const [search, setSearch] = useState("");
+  const { data: faqCategories = [], isLoading } = useFaqCategories();
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -26,14 +28,22 @@ export function FAQAccordion() {
         ),
       }))
       .filter((cat) => cat.items.length > 0);
-  }, [search]);
+  }, [search, faqCategories]);
 
   return (
     <Section>
       <div className="mx-auto max-w-2xl space-y-8">
         <FAQSearch value={search} onChange={setSearch} />
 
-        {filtered.length === 0 && (
+        {isLoading && (
+          <div className="space-y-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-32 rounded-xl" />
+            ))}
+          </div>
+        )}
+
+        {!isLoading && filtered.length === 0 && (
           <p className="text-center text-sm text-muted-foreground">
             No questions match your search. Try different keywords or{" "}
             <a href="/contact" className="text-primary underline">contact us</a>.
