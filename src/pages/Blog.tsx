@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
+import { SEOHead } from "@/components/shared/SEOHead";
 import {
   BlogHero,
   BlogCategoryFilter,
