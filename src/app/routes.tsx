@@ -37,6 +37,7 @@ import AdminOverviewPage from "@/pages/admin/AdminOverview";
 import AdminInquiriesPage from "@/pages/admin/AdminInquiries";
 import AdminUsersPage from "@/pages/admin/AdminUsers";
 import AdminSavedItemsPage from "@/pages/admin/AdminSavedItems";
+import AdminProductsPage from "@/pages/admin/AdminProducts";
 
 /**
  * Central route definitions.
