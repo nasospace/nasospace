@@ -18,6 +18,11 @@ import FAQPage from "@/pages/FAQ";
 import ContactPage from "@/pages/Contact";
 import CommunityLovePage from "@/pages/CommunityLove";
 import NotFound from "@/pages/NotFound";
+import { AccountLayout } from "@/features/account/components/AccountLayout";
+import AccountPage from "@/pages/Account";
+import AccountSavedPage from "@/pages/AccountSaved";
+import AccountRequestsPage from "@/pages/AccountRequests";
+import AccountSettingsPage from "@/pages/AccountSettings";
 
 /**
  * Central route definitions.
@@ -43,7 +48,19 @@ export const router = createBrowserRouter([
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.COMMUNITY_LOVE, element: <CommunityLovePage /> },
-      { path: ROUTES.ACCOUNT, element: <PlaceholderPage title="Account" /> },
+
+      /* ═══ Account Area (nested layout) ═══ */
+      {
+        path: ROUTES.ACCOUNT,
+        element: <AccountLayout />,
+        children: [
+          { index: true, element: <AccountPage /> },
+          { path: "saved", element: <AccountSavedPage /> },
+          { path: "requests", element: <AccountRequestsPage /> },
+          { path: "settings", element: <AccountSettingsPage /> },
+        ],
+      },
+
       { path: "*", element: <NotFound /> },
     ],
   },
