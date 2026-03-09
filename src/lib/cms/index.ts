@@ -11,3 +11,4 @@ export { cmsWorkshops } from "./workshops";
 export { cmsBlogPosts } from "./blog";
 export { cmsFaq } from "./faq";
 export { cmsSiteSettings } from "./site-settings";
+export { fetchProducts, fetchProductBySlug, fetchFeaturedProducts } from "./products";
