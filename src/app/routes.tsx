@@ -59,6 +59,8 @@ export const router = createBrowserRouter([
       /* ═══ Auth Pages ═══ */
       { path: ROUTES.SIGN_IN, element: <SignInPage /> },
       { path: ROUTES.SIGN_UP, element: <SignUpPage /> },
+      { path: ROUTES.FORGOT_PASSWORD, element: <ForgotPasswordPage /> },
+      { path: ROUTES.RESET_PASSWORD, element: <ResetPasswordPage /> },
 
       /* ═══ Account Area (protected + nested layout) ═══ */
       {
