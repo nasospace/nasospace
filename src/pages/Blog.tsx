@@ -27,6 +27,10 @@ export default function BlogPage() {
 
   return (
     <>
+      <SEOHead
+        title="Blog"
+        description="Read stories, insights, and behind-the-scenes from NASO — covering creativity, culture, experiences, and everything in between."
+      />
       <BlogHero />
 
       <Section>
