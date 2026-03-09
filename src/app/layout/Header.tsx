@@ -163,9 +163,26 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+
+              {/* Account link in mobile menu */}
+              <div className="mx-4 my-2 border-t border-border" />
+              <Link
+                to="/account"
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "flex items-center gap-2 rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
+                  isActive("/account")
+                    ? "bg-foreground/5 text-foreground"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                )}
+              >
+                <User className="h-4 w-4" />
+                Account
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
     </header>
   );
