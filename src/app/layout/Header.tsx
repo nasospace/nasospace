@@ -102,9 +102,35 @@ export function Header() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          {/* Account icon */}
+          <Link
+            to="/account"
+            className={cn(
+              "ml-2 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+              isActive("/account")
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}
+            aria-label="Your account"
+          >
+            <User className="h-4 w-4" />
+          </Link>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Mobile: account icon + hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            to="/account"
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+              isActive("/account")
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}
+            aria-label="Your account"
+          >
+            <User className="h-4 w-4" />
+          </Link>
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
             <Button
