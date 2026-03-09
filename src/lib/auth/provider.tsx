@@ -1,6 +1,9 @@
 /**
  * AuthProvider — manages Supabase Auth session state.
  * On first sign-in, migrates any device-ID-scoped data to the authenticated user.
+ *
+ * Migration note: All Supabase auth references are isolated here.
+ * When migrating to owned Supabase, only update the client import.
  */
 import {
   createContext,
@@ -37,6 +40,10 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 /**
  * Migrate device-scoped saved items and inquiries to the authenticated user.
  * Runs once per device via an edge function that uses service_role.
+ *
+ * @deprecated Device-ID migration is a transitional mechanism.
+ * This function and the edge function it calls can be removed once all
+ * pre-auth device data has been migrated or is no longer needed.
  */
 async function migrateDeviceData(session: Session) {
   const deviceId = localStorage.getItem(DEVICE_ID_KEY);
@@ -62,6 +69,18 @@ async function migrateDeviceData(session: Session) {
   }
 }
 
+/** Normalize common Supabase auth error messages into user-friendly text */
+function friendlyAuthError(message: string): string {
+  const lower = message.toLowerCase();
+  if (lower.includes("invalid login credentials")) return "Incorrect email or password.";
+  if (lower.includes("email not confirmed")) return "Please verify your email before signing in.";
+  if (lower.includes("user already registered")) return "An account with this email already exists. Try signing in.";
+  if (lower.includes("password") && lower.includes("characters")) return "Password must be at least 6 characters.";
+  if (lower.includes("rate limit") || lower.includes("too many")) return "Too many attempts. Please wait a moment and try again.";
+  if (lower.includes("network") || lower.includes("fetch")) return "Network error. Please check your connection.";
+  return message;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -69,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const migrationRan = useRef(false);
 
   useEffect(() => {
+    // Set up listener BEFORE getSession (per Supabase best practices)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
@@ -101,7 +121,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           data: { display_name: displayName || "Explorer" },
         },
       });
-      if (error) return { error: error.message };
+      if (error) return { error: friendlyAuthError(error.message) };
       return {};
     },
     []
@@ -112,7 +132,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email,
       password,
     });
-    if (error) return { error: error.message };
+    if (error) return { error: friendlyAuthError(error.message) };
     return {};
   }, []);
 

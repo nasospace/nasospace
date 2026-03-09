@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { ROUTES } from "@/config/routes";
 import { SEOHead } from "@/components/shared";
@@ -10,19 +10,33 @@ import { lovable } from "@/integrations/lovable";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function SignUpPage() {
-  const { signUp, isAuthenticated } = useAuth();
+  const { signUp, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: string })?.from || ROUTES.ACCOUNT;
 
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  if (isAuthenticated) {
-    navigate(ROUTES.ACCOUNT, { replace: true });
-    return null;
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, isLoading, from, navigate]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
   }
+
+  if (isAuthenticated) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +48,35 @@ export default function SignUpPage() {
       setError(result.error);
       setLoading(false);
     } else {
-      navigate(ROUTES.ACCOUNT, { replace: true });
+      // Email confirmation may be required — show success message
+      setSuccess(true);
+      setLoading(false);
     }
   };
+
+  if (success) {
+    return (
+      <>
+        <SEOHead title="Check Your Email" description="Verify your NASO account." noindex />
+        <div className="flex min-h-[70vh] items-center justify-center px-4 py-16">
+          <div className="w-full max-w-sm text-center">
+            <img src={nasoLogo} alt="NASO" className="mx-auto h-10 w-auto" />
+            <h1 className="mt-6 font-groovy text-2xl font-bold">Check your email ✉️</h1>
+            <p className="mt-3 text-sm text-muted-foreground">
+              We've sent a confirmation link to <strong className="text-foreground">{email}</strong>.
+              Click the link to activate your account.
+            </p>
+            <Link
+              to={ROUTES.SIGN_IN}
+              className="mt-6 inline-block text-sm font-semibold text-primary underline underline-offset-2"
+            >
+              Back to sign in
+            </Link>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -127,7 +167,7 @@ export default function SignUpPage() {
                 redirect_uri: window.location.origin,
               });
               if (result?.error) {
-                setError(result.error.message || "Google sign-in failed");
+                setError(result.error.message || "Google sign-in failed. Please try again.");
                 setLoading(false);
               }
             }}
@@ -145,6 +185,7 @@ export default function SignUpPage() {
             Already have an account?{" "}
             <Link
               to={ROUTES.SIGN_IN}
+              state={{ from }}
               className="font-semibold text-primary underline underline-offset-2"
             >
               Sign in
