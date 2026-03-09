@@ -117,3 +117,51 @@ export interface CmsProductRow {
   linked_portfolio_slug: string | null;
   published: boolean;
 }
+
+export interface CmsPortfolioItemRow {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  slug: string;
+  summary: string;
+  story: string;
+  category: string;
+  tags: string[];
+  location: string | null;
+  date: string | null;
+  audience_type: string | null;
+  vibe: string | null;
+  cover_image_src: string;
+  cover_image_alt: string;
+  gallery: Array<{ src: string; alt: string }>;
+  linked_experience_slug: string | null;
+  linked_workshop_slug: string | null;
+  featured: boolean;
+  published: boolean;
+  testimonial_quote: string | null;
+  testimonial_name: string | null;
+}
+
+export interface CmsTestimonialRow {
+  id: string;
+  created_at: string;
+  name: string;
+  quote: string;
+  source_type: string;
+  context_tag: string | null;
+  image_url: string | null;
+  featured: boolean;
+  published: boolean;
+  sort_order: number;
+}
+
+export interface CmsPageContentRow {
+  id: string;
+  page_key: string;
+  section_key: string;
+  content: Record<string, unknown>;
+  sort_order: number;
+  published: boolean;
+  updated_at: string;
+}
