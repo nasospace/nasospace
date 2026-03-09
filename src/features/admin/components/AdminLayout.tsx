@@ -12,6 +12,7 @@ import {
   LogOut,
   PanelLeftClose,
   PanelLeft,
+  ShoppingBag,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
   { label: "Inquiries", path: "/admin/inquiries", icon: MessageSquare },
   { label: "Users", path: "/admin/users", icon: Users },
   { label: "Saved Items", path: "/admin/saved", icon: Heart },
+  { label: "Products", path: "/admin/products", icon: ShoppingBag },
 ];
 
 const QUICK_LINKS = [
