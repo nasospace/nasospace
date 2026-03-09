@@ -13,18 +13,35 @@ import {
   PanelLeftClose,
   PanelLeft,
   ShoppingBag,
+  Compass,
+  Palette,
+  Image,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth";
 import { SEOHead } from "@/components/shared/SEOHead";
 
-const NAV_ITEMS = [
-  { label: "Overview", path: "/admin", icon: LayoutDashboard },
-  { label: "Inquiries", path: "/admin/inquiries", icon: MessageSquare },
-  { label: "Users", path: "/admin/users", icon: Users },
-  { label: "Saved Items", path: "/admin/saved", icon: Heart },
-  { label: "Products", path: "/admin/products", icon: ShoppingBag },
+const NAV_SECTIONS = [
+  {
+    label: "Operations",
+    items: [
+      { label: "Overview", path: "/admin", icon: LayoutDashboard },
+      { label: "Inquiries", path: "/admin/inquiries", icon: MessageSquare },
+      { label: "Users", path: "/admin/users", icon: Users },
+      { label: "Saved Items", path: "/admin/saved", icon: Heart },
+    ],
+  },
+  {
+    label: "Content",
+    items: [
+      { label: "Experiences", path: "/admin/experiences", icon: Compass },
+      { label: "Workshops", path: "/admin/workshops", icon: Sparkles },
+      { label: "Products", path: "/admin/products", icon: ShoppingBag },
+      { label: "Portfolio", path: "/admin/portfolio", icon: Image },
+    ],
+  },
 ];
 
 const QUICK_LINKS = [
@@ -73,26 +90,35 @@ export function AdminLayout() {
             </button>
           </div>
 
-          <nav className="flex-1 space-y-1 p-3">
-            {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.path || (item.path !== "/admin" && pathname.startsWith(item.path));
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setSidebarOpen(false)}
-                  className={cn(
-                    "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
-                    isActive
-                      ? "bg-primary/10 font-medium text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  <item.icon className="h-4 w-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
+          <nav className="flex-1 overflow-y-auto p-3">
+            {NAV_SECTIONS.map((section) => (
+              <div key={section.label} className="mb-4">
+                <p className="mb-1.5 px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  {section.label}
+                </p>
+                <div className="space-y-0.5">
+                  {section.items.map((item) => {
+                    const isActive = pathname === item.path || (item.path !== "/admin" && pathname.startsWith(item.path));
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => setSidebarOpen(false)}
+                        className={cn(
+                          "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
+                          isActive
+                            ? "bg-primary/10 font-medium text-primary"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        )}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </nav>
 
           {/* Quick links */}
