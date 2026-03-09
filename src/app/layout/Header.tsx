@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, User } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
@@ -74,7 +74,7 @@ export function Header() {
           ))}
 
           {/* More dropdown */}
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger
               className={cn(
                 "inline-flex items-center gap-1 font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 outline-none",
@@ -102,9 +102,35 @@ export function Header() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          {/* Account icon */}
+          <Link
+            to="/account"
+            className={cn(
+              "ml-2 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+              isActive("/account")
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}
+            aria-label="Your account"
+          >
+            <User className="h-4 w-4" />
+          </Link>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Mobile: account icon + hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            to="/account"
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
+              isActive("/account")
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}
+            aria-label="Your account"
+          >
+            <User className="h-4 w-4" />
+          </Link>
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
           <SheetTrigger asChild>
             <Button
@@ -137,9 +163,26 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+
+              {/* Account link in mobile menu */}
+              <div className="mx-4 my-2 border-t border-border" />
+              <Link
+                to="/account"
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "flex items-center gap-2 rounded-lg px-4 py-3 font-display text-sm font-medium tracking-wide transition-colors",
+                  isActive("/account")
+                    ? "bg-foreground/5 text-foreground"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                )}
+              >
+                <User className="h-4 w-4" />
+                Account
+              </Link>
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
     </header>
   );
