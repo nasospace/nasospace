@@ -1,15 +1,15 @@
 /**
  * Database abstraction layer.
- * Will be backed by Prisma + PostgreSQL or Supabase — swap implementation here.
+ *
+ * @deprecated This placeholder is unused. All data access goes through:
+ * - src/lib/cms/ — for CMS content reads
+ * - src/server/services/ — for user-bound data (saved items, inquiries, profiles)
+ * - src/integrations/supabase/client.ts — Supabase JS client (auto-generated)
+ *
+ * Migration note: When migrating to owned Supabase, the above import paths
+ * remain the same — only the client.ts config changes.
+ *
+ * This file can be safely deleted in a future cleanup pass.
  */
 
-export interface DBClient {
-  query<T>(table: string, filter?: Record<string, unknown>): Promise<T[]>;
-}
-
-export const dbClient: DBClient = {
-  async query<T>(): Promise<T[]> {
-    console.warn("[DB] Client not configured yet.");
-    return [];
-  },
-};
+export {};

@@ -1,5 +1,5 @@
 import { Heart, Loader2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
@@ -26,6 +26,7 @@ export function SaveButton({ itemType, itemSlug, title, className, variant = "ic
   const { isSaved, isLoading, isPending, toggle } = useSavedItemState(itemType, itemSlug);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleToggle = () => {
     if (!isAuthenticated) {
@@ -33,7 +34,8 @@ export function SaveButton({ itemType, itemSlug, title, className, variant = "ic
         title: "Sign in to save",
         description: "Create an account to save items and track them later.",
       });
-      navigate(ROUTES.SIGN_IN, { state: { from: window.location.pathname } });
+      // Pass current path so sign-in can redirect back here
+      navigate(ROUTES.SIGN_IN, { state: { from: location.pathname + location.search } });
       return;
     }
     toggle();

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { ROUTES } from "@/config/routes";
@@ -10,7 +10,7 @@ import { lovable } from "@/integrations/lovable";
 import nasoLogo from "@/assets/naso-logo.png";
 
 export default function SignInPage() {
-  const { signIn, isAuthenticated } = useAuth();
+  const { signIn, isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string })?.from || ROUTES.ACCOUNT;
@@ -20,11 +20,22 @@ export default function SignInPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already signed in
-  if (isAuthenticated) {
-    navigate(from, { replace: true });
-    return null;
+  // Redirect if already signed in — use effect to avoid render-time navigation
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, isLoading, from, navigate]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
   }
+
+  if (isAuthenticated) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,9 +46,8 @@ export default function SignInPage() {
     if (result.error) {
       setError(result.error);
       setLoading(false);
-    } else {
-      navigate(from, { replace: true });
     }
+    // On success, onAuthStateChange will update isAuthenticated → useEffect redirects
   };
 
   return (
@@ -123,7 +133,7 @@ export default function SignInPage() {
                 redirect_uri: window.location.origin,
               });
               if (result?.error) {
-                setError(result.error.message || "Google sign-in failed");
+                setError(result.error.message || "Google sign-in failed. Please try again.");
                 setLoading(false);
               }
             }}
@@ -141,6 +151,7 @@ export default function SignInPage() {
             Don't have an account?{" "}
             <Link
               to={ROUTES.SIGN_UP}
+              state={{ from }}
               className="font-semibold text-primary underline underline-offset-2"
             >
               Sign up

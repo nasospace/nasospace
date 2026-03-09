@@ -1,6 +1,9 @@
 /**
  * Saved items persistence service.
- * Now uses authenticated user_id. Falls back gracefully if unauthenticated.
+ * Uses authenticated user_id. Returns empty/false if unauthenticated.
+ *
+ * Migration note: All Supabase references are isolated here.
+ * When migrating to owned Supabase, only update the client import.
  */
 import { supabase } from "@/integrations/supabase/client";
 import type { SavedItemType } from "@/features/account/types";
@@ -13,8 +16,12 @@ export interface SavedItemRow {
 }
 
 async function getUserId(): Promise<string | null> {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user?.id ?? null;
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    return user?.id ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedItemRow[]> {
@@ -68,6 +75,7 @@ export async function addSavedItem(itemType: SavedItemType, itemSlug: string): P
     });
 
   if (error) {
+    // Unique constraint violation = already saved, treat as success
     if (error.code === "23505") return true;
     console.error("[savedItems] Add failed:", error);
     return false;
