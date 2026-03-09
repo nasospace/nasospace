@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
-import { Section, StickerBadge, MagneticButton, InfoRow } from "@/components/shared";
+import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath } from "@/config/routes";
 import { getExperienceBySlug, getRelatedExperiences } from "../data";
@@ -54,15 +54,20 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
               </StickerBadge>
             </motion.div>
 
-            <motion.h1
-              variants={fadeUpDelay(0.1)}
-              className={cn(
-                "font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-6xl",
-                meta.textColor
-              )}
-            >
-              {experience.title}
-            </motion.h1>
+            <div className="flex items-start justify-between gap-4">
+              <motion.h1
+                variants={fadeUpDelay(0.1)}
+                className={cn(
+                  "font-groovy text-3xl font-bold leading-tight sm:text-4xl md:text-6xl",
+                  meta.textColor
+                )}
+              >
+                {experience.title}
+              </motion.h1>
+              <motion.div variants={fadeUpDelay(0.15)}>
+                <SaveButton itemType="experience" title={experience.title} />
+              </motion.div>
+            </div>
 
             <motion.p
               variants={fadeUpDelay(0.2)}
