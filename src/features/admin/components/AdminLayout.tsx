@@ -9,9 +9,13 @@ import {
   Heart,
   ExternalLink,
   LogOut,
+  PanelLeftClose,
+  PanelLeft,
 } from "lucide-react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth";
+import { SEOHead } from "@/components/shared/SEOHead";
 
 const NAV_ITEMS = [
   { label: "Overview", path: "/admin", icon: LayoutDashboard },

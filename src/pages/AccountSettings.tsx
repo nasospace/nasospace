@@ -83,7 +83,7 @@ export default function AccountSettingsPage() {
               </div>
             </div>
             <p className="mt-4 rounded-lg bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
-              These preferences will be connected when accounts go live. For now, they're just here so you know what's coming. ✨
+              Notification preferences are coming soon. For now, we'll only reach out about things you've asked about. ✨
             </p>
           </SettingsSection>
         </motion.div>

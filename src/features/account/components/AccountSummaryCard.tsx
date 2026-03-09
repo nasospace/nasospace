@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface AccountSummaryCardProps {
   emoji: string;
   label: string;
-  count: number;
+  count?: number;
   href: string;
   className?: string;
 }
@@ -20,7 +20,9 @@ export function AccountSummaryCard({ emoji, label, count, href, className }: Acc
     >
       <span className="text-2xl">{emoji}</span>
       <div>
-        <p className="font-display text-2xl font-bold">{count}</p>
+        {count != null && (
+          <p className="font-display text-2xl font-bold">{count}</p>
+        )}
         <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
           {label}
         </p>
