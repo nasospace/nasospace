@@ -91,3 +91,29 @@ export interface CmsSiteSettingRow {
   value: Record<string, unknown>;
   updated_at: string;
 }
+
+export interface CmsProductRow {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  slug: string;
+  summary: string;
+  description: string;
+  category: string;
+  tags: string[];
+  price: number;
+  currency: string;
+  stock_status: string;
+  featured: boolean;
+  limited_edition: boolean;
+  cover_image_src: string;
+  cover_image_alt: string;
+  gallery: Array<{ src: string; alt: string }>;
+  sizes: string[] | null;
+  colors: string[] | null;
+  linked_experience_slug: string | null;
+  linked_workshop_slug: string | null;
+  linked_portfolio_slug: string | null;
+  published: boolean;
+}
