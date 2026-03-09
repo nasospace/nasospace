@@ -1,16 +1,13 @@
 /**
- * CMS integration abstraction layer.
- * Will be backed by Sanity CMS — swap implementation here without touching UI.
+ * CMS Content Access Layer
+ *
+ * Centralized queries for all CMS-backed content.
+ * All Supabase-specific logic lives here — UI components never import supabase directly for content.
+ * When the CMS backend changes, only this layer needs updating.
  */
 
-export interface CMSClient {
-  fetch<T>(query: string, params?: Record<string, unknown>): Promise<T>;
-}
-
-// No-op placeholder
-export const cmsClient: CMSClient = {
-  async fetch<T>(): Promise<T> {
-    console.warn("[CMS] Client not configured yet.");
-    return [] as unknown as T;
-  },
-};
+export { cmsExperiences } from "./experiences";
+export { cmsWorkshops } from "./workshops";
+export { cmsBlogPosts } from "./blog";
+export { cmsFaq } from "./faq";
+export { cmsSiteSettings } from "./site-settings";
