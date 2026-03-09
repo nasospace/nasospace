@@ -5,16 +5,34 @@ import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath } from "@/config/routes";
-import { getWorkshopBySlug, getRelatedWorkshops } from "../data";
+import { useWorkshop, useRelatedWorkshops } from "../hooks/useWorkshops";
 import { WORKSHOP_CATEGORY_META } from "../types";
 import { WorkshopGrid } from "./WorkshopGrid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface WorkshopDetailViewProps {
   slug: string;
 }
 
 export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
-  const workshop = getWorkshopBySlug(slug);
+  const { data: workshop, isLoading } = useWorkshop(slug);
+  const { data: related = [] } = useRelatedWorkshops(
+    slug,
+    workshop?.category ?? "",
+    3
+  );
+
+  if (isLoading) {
+    return (
+      <Section>
+        <div className="space-y-6">
+          <Skeleton className="h-48 rounded-2xl" />
+          <Skeleton className="h-8 w-2/3" />
+          <Skeleton className="h-64 rounded-2xl" />
+        </div>
+      </Section>
+    );
+  }
 
   if (!workshop) {
     return (
@@ -34,7 +52,6 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
   }
 
   const meta = WORKSHOP_CATEGORY_META[workshop.category];
-  const related = getRelatedWorkshops(workshop, 3);
 
   return (
     <>
@@ -82,7 +99,6 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
       {/* Content */}
       <Section>
         <div className="grid gap-10 md:grid-cols-3 md:gap-12">
-          {/* Left — description + tags */}
           <MotionDiv className="md:col-span-2">
             <p className="text-base leading-relaxed text-foreground/90 md:text-lg">
               {workshop.description}
@@ -102,7 +118,6 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
             )}
           </MotionDiv>
 
-          {/* Right — info card */}
           <MotionDiv>
             <div className="rounded-2xl border-[2.5px] border-foreground bg-card p-6 shadow-retro">
               <dl className="space-y-4">
@@ -150,4 +165,3 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
     </>
   );
 }
-

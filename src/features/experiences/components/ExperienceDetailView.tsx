@@ -5,16 +5,34 @@ import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { ROUTES, buildInquiryPath } from "@/config/routes";
-import { getExperienceBySlug, getRelatedExperiences } from "../data";
+import { useExperience, useRelatedExperiences } from "../hooks/useExperiences";
 import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ExperienceDetailViewProps {
   slug: string;
 }
 
 export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
-  const experience = getExperienceBySlug(slug);
+  const { data: experience, isLoading } = useExperience(slug);
+  const { data: related = [] } = useRelatedExperiences(
+    slug,
+    experience?.category ?? "",
+    3
+  );
+
+  if (isLoading) {
+    return (
+      <Section>
+        <div className="space-y-6">
+          <Skeleton className="h-48 rounded-2xl" />
+          <Skeleton className="h-8 w-2/3" />
+          <Skeleton className="h-64 rounded-2xl" />
+        </div>
+      </Section>
+    );
+  }
 
   if (!experience) {
     return (
@@ -34,7 +52,6 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
   }
 
   const meta = CATEGORY_META[experience.category];
-  const related = getRelatedExperiences(experience, 3);
 
   return (
     <>
@@ -82,7 +99,6 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
       {/* Content */}
       <Section>
         <div className="grid gap-10 md:grid-cols-3 md:gap-12">
-          {/* Left — description + tags */}
           <MotionDiv className="md:col-span-2">
             <p className="text-base leading-relaxed text-foreground/90 md:text-lg">
               {experience.description}
@@ -102,7 +118,6 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
             )}
           </MotionDiv>
 
-          {/* Right — info card */}
           <MotionDiv>
             <div className="rounded-2xl border-[2.5px] border-foreground bg-card p-6 shadow-retro">
               <dl className="space-y-4">
@@ -146,4 +161,3 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
     </>
   );
 }
-

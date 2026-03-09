@@ -6,16 +6,18 @@ import {
   WorkshopCategoryFilter,
   WorkshopGrid,
 } from "@/features/workshops/components";
-import { MOCK_WORKSHOPS } from "@/features/workshops/data";
+import { useWorkshops } from "@/features/workshops/hooks/useWorkshops";
 import type { WorkshopCategory } from "@/features/workshops/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function WorkshopsPage() {
   const [active, setActive] = useState<WorkshopCategory | "all">("all");
+  const { data: workshops = [], isLoading } = useWorkshops();
 
   const filtered =
     active === "all"
-      ? MOCK_WORKSHOPS
-      : MOCK_WORKSHOPS.filter((w) => w.category === active);
+      ? workshops
+      : workshops.filter((w) => w.category === active);
 
   return (
     <>
@@ -28,7 +30,15 @@ export default function WorkshopsPage() {
         <div className="mb-8">
           <WorkshopCategoryFilter active={active} onChange={setActive} />
         </div>
-        <WorkshopGrid key={active} workshops={filtered} />
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <Skeleton key={i} className="h-72 rounded-2xl" />
+            ))}
+          </div>
+        ) : (
+          <WorkshopGrid key={active} workshops={filtered} />
+        )}
       </Section>
     </>
   );

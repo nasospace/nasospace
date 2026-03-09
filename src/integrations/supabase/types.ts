@@ -14,6 +14,273 @@ export type Database = {
   }
   public: {
     Tables: {
+      cms_blog_posts: {
+        Row: {
+          author_name: string | null
+          category: string
+          content: string
+          cover_image_alt: string
+          cover_image_src: string
+          created_at: string
+          excerpt: string
+          featured: boolean
+          id: string
+          linked_experience_slug: string | null
+          linked_portfolio_slug: string | null
+          linked_workshop_slug: string | null
+          publish_date: string | null
+          published: boolean
+          reading_time: string
+          slug: string
+          tags: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_name?: string | null
+          category?: string
+          content?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          excerpt?: string
+          featured?: boolean
+          id?: string
+          linked_experience_slug?: string | null
+          linked_portfolio_slug?: string | null
+          linked_workshop_slug?: string | null
+          publish_date?: string | null
+          published?: boolean
+          reading_time?: string
+          slug: string
+          tags?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string | null
+          category?: string
+          content?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          excerpt?: string
+          featured?: boolean
+          id?: string
+          linked_experience_slug?: string | null
+          linked_portfolio_slug?: string | null
+          linked_workshop_slug?: string | null
+          publish_date?: string | null
+          published?: boolean
+          reading_time?: string
+          slug?: string
+          tags?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_experiences: {
+        Row: {
+          capacity: number
+          category: string
+          cover_image_alt: string
+          cover_image_src: string
+          created_at: string
+          currency: string
+          date: string | null
+          description: string
+          difficulty: string
+          featured: boolean
+          gallery: Json
+          id: string
+          location: string | null
+          price: number
+          published: boolean
+          slug: string
+          summary: string
+          tags: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          date?: string | null
+          description?: string
+          difficulty?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          location?: string | null
+          price?: number
+          published?: boolean
+          slug: string
+          summary: string
+          tags?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          date?: string | null
+          description?: string
+          difficulty?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          location?: string | null
+          price?: number
+          published?: boolean
+          slug?: string
+          summary?: string
+          tags?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_faq_items: {
+        Row: {
+          answer: string
+          created_at: string
+          group_emoji: string
+          group_id: string
+          group_label: string
+          id: string
+          published: boolean
+          question: string
+          sort_order: number
+        }
+        Insert: {
+          answer: string
+          created_at?: string
+          group_emoji?: string
+          group_id: string
+          group_label: string
+          id?: string
+          published?: boolean
+          question: string
+          sort_order?: number
+        }
+        Update: {
+          answer?: string
+          created_at?: string
+          group_emoji?: string
+          group_id?: string
+          group_label?: string
+          id?: string
+          published?: boolean
+          question?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      cms_site_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      cms_workshops: {
+        Row: {
+          capacity: number
+          category: string
+          cover_image_alt: string
+          cover_image_src: string
+          created_at: string
+          currency: string
+          date: string | null
+          description: string
+          duration: string
+          featured: boolean
+          gallery: Json
+          id: string
+          location: string | null
+          materials_included: boolean
+          price: number
+          published: boolean
+          skill_level: string
+          slug: string
+          summary: string
+          tags: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          date?: string | null
+          description?: string
+          duration?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          location?: string | null
+          materials_included?: boolean
+          price?: number
+          published?: boolean
+          skill_level?: string
+          slug: string
+          summary: string
+          tags?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number
+          category?: string
+          cover_image_alt?: string
+          cover_image_src?: string
+          created_at?: string
+          currency?: string
+          date?: string | null
+          description?: string
+          duration?: string
+          featured?: boolean
+          gallery?: Json
+          id?: string
+          location?: string | null
+          materials_included?: boolean
+          price?: number
+          published?: boolean
+          skill_level?: string
+          slug?: string
+          summary?: string
+          tags?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           admin_notes: string | null
