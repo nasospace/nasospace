@@ -2,14 +2,19 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { staggerContainer, fadeUp } from "@/lib/motion";
-import { offerings } from "../data";
+import { offerings as defaultOfferings } from "../data";
 
 const cardHover = {
   rest: { y: 0, boxShadow: "var(--shadow-soft)" },
   hover: { y: -6, boxShadow: "var(--shadow-elevated)" },
 };
 
-export function OfferingsSection() {
+interface OfferingsSectionProps {
+  items?: Array<{ emoji: string; title: string; description: string }>;
+}
+
+export function OfferingsSection({ items }: OfferingsSectionProps) {
+  const data = items ?? defaultOfferings;
   return (
     <Section className="bg-card">
       <div className="mx-auto max-w-3xl text-center">
