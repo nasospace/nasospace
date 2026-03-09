@@ -29,7 +29,9 @@ import {
 import { heroMarqueeWords, heroPaletteColors } from "@/features/home/data";
 
 /* ═══════════════════════════════════════════════
-   HERO — Retro-Groovy Poster World v3
+   HERO — Retro-Groovy Poster World v4
+   Elevated art direction: stronger composition,
+   richer layering, more confident brand presence.
    ═══════════════════════════════════════════════ */
 export function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -37,19 +39,20 @@ export function HeroSection() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   /* Cursor-reactive accent */
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
-  const smoothX = useSpring(cursorX, { stiffness: 80, damping: 25 });
-  const smoothY = useSpring(cursorY, { stiffness: 80, damping: 25 });
+  const smoothX = useSpring(cursorX, { stiffness: 60, damping: 20 });
+  const smoothY = useSpring(cursorY, { stiffness: 60, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const r = heroRef.current?.getBoundingClientRect();
     if (!r) return;
-    cursorX.set((e.clientX - r.left - r.width / 2) * 0.02);
-    cursorY.set((e.clientY - r.top - r.height / 2) * 0.02);
+    cursorX.set((e.clientX - r.left - r.width / 2) * 0.015);
+    cursorY.set((e.clientY - r.top - r.height / 2) * 0.015);
   };
 
   return (
@@ -59,10 +62,10 @@ export function HeroSection() {
       className="relative min-h-[100svh] overflow-hidden"
     >
       {/* ── Background ── */}
-      <HeroBackground bgY={bgY} />
+      <HeroBackground bgY={bgY} bgScale={bgScale} />
 
       {/* ── Main content ── */}
-      <div className="container relative z-10 flex min-h-[100svh] flex-col justify-center px-5 pb-24 pt-28 sm:px-6 lg:px-8">
+      <div className="container relative z-10 flex min-h-[100svh] flex-col justify-center px-5 pb-28 pt-28 sm:px-6 lg:px-8">
         <motion.div
           variants={staggerHero}
           initial="hidden"
@@ -100,14 +103,24 @@ export function HeroSection() {
 
 /* ── Sub-components ── */
 
-function HeroBackground({ bgY }: { bgY: ReturnType<typeof useTransform> }) {
+function HeroBackground({
+  bgY,
+  bgScale,
+}: {
+  bgY: ReturnType<typeof useTransform>;
+  bgScale: ReturnType<typeof useTransform>;
+}) {
   return (
-    <motion.div className="absolute inset-0" style={{ y: bgY }}>
+    <motion.div className="absolute inset-0" style={{ y: bgY, scale: bgScale }}>
       <div className="absolute inset-0 bg-naso-cream" />
-      <div className="absolute inset-0 naso-dotgrid opacity-50" />
-      <div className="absolute -right-[15%] -top-[10%] h-[55vh] w-[40vw] rounded-[50%] bg-secondary/25 blur-[100px]" />
-      <div className="absolute -left-[10%] bottom-[0%] h-[40vh] w-[35vw] rounded-[50%] bg-naso-lilac/20 blur-[80px]" />
-      <div className="absolute left-[30%] top-[20%] h-[25vh] w-[20vw] rounded-[50%] bg-primary/[0.08] blur-[60px]" />
+      <div className="absolute inset-0 naso-dotgrid opacity-40" />
+      <div className="absolute inset-0 naso-noise" />
+      {/* Large ambient orbs */}
+      <div className="absolute -right-[15%] -top-[10%] h-[60vh] w-[45vw] rounded-[50%] bg-secondary/20 blur-[120px]" />
+      <div className="absolute -left-[10%] bottom-[0%] h-[45vh] w-[40vw] rounded-[50%] bg-naso-lilac/15 blur-[100px]" />
+      <div className="absolute left-[30%] top-[20%] h-[30vh] w-[25vw] rounded-[50%] bg-primary/[0.06] blur-[80px]" />
+      {/* Decorative line */}
+      <div className="absolute left-0 right-0 top-[45%] hidden h-px bg-foreground/[0.04] lg:block" />
     </motion.div>
   );
 }
@@ -149,9 +162,10 @@ function HeroHeadline({
             <span className="text-primary">.</span>
           </h1>
 
+          {/* Ghost text shadow for depth */}
           <motion.span
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.06 }}
+            animate={{ opacity: 0.05 }}
             transition={{ delay: 0.9, duration: 0.5 }}
             className="pointer-events-none absolute left-[6px] top-[6px] font-groovy text-[clamp(3rem,10vw,8rem)] font-black leading-[0.88] tracking-[-0.04em] text-foreground"
             aria-hidden
@@ -170,7 +184,7 @@ function HeroHeadline({
         <motion.div
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-primary font-groovy text-[7px] font-black uppercase leading-tight tracking-[0.12em] text-primary-foreground shadow-retro sm:h-[82px] sm:w-[82px] sm:text-[8px] lg:h-[95px] lg:w-[95px] lg:text-[9px]"
+          className="flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full border-[2.5px] border-foreground bg-primary font-groovy text-[7px] font-black uppercase leading-tight tracking-[0.12em] text-primary-foreground shadow-retro sm:h-[85px] sm:w-[85px] sm:text-[8px] lg:h-[100px] lg:w-[100px] lg:text-[9px]"
         >
           <span>Made</span>
           <span>in</span>
@@ -184,7 +198,15 @@ function HeroHeadline({
         style={{ x: smoothX, y: smoothY }}
         className="absolute -left-6 bottom-0 z-20 sm:-left-10 lg:-left-14"
       >
-        <FlowerShape size={52} className="text-naso-purple naso-flower-spin" />
+        <FlowerShape size={56} className="text-naso-purple naso-flower-spin" />
+      </motion.div>
+
+      {/* Extra sparkle accent — right side, mid */}
+      <motion.div
+        variants={stickerDrop(0.9, 15)}
+        className="absolute -right-4 bottom-4 z-10 hidden opacity-30 sm:block lg:right-[5%]"
+      >
+        <Sparkle className="h-5 w-5 text-naso-coral" />
       </motion.div>
     </div>
   );
@@ -298,7 +320,7 @@ function HeroPosterCard() {
 
 function HeroMarquee() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-20 border-t-[2.5px] border-foreground bg-foreground py-3">
+    <div className="absolute bottom-0 left-0 right-0 z-20 border-t-[2.5px] border-foreground bg-foreground py-3.5">
       <MarqueeTicker speed={22}>
         {heroMarqueeWords.map((word) => (
           <span
