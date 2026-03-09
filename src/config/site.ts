@@ -1,5 +1,10 @@
 import { ROUTES } from "./routes";
 
+interface NavItem {
+  label: string;
+  href: string;
+}
+
 export const siteConfig = {
   name: "NASO",
   description:
@@ -12,10 +17,14 @@ export const siteConfig = {
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
     { label: "Shop", href: ROUTES.SHOP },
+    { label: "Contact", href: ROUTES.CONTACT },
+  ] as NavItem[],
+  moreNav: [
     { label: "Community Love", href: ROUTES.COMMUNITY_LOVE },
     { label: "FAQ", href: ROUTES.FAQ },
-    { label: "Contact", href: ROUTES.CONTACT },
-  ],
+    { label: "Portfolio", href: ROUTES.PORTFOLIO },
+    { label: "Blog", href: ROUTES.BLOG },
+  ] as NavItem[],
   social: {
     instagram: "https://instagram.com/naso",
     tiktok: "https://tiktok.com/@naso",
