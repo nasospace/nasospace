@@ -87,9 +87,30 @@ export function BlogDetailView({ slug }: BlogDetailViewProps) {
       </p>
     );
   });
+  const articleUrl = `${siteConfig.url}/blog/${post.slug}`;
 
   return (
     <>
+      <SEOHead
+        title={`${post.title} — NASO Blog`}
+        description={post.excerpt || post.content.slice(0, 155)}
+        canonical={`/blog/${post.slug}`}
+        ogType="article"
+        ogImage={post.coverImage.src}
+        article={{
+          publishedTime: post.publishDate,
+          author: post.authorName || undefined,
+          tags: post.tags,
+        }}
+        jsonLd={buildArticleSchema({
+          title: post.title,
+          description: post.excerpt || post.content.slice(0, 155),
+          url: articleUrl,
+          image: post.coverImage.src,
+          publishedTime: post.publishDate,
+          authorName: post.authorName || undefined,
+        })}
+      />
       {/* Article hero */}
       <Section spacing="lg" fullBleed className="relative overflow-hidden bg-naso-cream naso-dotgrid">
         <div className="container relative">

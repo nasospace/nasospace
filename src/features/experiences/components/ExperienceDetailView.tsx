@@ -58,6 +58,22 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
 
   return (
     <>
+      <SEOHead
+        title={`${experience.title} — NASO Experiences`}
+        description={experience.summary || experience.description.slice(0, 155)}
+        canonical={`/experiences/${experience.slug}`}
+        ogImage={experience.coverImage?.src}
+        jsonLd={buildEventSchema({
+          name: experience.title,
+          description: experience.summary || experience.description.slice(0, 155),
+          url: `${siteConfig.url}/experiences/${experience.slug}`,
+          image: experience.coverImage?.src,
+          startDate: experience.date || undefined,
+          location: experience.location || undefined,
+          price: experience.price,
+          currency: experience.currency,
+        })}
+      />
       {/* Hero zone */}
       <Section spacing="lg" fullBleed className={cn("relative", meta.color)}>
         <div className="naso-halftone absolute inset-0" />

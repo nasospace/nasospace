@@ -70,6 +70,12 @@ export function PortfolioDetailView({ slug }: PortfolioDetailViewProps) {
 
   return (
     <>
+      <SEOHead
+        title={`${item.title} — NASO Portfolio`}
+        description={item.summary || item.story.slice(0, 155)}
+        canonical={`/portfolio/${item.slug}`}
+        ogImage={item.coverImage.src}
+      />
       {/* Hero */}
       <Section spacing="lg">
         <div className="grid gap-8 md:grid-cols-2 md:gap-12">
