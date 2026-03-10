@@ -132,6 +132,15 @@ export async function updateAdmin(table: CmsTable, id: string, updates: Record<s
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").update(payload as any).eq("id", id).select().single();
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").update(payload as any).eq("id", id).select().single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").update(payload as any).eq("id", id).select().single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").update(payload as any).eq("id", id).select().single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
