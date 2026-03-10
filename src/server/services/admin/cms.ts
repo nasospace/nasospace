@@ -100,6 +100,15 @@ export async function createAdmin(table: CmsTable, record: Record<string, unknow
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").insert(record as any).select().single();
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").insert(record as any).select().single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").insert(record as any).select().single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").insert(record as any).select().single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
