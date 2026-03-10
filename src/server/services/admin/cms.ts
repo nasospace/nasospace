@@ -35,6 +35,15 @@ export async function fetchAllAdmin(table: CmsTable): Promise<Record<string, any
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").select("*").order("created_at", { ascending: false });
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").select("*").order("created_at", { ascending: false });
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").select("*").order("sort_order", { ascending: true });
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").select("*").order("sort_order", { ascending: true });
+      break;
   }
 
   if (result.error) {
