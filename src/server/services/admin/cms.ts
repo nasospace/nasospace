@@ -163,6 +163,15 @@ export async function deleteAdmin(table: CmsTable, id: string): Promise<void> {
     case "cms_portfolio_items":
       ({ error } = await supabase.from("cms_portfolio_items").delete().eq("id", id));
       break;
+    case "cms_blog_posts":
+      ({ error } = await supabase.from("cms_blog_posts").delete().eq("id", id));
+      break;
+    case "cms_faq_items":
+      ({ error } = await supabase.from("cms_faq_items").delete().eq("id", id));
+      break;
+    case "cms_testimonials":
+      ({ error } = await supabase.from("cms_testimonials").delete().eq("id", id));
+      break;
   }
 
   if (error) throw new Error(error.message);
