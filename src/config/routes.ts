@@ -37,6 +37,9 @@ export const ROUTES = {
   ADMIN_EXPERIENCES: "/admin/experiences",
   ADMIN_WORKSHOPS: "/admin/workshops",
   ADMIN_PORTFOLIO: "/admin/portfolio",
+  ADMIN_BLOG: "/admin/blog",
+  ADMIN_FAQ: "/admin/faq",
+  ADMIN_TESTIMONIALS: "/admin/testimonials",
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
