@@ -115,14 +115,3 @@ export const router = createBrowserRouter([
   },
 ]);
 
-/** Lightweight placeholder for routes not yet built */
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div className="container flex min-h-[60vh] items-center justify-center">
-      <div className="text-center">
-        <h1 className="font-display text-4xl font-bold">{title}</h1>
-        <p className="mt-2 text-muted-foreground">Coming soon.</p>
-      </div>
-    </div>
-  );
-}
