@@ -14,9 +14,11 @@ import {
   PanelLeft,
   ShoppingBag,
   Compass,
-  Palette,
-  Image,
   Sparkles,
+  Image,
+  FileText,
+  HelpCircle,
+  Quote,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -40,6 +42,9 @@ const NAV_SECTIONS = [
       { label: "Workshops", path: "/admin/workshops", icon: Sparkles },
       { label: "Products", path: "/admin/products", icon: ShoppingBag },
       { label: "Portfolio", path: "/admin/portfolio", icon: Image },
+      { label: "Blog", path: "/admin/blog", icon: FileText },
+      { label: "FAQ", path: "/admin/faq", icon: HelpCircle },
+      { label: "Testimonials", path: "/admin/testimonials", icon: Quote },
     ],
   },
 ];

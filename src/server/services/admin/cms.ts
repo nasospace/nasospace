@@ -11,7 +11,10 @@ export type CmsTable =
   | "cms_experiences"
   | "cms_workshops"
   | "cms_products"
-  | "cms_portfolio_items";
+  | "cms_portfolio_items"
+  | "cms_blog_posts"
+  | "cms_faq_items"
+  | "cms_testimonials";
 
 /* ═══ Helpers ═══ */
 
@@ -31,6 +34,15 @@ export async function fetchAllAdmin(table: CmsTable): Promise<Record<string, any
       break;
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").select("*").order("created_at", { ascending: false });
+      break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").select("*").order("created_at", { ascending: false });
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").select("*").order("sort_order", { ascending: true });
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").select("*").order("sort_order", { ascending: true });
       break;
   }
 
@@ -57,6 +69,15 @@ export async function fetchOneAdmin(table: CmsTable, id: string): Promise<Record
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").select("*").eq("id", id).single();
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").select("*").eq("id", id).single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").select("*").eq("id", id).single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").select("*").eq("id", id).single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
@@ -78,6 +99,15 @@ export async function createAdmin(table: CmsTable, record: Record<string, unknow
       break;
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").insert(record as any).select().single();
+      break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").insert(record as any).select().single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").insert(record as any).select().single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").insert(record as any).select().single();
       break;
   }
 
@@ -102,6 +132,15 @@ export async function updateAdmin(table: CmsTable, id: string, updates: Record<s
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").update(payload as any).eq("id", id).select().single();
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").update(payload as any).eq("id", id).select().single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").update(payload as any).eq("id", id).select().single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").update(payload as any).eq("id", id).select().single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
@@ -123,6 +162,15 @@ export async function deleteAdmin(table: CmsTable, id: string): Promise<void> {
       break;
     case "cms_portfolio_items":
       ({ error } = await supabase.from("cms_portfolio_items").delete().eq("id", id));
+      break;
+    case "cms_blog_posts":
+      ({ error } = await supabase.from("cms_blog_posts").delete().eq("id", id));
+      break;
+    case "cms_faq_items":
+      ({ error } = await supabase.from("cms_faq_items").delete().eq("id", id));
+      break;
+    case "cms_testimonials":
+      ({ error } = await supabase.from("cms_testimonials").delete().eq("id", id));
       break;
   }
 
