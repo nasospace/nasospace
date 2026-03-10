@@ -1,27 +1,26 @@
 # NASO — Migration Guide: Lovable Cloud → Owned Supabase
 
-> This document outlines the plan for migrating NASO's backend from Lovable Cloud
-> to a self-owned Supabase project.
+> Last updated: 2026-03-10 — Sprint 24
 
 ## Current Architecture Overview
 
 ### Database Tables
 
-| Table | Purpose | RLS | Auth-tied |
-|-------|---------|-----|-----------|
-| `profiles` | User profiles (auto-created on signup via trigger) | Yes | user_id |
-| `inquiries` | Inquiry submissions from visitors/users | Yes | user_id (nullable) |
-| `saved_items` | User-saved content bookmarks | Yes | user_id |
-| `user_roles` | Admin/moderator role assignments | Yes | user_id |
-| `cms_experiences` | CMS: experience listings | Yes (public read) | No |
-| `cms_workshops` | CMS: workshop listings | Yes (public read) | No |
-| `cms_products` | CMS: shop products | Yes (public read) | No |
-| `cms_blog_posts` | CMS: blog articles | Yes (public read) | No |
-| `cms_portfolio_items` | CMS: portfolio items | Yes (public read) | No |
-| `cms_faq_items` | CMS: FAQ entries | Yes (public read) | No |
-| `cms_testimonials` | CMS: testimonial quotes | Yes (public read) | No |
-| `cms_site_settings` | CMS: key-value site settings | Yes (public read) | No |
-| `cms_page_content` | CMS: structured page content blocks | Yes (public read) | No |
+| Table | Purpose | RLS | Auth-tied | Admin CRUD |
+|-------|---------|-----|-----------|------------|
+| `profiles` | User profiles (auto-created on signup via trigger) | Yes | user_id | No (auto) |
+| `inquiries` | Inquiry submissions from visitors/users | Yes | user_id (nullable) | Yes (status/notes) |
+| `saved_items` | User-saved content bookmarks | Yes | user_id | No (user-managed) |
+| `user_roles` | Admin/moderator role assignments | Yes | user_id | Manual SQL |
+| `cms_experiences` | CMS: experience listings | Yes (public read + admin write) | No | ✅ Full CRUD |
+| `cms_workshops` | CMS: workshop listings | Yes (public read + admin write) | No | ✅ Full CRUD |
+| `cms_products` | CMS: shop products | Yes (public read + admin write) | No | ✅ Full CRUD |
+| `cms_blog_posts` | CMS: blog articles | Yes (public read only) | No | ❌ No admin RLS |
+| `cms_portfolio_items` | CMS: portfolio items | Yes (public read + admin write) | No | ✅ Full CRUD |
+| `cms_faq_items` | CMS: FAQ entries | Yes (public read only) | No | ❌ No admin RLS |
+| `cms_testimonials` | CMS: testimonial quotes | Yes (public read only) | No | ❌ No admin RLS |
+| `cms_site_settings` | CMS: key-value site settings | Yes (public read only) | No | ❌ No admin RLS |
+| `cms_page_content` | CMS: structured page content blocks | Yes (public read only) | No | ❌ No admin RLS |
 
 ### Database Functions
 
@@ -54,7 +53,7 @@
 2. **Export schema** from Lovable Cloud using the migration files in `supabase/migrations/`
 3. **Apply migrations** to the new project in order
 4. **Re-create database functions** (listed above)
-5. **Re-create triggers** — note: the `handle_new_user` trigger is on `auth.users`
+5. **Re-create triggers** — note: `handle_new_user` trigger is on `auth.users`
 6. **Copy RLS policies** — all policies are defined in migrations
 7. **Set up secrets** in new project:
    - `SUPABASE_SERVICE_ROLE_KEY` (auto-provided by new project)
@@ -68,7 +67,7 @@
 
 ### Phase 3: Code Changes
 
-All Supabase client references are isolated. Only **two files** need updating:
+All Supabase client references are isolated. Only environment variables need updating:
 
 1. **`.env`** — Update these three variables:
    ```
@@ -89,7 +88,7 @@ All Supabase client references are isolated. Only **two files** need updating:
 - [ ] Saved items CRUD works for authenticated users
 - [ ] Inquiry submission works (both anonymous and authenticated)
 - [ ] Admin role check works
-- [ ] Admin CRUD on inquiries works
+- [ ] Admin CRUD on all four content domains works
 - [ ] RLS policies block unauthorized access
 
 ---
@@ -108,14 +107,15 @@ All Supabase imports go through `@/integrations/supabase/client`. Here are the s
 | `src/server/services/admin/inquiries.ts` | `inquiries` |
 | `src/server/services/admin/profiles.ts` | `profiles` |
 | `src/server/services/admin/saved-items.ts` | `saved_items` |
-| `src/lib/cms/*.ts` | All `cms_*` tables |
+| `src/server/services/admin/cms.ts` | `cms_experiences`, `cms_workshops`, `cms_products`, `cms_portfolio_items` |
+| `src/lib/cms/*.ts` | All `cms_*` tables (read-only) |
 | `src/lib/auth/provider.tsx` | `auth` (via supabase.auth) |
 
 ---
 
 ## Deprecation Notes
 
-- **`device_id` column** on `saved_items` and `inquiries`: Legacy from pre-auth phase. Can be dropped after migration if all device data has been migrated.
+- **`device_id` column** on `saved_items`, `inquiries`, `profiles`: Legacy from pre-auth phase. Can be dropped after migration if all device data has been migrated.
 - **`migrate-device-data` edge function**: Can be retired after migration.
 - **`src/lib/deviceId.ts`**: Can be deleted after edge function retirement.
 
@@ -130,6 +130,7 @@ All Supabase imports go through `@/integrations/supabase/client`. Here are the s
 | CMS content missing | Export/import all cms_* tables first |
 | RLS policies missing | Apply all migrations in order |
 | Edge function secrets | Set SERVICE_ROLE_KEY in new project |
+| Triggers not firing | Re-create triggers explicitly after schema import |
 
 ---
 

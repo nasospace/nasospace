@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
       { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
       { path: ROUTES.WORKSHOP_DETAIL, element: <WorkshopDetailPage /> },
-      { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
+      /* /services removed — no page built yet. Re-add when Services feature is ready. */
       { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
       { path: ROUTES.PORTFOLIO_DETAIL, element: <PortfolioDetailPage /> },
       { path: ROUTES.BLOG, element: <BlogPage /> },
@@ -115,14 +115,3 @@ export const router = createBrowserRouter([
   },
 ]);
 
-/** Lightweight placeholder for routes not yet built */
-function PlaceholderPage({ title }: { title: string }) {
-  return (
-    <div className="container flex min-h-[60vh] items-center justify-center">
-      <div className="text-center">
-        <h1 className="font-display text-4xl font-bold">{title}</h1>
-        <p className="mt-2 text-muted-foreground">Coming soon.</p>
-      </div>
-    </div>
-  );
-}
