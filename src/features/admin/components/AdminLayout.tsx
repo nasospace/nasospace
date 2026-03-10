@@ -14,9 +14,11 @@ import {
   PanelLeft,
   ShoppingBag,
   Compass,
-  Palette,
-  Image,
   Sparkles,
+  Image,
+  FileText,
+  HelpCircle,
+  Quote,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
