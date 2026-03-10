@@ -69,6 +69,15 @@ export async function fetchOneAdmin(table: CmsTable, id: string): Promise<Record
     case "cms_portfolio_items":
       result = await supabase.from("cms_portfolio_items").select("*").eq("id", id).single();
       break;
+    case "cms_blog_posts":
+      result = await supabase.from("cms_blog_posts").select("*").eq("id", id).single();
+      break;
+    case "cms_faq_items":
+      result = await supabase.from("cms_faq_items").select("*").eq("id", id).single();
+      break;
+    case "cms_testimonials":
+      result = await supabase.from("cms_testimonials").select("*").eq("id", id).single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
