@@ -114,6 +114,9 @@ export const router = createBrowserRouter([
       { path: "experiences", element: <AdminExperiencesPage /> },
       { path: "workshops", element: <AdminWorkshopsPage /> },
       { path: "portfolio", element: <AdminPortfolioPage /> },
+      { path: "blog", element: <AdminBlogPage /> },
+      { path: "faq", element: <AdminFaqPage /> },
+      { path: "testimonials", element: <AdminTestimonialsPage /> },
     ],
   },
 ]);
