@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
       { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
       { path: ROUTES.WORKSHOP_DETAIL, element: <WorkshopDetailPage /> },
-      { path: ROUTES.SERVICES, element: <PlaceholderPage title="Services" /> },
+      /* /services removed — no page built yet. Re-add when Services feature is ready. */
       { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
       { path: ROUTES.PORTFOLIO_DETAIL, element: <PortfolioDetailPage /> },
       { path: ROUTES.BLOG, element: <BlogPage /> },
