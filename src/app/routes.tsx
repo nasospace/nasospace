@@ -41,6 +41,9 @@ import AdminProductsPage from "@/pages/admin/AdminProducts";
 import AdminExperiencesPage from "@/pages/admin/AdminExperiences";
 import AdminWorkshopsPage from "@/pages/admin/AdminWorkshops";
 import AdminPortfolioPage from "@/pages/admin/AdminPortfolio";
+import AdminBlogPage from "@/pages/admin/AdminBlog";
+import AdminFaqPage from "@/pages/admin/AdminFaq";
+import AdminTestimonialsPage from "@/pages/admin/AdminTestimonials";
 
 /**
  * Central route definitions.
