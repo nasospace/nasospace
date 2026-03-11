@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/features/admin/hooks/useAdminCms";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SwitchField } from "@/features/admin/components/cms/FormFields";
+import { ImageUploadField } from "@/features/admin/components/cms/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
