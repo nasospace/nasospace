@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/features/admin/hooks/useAdminCms";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SwitchField } from "@/features/admin/components/cms/FormFields";
+import { ImageUploadField } from "@/features/admin/components/cms/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -188,7 +189,7 @@ export default function AdminTestimonialsPage() {
             <TextField label="Context Tag" name="context_tag" value={form.context_tag} onChange={(v) => set("context_tag", v)} placeholder="e.g. Desert Outing" />
           </div>
 
-          <TextField label="Image URL" name="image_url" value={form.image_url} onChange={(v) => set("image_url", v)} placeholder="https://..." />
+          <ImageUploadField label="Photo" name="image_url" value={form.image_url} onChange={(v) => set("image_url", v)} folder="testimonials" />
           <NumberField label="Sort Order" name="sort_order" value={form.sort_order} onChange={(v) => set("sort_order", v)} />
 
           <div className="space-y-2">

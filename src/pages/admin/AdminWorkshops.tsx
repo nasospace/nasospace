@@ -6,6 +6,7 @@ import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/
 import { AdminCmsListPage, PublishedBadge, FeaturedBadge, type ColumnDef } from "@/features/admin/components/cms/AdminCmsListPage";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SlugField, SwitchField, TagsField } from "@/features/admin/components/cms/FormFields";
+import { ImageUploadField, GalleryUploadField } from "@/features/admin/components/cms/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
@@ -137,8 +138,8 @@ export default function AdminWorkshopsPage() {
 
           <TextField label="Location" name="location" value={form.location} onChange={(v) => set("location", v)} placeholder="e.g. NASO Studio, Zamalek" />
           <TagsField label="Tags" name="tags" value={form.tags} onChange={(v) => set("tags", v)} />
-          <TextField label="Cover Image URL" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} placeholder="https://..." />
-          <TextField label="Cover Image Alt" name="cover_image_alt" value={form.cover_image_alt} onChange={(v) => set("cover_image_alt", v)} />
+          <ImageUploadField label="Cover Image" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} folder="workshops" altValue={form.cover_image_alt} onAltChange={(v) => set("cover_image_alt", v)} />
+          <GalleryUploadField label="Gallery" name="gallery" value={form.gallery} onChange={(v) => set("gallery", v)} folder="workshops/gallery" />
 
           <div className="space-y-2">
             <SwitchField label="Published" name="published" checked={form.published} onChange={(v) => set("published", v)} description="Visible to public" />
