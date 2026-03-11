@@ -6,6 +6,7 @@ import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/
 import { AdminCmsListPage, PublishedBadge, FeaturedBadge, type ColumnDef } from "@/features/admin/components/cms/AdminCmsListPage";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SlugField, SwitchField, TagsField } from "@/features/admin/components/cms/FormFields";
+import { ImageUploadField, GalleryUploadField } from "@/features/admin/components/cms/ImageUploadField";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
