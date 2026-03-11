@@ -189,7 +189,7 @@ export default function AdminTestimonialsPage() {
             <TextField label="Context Tag" name="context_tag" value={form.context_tag} onChange={(v) => set("context_tag", v)} placeholder="e.g. Desert Outing" />
           </div>
 
-          <TextField label="Image URL" name="image_url" value={form.image_url} onChange={(v) => set("image_url", v)} placeholder="https://..." />
+          <ImageUploadField label="Photo" name="image_url" value={form.image_url} onChange={(v) => set("image_url", v)} folder="testimonials" />
           <NumberField label="Sort Order" name="sort_order" value={form.sort_order} onChange={(v) => set("sort_order", v)} />
 
           <div className="space-y-2">

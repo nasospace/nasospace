@@ -137,8 +137,7 @@ export default function AdminBlogPage() {
           </div>
 
           <TagsField label="Tags" name="tags" value={form.tags} onChange={(v) => set("tags", v)} />
-          <TextField label="Cover Image URL" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} placeholder="https://..." />
-          <TextField label="Cover Image Alt" name="cover_image_alt" value={form.cover_image_alt} onChange={(v) => set("cover_image_alt", v)} />
+          <ImageUploadField label="Cover Image" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} folder="blog" altValue={form.cover_image_alt} onAltChange={(v) => set("cover_image_alt", v)} />
 
           <div className="grid grid-cols-3 gap-3">
             <TextField label="Linked Experience" name="linked_experience_slug" value={form.linked_experience_slug} onChange={(v) => set("linked_experience_slug", v)} placeholder="slug" />
