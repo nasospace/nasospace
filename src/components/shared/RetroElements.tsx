@@ -46,17 +46,15 @@ export function FlowerShape({
 /* ═══════════════════════════════════════════
    STICKER BADGE — pill/rounded label
    ═══════════════════════════════════════════ */
-export function StickerBadge({
-  children,
-  className,
-  rotate = -3,
-  variant = "default",
-}: {
-  children: React.ReactNode;
-  className?: string;
-  rotate?: number;
-  variant?: "default" | "filled" | "outline";
-}) {
+export const StickerBadge = forwardRef<
+  HTMLDivElement,
+  {
+    children: React.ReactNode;
+    className?: string;
+    rotate?: number;
+    variant?: "default" | "filled" | "outline";
+  }
+>(({ children, className, rotate = -3, variant = "default" }, ref) => {
   const base =
     "inline-flex items-center justify-center rounded-full font-groovy text-[10px] font-bold uppercase tracking-[0.15em] whitespace-nowrap";
   const variants = {
@@ -67,6 +65,7 @@ export function StickerBadge({
 
   return (
     <motion.div
+      ref={ref}
       className={cn(base, variants[variant], className)}
       style={{ rotate }}
       whileHover={{ scale: 1.08, rotate: rotate + 4 }}
@@ -75,7 +74,8 @@ export function StickerBadge({
       {children}
     </motion.div>
   );
-}
+});
+StickerBadge.displayName = "StickerBadge";
 
 /* ═══════════════════════════════════════════
    SPARKLE — retro 4-point star
