@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { forwardRef, useRef } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
