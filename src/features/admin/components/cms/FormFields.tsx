@@ -1,7 +1,7 @@
 /**
  * Shared form field components for admin CMS forms.
  */
-import { useState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -132,17 +132,20 @@ interface SwitchFieldProps {
   description?: string;
 }
 
-export function SwitchField({ label, name, checked, onChange, description }: SwitchFieldProps) {
-  return (
-    <div className="flex items-center justify-between rounded-lg border border-border p-3">
-      <div>
-        <Label htmlFor={name} className="text-sm font-medium">{label}</Label>
-        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+export const SwitchField = React.forwardRef<HTMLDivElement, SwitchFieldProps>(
+  ({ label, name, checked, onChange, description }, ref) => {
+    return (
+      <div ref={ref} className="flex items-center justify-between rounded-lg border border-border p-3">
+        <div>
+          <Label htmlFor={name} className="text-sm font-medium">{label}</Label>
+          {description && <p className="text-xs text-muted-foreground">{description}</p>}
+        </div>
+        <Switch id={name} checked={checked} onCheckedChange={onChange} />
       </div>
-      <Switch id={name} checked={checked} onCheckedChange={onChange} />
-    </div>
-  );
-}
+    );
+  }
+);
+SwitchField.displayName = "SwitchField";
 
 interface SlugFieldProps {
   value: string;

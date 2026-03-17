@@ -1,9 +1,10 @@
 /**
  * Image upload field for admin CMS forms.
  * Supports single cover image upload with crop + gallery multi-upload.
+ * Includes drag-and-drop support for both.
  * Uses the cms-images storage bucket.
  */
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, type DragEvent } from "react";
 import Cropper, { type Area } from "react-easy-crop";
 import { supabase } from "@/integrations/supabase/client";
 import { FormField } from "./FormFields";
@@ -14,8 +15,29 @@ import {
 } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { Upload, X, Loader2, Image as ImageIcon, Crop } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const BUCKET = "cms-images";
+const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
+/* ─── Drag-and-drop hook ─── */
+
+function useDropZone(onDrop: (files: FileList) => void) {
+  const [dragOver, setDragOver] = useState(false);
+
+  const handlers = {
+    onDragOver: (e: DragEvent) => { e.preventDefault(); setDragOver(true); },
+    onDragLeave: (e: DragEvent) => { e.preventDefault(); setDragOver(false); },
+    onDrop: (e: DragEvent) => {
+      e.preventDefault();
+      setDragOver(false);
+      const files = e.dataTransfer.files;
+      if (files.length) onDrop(files);
+    },
+  };
+
+  return { dragOver, handlers };
+}
 
 /* ─── Crop helpers ─── */
 
@@ -135,11 +157,12 @@ function CropDialog({ open, imageSrc, onClose, onComplete }: CropDialogProps) {
               key={p.label}
               type="button"
               onClick={() => { setPresetIdx(i); setZoom(1); setCrop({ x: 0, y: 0 }); }}
-              className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
+              className={cn(
+                "rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors",
                 i === presetIdx
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:text-foreground"
-              }`}
+              )}
             >
               {p.label}
             </button>
@@ -185,6 +208,13 @@ function CropDialog({ open, imageSrc, onClose, onComplete }: CropDialogProps) {
   );
 }
 
+/* ─── Drop zone styling ─── */
+
+const dropZoneBase =
+  "flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed bg-muted/50 text-sm text-muted-foreground transition-colors";
+const dropZoneIdle = "border-border hover:border-primary/40 hover:text-foreground";
+const dropZoneActive = "border-primary bg-primary/5 text-foreground";
+
 /* ─── Single Image Upload ─── */
 
 interface ImageUploadFieldProps {
@@ -209,8 +239,11 @@ export function ImageUploadField({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
+    if (!ACCEPTED_TYPES.includes(file.type)) {
+      setError("Only JPEG, PNG, WebP, and GIF files are accepted");
+      return;
+    }
     if (skipCrop) {
-      // Direct upload without crop
       setError("");
       setUploading(true);
       try {
@@ -223,11 +256,17 @@ export function ImageUploadField({
       }
       return;
     }
-    // Show crop dialog
     const reader = new FileReader();
     reader.onload = () => setCropSrc(reader.result as string);
     reader.readAsDataURL(file);
   };
+
+  const handleDrop = useCallback((files: FileList) => {
+    const file = files[0];
+    if (file) handleFile(file);
+  }, [skipCrop, folder]);
+
+  const { dragOver, handlers } = useDropZone(handleDrop);
 
   const handleCropComplete = async (blob: Blob) => {
     setCropSrc(null);
@@ -262,12 +301,15 @@ export function ImageUploadField({
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={uploading}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border bg-muted/50 py-6 text-sm text-muted-foreground hover:border-primary/40 hover:text-foreground transition-colors"
+            className={cn(dropZoneBase, "py-6", dragOver ? dropZoneActive : dropZoneIdle)}
+            {...handlers}
           >
             {uploading ? (
               <><Loader2 className="h-4 w-4 animate-spin" /> Uploading…</>
+            ) : dragOver ? (
+              <><Upload className="h-4 w-4" /> Drop image here</>
             ) : (
-              <><Upload className="h-4 w-4" /> Click to upload image</>
+              <><Upload className="h-4 w-4" /> Drag & drop or click to upload</>
             )}
           </button>
         )}
@@ -329,9 +371,10 @@ export function GalleryUploadField({
   const [croppedBlobs, setCroppedBlobs] = useState<Blob[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFiles = (files: FileList) => {
-    // Read all files and queue for cropping
-    const readers = Array.from(files).map(
+  const processFiles = useCallback((files: FileList) => {
+    const imageFiles = Array.from(files).filter(f => ACCEPTED_TYPES.includes(f.type));
+    if (!imageFiles.length) return;
+    const readers = imageFiles.map(
       (file) =>
         new Promise<string>((resolve) => {
           const reader = new FileReader();
@@ -343,14 +386,15 @@ export function GalleryUploadField({
       setCropQueue(srcs);
       setCroppedBlobs([]);
     });
-  };
+  }, []);
+
+  const { dragOver, handlers } = useDropZone(processFiles);
 
   const handleCropOne = async (blob: Blob) => {
     const newBlobs = [...croppedBlobs, blob];
     const remaining = cropQueue.slice(1);
     
     if (remaining.length === 0) {
-      // All cropped, upload all
       setCropQueue([]);
       setCroppedBlobs([]);
       setUploading(true);
@@ -367,20 +411,6 @@ export function GalleryUploadField({
     } else {
       setCroppedBlobs(newBlobs);
       setCropQueue(remaining);
-    }
-  };
-
-  const skipCropAndUploadDirect = async (files: FileList) => {
-    setUploading(true);
-    try {
-      const urls = await Promise.all(
-        Array.from(files).map((f) => uploadFile(f, folder))
-      );
-      onChange([...value, ...urls]);
-    } catch {
-      // partial
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -409,12 +439,15 @@ export function GalleryUploadField({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-muted/50 py-3 text-xs text-muted-foreground hover:border-primary/40 hover:text-foreground transition-colors"
+          className={cn(dropZoneBase, "py-3 text-xs", dragOver ? dropZoneActive : dropZoneIdle)}
+          {...handlers}
         >
           {uploading ? (
             <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Uploading…</>
+          ) : dragOver ? (
+            <><Upload className="h-3.5 w-3.5" /> Drop images here</>
           ) : (
-            <><ImageIcon className="h-3.5 w-3.5" /> Add gallery images (with crop)</>
+            <><ImageIcon className="h-3.5 w-3.5" /> Drag & drop or click to add gallery images</>
           )}
         </button>
         <input
@@ -424,7 +457,7 @@ export function GalleryUploadField({
           multiple
           className="hidden"
           onChange={(e) => {
-            if (e.target.files?.length) handleFiles(e.target.files);
+            if (e.target.files?.length) processFiles(e.target.files);
             e.target.value = "";
           }}
         />
