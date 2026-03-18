@@ -19,7 +19,7 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     // The recovery link sets a session automatically via the URL hash
-    supabase.auth.onAuthStateChange((event) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
         setHasSession(true);
       }
@@ -28,6 +28,7 @@ export default function ResetPasswordPage() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setHasSession(!!session);
     });
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
