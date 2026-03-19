@@ -6,15 +6,14 @@ import { cn } from "@/lib/utils";
 /* ═══════════════════════════════════════════
    FLOWER SHAPE — 6-petal retro flower
    ═══════════════════════════════════════════ */
-export function FlowerShape({
-  className,
-  petals = 6,
-  size = 60,
-}: {
-  className?: string;
-  petals?: number;
-  size?: number;
-}) {
+export const FlowerShape = forwardRef<
+  SVGSVGElement,
+  {
+    className?: string;
+    petals?: number;
+    size?: number;
+  }
+>(({ className, petals = 6, size = 60 }, ref) => {
   const petalPath = Array.from({ length: petals }, (_, i) => {
     const angle = (360 / petals) * i;
     return `rotate(${angle} ${size / 2} ${size / 2})`;
@@ -22,6 +21,7 @@ export function FlowerShape({
 
   return (
     <svg
+      ref={ref}
       viewBox={`0 0 ${size} ${size}`}
       className={cn("shrink-0", className)}
       style={{ width: size, height: size }}
@@ -41,7 +41,8 @@ export function FlowerShape({
       <circle cx={size / 2} cy={size / 2} r={size / 7} fill="currentColor" opacity={0.6} />
     </svg>
   );
-}
+});
+FlowerShape.displayName = "FlowerShape";
 
 /* ═══════════════════════════════════════════
    STICKER BADGE — pill/rounded label
