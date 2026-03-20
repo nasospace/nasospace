@@ -8,6 +8,31 @@ interface InquiryContextCardProps {
 }
 
 export function InquiryContextCard({ context }: InquiryContextCardProps) {
+  // Cart order context (no slug needed)
+  if (context.cartSummary && context.cartTotal) {
+    return (
+      <div
+        className={cn(
+          "rounded-2xl border-2 border-foreground bg-card p-4 shadow-retro",
+          "flex items-start gap-3"
+        )}
+      >
+        <span className="text-2xl" role="img" aria-label="Cart">🛒</span>
+        <div className="min-w-0 flex-1">
+          <p className="font-display text-[10px] uppercase tracking-wider text-muted-foreground">
+            Cart Order
+          </p>
+          <p className="mt-0.5 font-groovy text-sm font-bold leading-tight">
+            {context.cartTotal}
+          </p>
+          <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+            {context.cartSummary}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (!context.ref || !context.title || !context.slug) return null;
 
   const detailPath =
