@@ -187,7 +187,7 @@ export default function CartPage() {
                     Continue Shopping
                   </Link>
                   <Link
-                    to={ROUTES.INQUIRIES}
+                    to={buildCartInquiryPath(items, subtotal, currency)}
                     className={cn(
                       "inline-flex items-center justify-center rounded-full border-2 border-foreground px-6 py-2.5",
                       "font-groovy text-[10px] font-bold uppercase tracking-wider shadow-retro",
