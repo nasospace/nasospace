@@ -17,7 +17,7 @@ export interface SavedItemRow {
 }
 
 export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedItemRow[]> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return [];
 
   let query = supabase
@@ -39,7 +39,7 @@ export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedIt
 }
 
 export async function isItemSaved(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return false;
 
   const { count, error } = await supabase
@@ -54,7 +54,7 @@ export async function isItemSaved(itemType: SavedItemType, itemSlug: string): Pr
 }
 
 export async function addSavedItem(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return false;
 
   const { error } = await supabase
@@ -76,7 +76,7 @@ export async function addSavedItem(itemType: SavedItemType, itemSlug: string): P
 }
 
 export async function removeSavedItem(itemType: SavedItemType, itemSlug: string): Promise<boolean> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return false;
 
   const { error } = await supabase
@@ -94,7 +94,7 @@ export async function removeSavedItem(itemType: SavedItemType, itemSlug: string)
 }
 
 export async function getSavedItemCount(): Promise<number> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return 0;
 
   const { count, error } = await supabase
