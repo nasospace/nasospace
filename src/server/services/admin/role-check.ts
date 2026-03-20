@@ -2,15 +2,16 @@
  * Admin role check — isolated for clean imports.
  */
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 
 export async function checkIsAdmin(): Promise<boolean> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return false;
+  const userId = await getCachedUserId();
+  if (!userId) return false;
 
   const { data, error } = await supabase
     .from("user_roles")
     .select("role")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .eq("role", "admin")
     .maybeSingle();
 

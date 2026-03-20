@@ -15,7 +15,9 @@ import type { AccountUser } from "@/features/account/types";
  */
 export async function getOrCreateProfile(): Promise<AccountUser> {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    const userId = await getCachedUserId();
+
+    if (!userId) {
 
     if (!user) {
       return {
