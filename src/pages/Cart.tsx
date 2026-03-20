@@ -7,8 +7,22 @@ import { Section, FlowerShape, MagneticButton } from "@/components/shared";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { useCart } from "@/features/cart";
-import { ROUTES } from "@/config/routes";
-import { routeHelpers } from "@/config/routes";
+import { ROUTES, routeHelpers } from "@/config/routes";
+import type { CartItem } from "@/features/cart/types";
+
+/** Build an inquiry path that includes cart summary as context */
+function buildCartInquiryPath(items: CartItem[], subtotal: number, currency: string): string {
+  const summary = items
+    .map((i) => `${i.title} x${i.quantity}`)
+    .join(", ");
+  const params = new URLSearchParams({
+    ref: "product",
+    title: `Cart Order (${items.length} item${items.length > 1 ? "s" : ""})`,
+    cart_summary: summary,
+    cart_total: `${subtotal} ${currency}`,
+  });
+  return `${ROUTES.INQUIRIES}?${params.toString()}`;
+}
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, getSubtotal, getItemCount } = useCart();
