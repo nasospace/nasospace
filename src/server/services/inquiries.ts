@@ -12,7 +12,7 @@ import type { RequestHistoryItem, RequestStatus } from "@/features/account/types
 import type { InquiryType } from "@/features/inquiries/types";
 
 export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmissionResult> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
 
   const { error, data: row } = await supabase
     .from("inquiries")
