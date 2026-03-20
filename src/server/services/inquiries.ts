@@ -42,7 +42,7 @@ export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmi
 }
 
 export async function getInquiries(): Promise<RequestHistoryItem[]> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return [];
 
   const { data, error } = await supabase
