@@ -6,6 +6,7 @@
  * When migrating to owned Supabase, only update the client import.
  */
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 import type { AccountUser } from "@/features/account/types";
 
 /**
