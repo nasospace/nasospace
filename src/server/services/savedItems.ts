@@ -6,6 +6,7 @@
  * When migrating to owned Supabase, only update the client import.
  */
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 import type { SavedItemType } from "@/features/account/types";
 
 export interface SavedItemRow {
@@ -13,15 +14,6 @@ export interface SavedItemRow {
   item_type: string;
   item_slug: string;
   created_at: string;
-}
-
-async function getUserId(): Promise<string | null> {
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user?.id ?? null;
-  } catch {
-    return null;
-  }
 }
 
 export async function getSavedItems(typeFilter?: SavedItemType): Promise<SavedItemRow[]> {

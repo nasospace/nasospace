@@ -65,13 +65,14 @@ export function ContactForm() {
     setSending(true);
 
     try {
-      // Submit as a "general" inquiry type
+      const userId = await getCachedUserId();
       const { error: dbError } = await supabase.from("inquiries").insert({
         name: result.data.name,
         email: result.data.email,
         inquiry_type: "general",
         notes: result.data.message,
-        device_id: "contact-form",
+        device_id: userId ?? "contact-form",
+        user_id: userId,
       });
 
       if (dbError) {

@@ -68,7 +68,7 @@ export async function getInquiries(): Promise<RequestHistoryItem[]> {
 }
 
 export async function getInquiryCount(): Promise<number> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return 0;
 
   const { count, error } = await supabase
