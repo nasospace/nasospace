@@ -179,7 +179,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
       <HoneypotField value={honeypot} onChange={setHoneypot} />
 
       {/* Booking context card */}
-      {context.ref && context.title && (
+      {(context.cartSummary || (context.ref && context.title)) && (
         <motion.div variants={fadeUp}>
           <InquiryContextCard context={context} />
         </motion.div>
