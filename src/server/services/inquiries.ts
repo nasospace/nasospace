@@ -6,21 +6,13 @@
  * When migrating to owned Supabase, only update the client import.
  */
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 import type { InquiryFormData, InquirySubmissionResult } from "@/features/inquiries/types";
 import type { RequestHistoryItem, RequestStatus } from "@/features/account/types";
 import type { InquiryType } from "@/features/inquiries/types";
 
-async function getUserId(): Promise<string | null> {
-  try {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user?.id ?? null;
-  } catch {
-    return null;
-  }
-}
-
 export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmissionResult> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
 
   const { error, data: row } = await supabase
     .from("inquiries")
@@ -50,7 +42,7 @@ export async function submitInquiry(data: InquiryFormData): Promise<InquirySubmi
 }
 
 export async function getInquiries(): Promise<RequestHistoryItem[]> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return [];
 
   const { data, error } = await supabase
@@ -76,7 +68,7 @@ export async function getInquiries(): Promise<RequestHistoryItem[]> {
 }
 
 export async function getInquiryCount(): Promise<number> {
-  const userId = await getUserId();
+  const userId = await getCachedUserId();
   if (!userId) return 0;
 
   const { count, error } = await supabase

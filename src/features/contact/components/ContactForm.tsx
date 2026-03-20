@@ -16,6 +16,7 @@ import {
   HONEYPOT_FIELD,
 } from "@/lib/abuse-protection";
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -64,13 +65,14 @@ export function ContactForm() {
     setSending(true);
 
     try {
-      // Submit as a "general" inquiry type
+      const userId = await getCachedUserId();
       const { error: dbError } = await supabase.from("inquiries").insert({
         name: result.data.name,
         email: result.data.email,
         inquiry_type: "general",
         notes: result.data.message,
-        device_id: "contact-form",
+        device_id: userId ?? "contact-form",
+        user_id: userId,
       });
 
       if (dbError) {

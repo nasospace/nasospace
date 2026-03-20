@@ -81,13 +81,16 @@ StickerBadge.displayName = "StickerBadge";
 /* ═══════════════════════════════════════════
    SPARKLE — retro 4-point star
    ═══════════════════════════════════════════ */
-export function Sparkle({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" fill="currentColor" className={cn("shrink-0", className)}>
-      <path d="M16 0l2.35 13.65L32 16l-13.65 2.35L16 32l-2.35-13.65L0 16l13.65-2.35z" />
-    </svg>
-  );
-}
+export const Sparkle = forwardRef<SVGSVGElement, { className?: string }>(
+  ({ className }, ref) => {
+    return (
+      <svg ref={ref} viewBox="0 0 32 32" fill="currentColor" className={cn("shrink-0", className)}>
+        <path d="M16 0l2.35 13.65L32 16l-13.65 2.35L16 32l-2.35-13.65L0 16l13.65-2.35z" />
+      </svg>
+    );
+  }
+);
+Sparkle.displayName = "Sparkle";
 
 /* ═══════════════════════════════════════════
    WAVY DIVIDER — retro section separator

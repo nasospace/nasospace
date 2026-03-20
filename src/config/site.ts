@@ -9,7 +9,7 @@ export const siteConfig = {
   name: "NASO",
   description:
     "Premium creative experiences, workshops, events, and products from Cairo.",
-  url: "https://naso.co", // placeholder
+  url: "https://naso.co", // TODO: Replace with final production domain before launch
   locale: "en",
   nav: [
     { label: "Home", href: ROUTES.HOME },
@@ -26,7 +26,7 @@ export const siteConfig = {
     { label: "Blog", href: ROUTES.BLOG },
   ] as NavItem[],
   social: {
-    instagram: "https://instagram.com/naso",
-    tiktok: "https://tiktok.com/@naso",
+    instagram: "https://instagram.com/naso", // TODO: Replace with real Instagram handle
+    tiktok: "https://tiktok.com/@naso", // TODO: Replace with real TikTok handle
   },
 } as const;

@@ -1,6 +1,7 @@
 import { Outlet, useLocation, ScrollRestoration } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { RouteErrorBoundary } from "@/components/shared/RouteErrorBoundary";
 import { useEffect } from "react";
 
 /**
@@ -17,7 +18,9 @@ export function RootLayout() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <Outlet />
+        <RouteErrorBoundary>
+          <Outlet />
+        </RouteErrorBoundary>
       </main>
       <Footer />
     </div>

@@ -75,6 +75,11 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
   const defaultType = contextToInquiryType(context.ref);
   const mountedAt = useRef(Date.now());
 
+  // Pre-fill notes with cart summary if coming from cart
+  const cartNotes = context.cartSummary
+    ? `Cart order: ${context.cartSummary}\nTotal: ${context.cartTotal ?? "N/A"}`
+    : "";
+
   const [form, setForm] = useState<InquiryFormData>({
     name: "",
     email: "",
@@ -82,7 +87,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
     inquiryType: defaultType,
     preferredDate: "",
     groupSize: "",
-    notes: "",
+    notes: cartNotes,
     itemType: context.ref ?? undefined,
     itemSlug: context.slug ?? undefined,
     itemTitle: context.title ?? undefined,
@@ -174,7 +179,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
       <HoneypotField value={honeypot} onChange={setHoneypot} />
 
       {/* Booking context card */}
-      {context.ref && context.title && (
+      {(context.cartSummary || (context.ref && context.title)) && (
         <motion.div variants={fadeUp}>
           <InquiryContextCard context={context} />
         </motion.div>
