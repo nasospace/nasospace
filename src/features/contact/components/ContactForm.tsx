@@ -16,6 +16,7 @@ import {
   HONEYPOT_FIELD,
 } from "@/lib/abuse-protection";
 import { supabase } from "@/integrations/supabase/client";
+import { getCachedUserId } from "@/lib/auth/session";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
