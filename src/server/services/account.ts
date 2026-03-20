@@ -18,8 +18,6 @@ export async function getOrCreateProfile(): Promise<AccountUser> {
     const userId = await getCachedUserId();
 
     if (!userId) {
-
-    if (!user) {
       return {
         id: "",
         name: "Explorer",
@@ -31,24 +29,24 @@ export async function getOrCreateProfile(): Promise<AccountUser> {
     const { data: profile, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("user_id", user.id)
+      .eq("user_id", userId)
       .single();
 
     if (!error && profile) {
       return {
         id: profile.id,
         name: profile.display_name,
-        email: profile.email ?? user.email ?? "",
+        email: profile.email ?? "",
         joinedAt: profile.created_at,
       };
     }
 
     // Fallback — trigger should have created it, but be safe
     return {
-      id: user.id,
-      name: user.user_metadata?.display_name ?? "Explorer",
-      email: user.email ?? "",
-      joinedAt: user.created_at,
+      id: userId,
+      name: "Explorer",
+      email: "",
+      joinedAt: new Date().toISOString(),
     };
   } catch (err) {
     console.error("[account] getOrCreateProfile failed:", err);
