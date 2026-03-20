@@ -4,6 +4,7 @@ import type { InquiryPageContext, InquiryType } from "../types";
 /**
  * Parse inquiry context from URL search params.
  * Example: /inquiries?ref=workshop&slug=pottery-and-chill&title=Pottery+%26+Chill
+ * Cart example: /inquiries?ref=product&title=Cart+Order&cart_summary=...&cart_total=...
  */
 export function useInquiryContext(): InquiryPageContext {
   const [searchParams] = useSearchParams();
@@ -11,11 +12,15 @@ export function useInquiryContext(): InquiryPageContext {
   const ref = searchParams.get("ref");
   const slug = searchParams.get("slug");
   const title = searchParams.get("title");
+  const cartSummary = searchParams.get("cart_summary");
+  const cartTotal = searchParams.get("cart_total");
 
   return {
     ref: ref === "experience" || ref === "workshop" || ref === "portfolio" || ref === "product" ? ref : null,
     slug: slug || null,
     title: title ? decodeURIComponent(title) : null,
+    cartSummary: cartSummary || null,
+    cartTotal: cartTotal || null,
   };
 }
 

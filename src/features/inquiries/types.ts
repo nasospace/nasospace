@@ -76,6 +76,10 @@ export interface InquiryPageContext {
   ref: "experience" | "workshop" | "portfolio" | "product" | null;
   slug: string | null;
   title: string | null;
+  /** Cart items summary when coming from cart → inquiry */
+  cartSummary: string | null;
+  /** Cart total when coming from cart → inquiry */
+  cartTotal: string | null;
 }
 
 /* ═══ Submission result (future backend shape) ═══ */
