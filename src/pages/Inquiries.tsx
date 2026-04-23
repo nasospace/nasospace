@@ -11,8 +11,8 @@ export default function InquiriesPage() {
   return (
     <>
       <SEOHead
-        title="Inquiries — Book or Request from NASO"
-        description="Send us a detailed inquiry about experiences, workshops, products, or custom projects. We'll get back to you within 24–48 hours."
+        title="Custom Requests — NASO"
+        description="Plan a custom project, corporate event, or special request with NASO. We'll help you bring your vision to life."
         canonical="/inquiries"
       />
       <InquiryHero context={context} />

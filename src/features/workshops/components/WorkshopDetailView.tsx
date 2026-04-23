@@ -7,9 +7,10 @@ import { toast } from "sonner";
 import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
-import { ROUTES, buildInquiryPath } from "@/config/routes";
+import { ROUTES } from "@/config/routes";
 import { buildEventSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import { useCart } from "@/features/cart";
 import { useWorkshop, useRelatedWorkshops } from "../hooks/useWorkshops";
 import { WORKSHOP_CATEGORY_META } from "../types";
 import { WorkshopGrid } from "./WorkshopGrid";
@@ -26,6 +27,8 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
     workshop?.category ?? "",
     3
   );
+  const { addItem } = useCart();
+  const [justAdded, setJustAdded] = React.useState(false);
 
   if (isLoading) {
     return (
@@ -153,21 +156,33 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
               </dl>
 
               <div className="mt-6">
-                <MagneticButton
-                  to={buildInquiryPath({
-                    type: "workshop",
-                    slug: workshop.slug,
-                    title: workshop.title,
-                  })}
+                <button
+                  onClick={() => {
+                    addItem(
+                      {
+                        productId: workshop.id,
+                        slug: workshop.slug,
+                        title: workshop.title,
+                        price: workshop.price,
+                        currency: workshop.currency,
+                        coverImageSrc: workshop.coverImage?.src || "",
+                        stockStatus: "in-stock",
+                      },
+                      1
+                    );
+                    setJustAdded(true);
+                    toast.success("Workshop spot added to cart ✦");
+                    setTimeout(() => setJustAdded(false), 2000);
+                  }}
                   className={cn(
-                    "flex w-full items-center justify-center rounded-full border-[2.5px] border-foreground px-6 py-3",
+                    "flex w-full items-center justify-center gap-2 rounded-full border-[2.5px] border-foreground px-6 py-3",
                     "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
                     meta.color, meta.textColor,
-                    "transition-shadow hover:shadow-retro-lg"
+                    "transition-all hover:shadow-retro-lg active:translate-y-0.5 active:shadow-none"
                   )}
                 >
-                  I'm in. Save my spot.
-                </MagneticButton>
+                  {justAdded ? "Added to Cart" : "I'm in. Save my spot."}
+                </button>
 
                 <div className="mt-4 flex flex-col gap-3">
                   <button

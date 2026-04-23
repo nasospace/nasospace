@@ -189,7 +189,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
       <motion.div variants={fadeUp}>
         <Label>What's this about?</Label>
         <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {INQUIRY_TYPES.map((type) => {
+          {INQUIRY_TYPES.filter(t => !["experience", "workshop", "product"].includes(t)).map((type) => {
             const meta = INQUIRY_TYPE_META[type];
             const isActive = form.inquiryType === type;
             return (

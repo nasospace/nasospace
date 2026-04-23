@@ -92,14 +92,14 @@ export function ContactInfo() {
           <MotionDiv>
             <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-groovy text-base font-bold">
-                Something bigger in mind?
+                Special project in mind?
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                For bookings, events, or detailed requests — use our inquiry form.
+                For custom orders, corporate events, or unique requests — use our dedicated request flow.
               </p>
               <Button asChild variant="outline" className="mt-4 w-full" size="lg">
                 <Link to={ROUTES.INQUIRIES}>
-                  Go to inquiries
+                  Start custom request
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
