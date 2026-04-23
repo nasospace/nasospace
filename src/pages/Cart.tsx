@@ -37,7 +37,7 @@ export default function CartPage() {
         phone: formData.phone,
         message: `Order Details:\n${summary}\nTotal: ${subtotal} ${currency}\n\nCustomer Notes:\n${formData.notes}`,
         status: "new",
-        type: "product"
+        inquiry_type: "order"
       });
 
       if (error) throw error;
@@ -303,8 +303,8 @@ export default function CartPage() {
                     disabled={isSubmitting}
                     className="group flex w-full h-14 items-center justify-center gap-2 rounded-full border-4 border-foreground bg-secondary px-8 font-groovy text-sm font-black uppercase tracking-widest text-foreground shadow-retro transition-transform hover:-translate-y-1 hover:shadow-retro-lg active:translate-y-0 active:shadow-none disabled:opacity-50 disabled:hover:translate-y-0"
                   >
-                    {isSubmitting ? "Processing..." : "Confirm Request"}
-                    {!isSubmitting && <Heart className="h-4 w-4 text-naso-pink" />}
+                    {isSubmitting ? "Processing..." : "Confirm Order"}
+                    {!isSubmitting && <Check className="h-4 w-4 text-foreground" />}
                   </button>
                 )}
 
@@ -333,9 +333,9 @@ export default function CartPage() {
             <div className="w-20 h-20 mx-auto bg-[#B9EC84] rounded-full border-4 border-foreground flex items-center justify-center mb-6 shadow-retro-sm">
               <Check className="w-10 h-10 text-foreground" />
             </div>
-            <h2 className="font-groovy text-3xl font-black mb-4">You're on the list!</h2>
+            <h2 className="font-groovy text-3xl font-black mb-4">Order Confirmed!</h2>
             <p className="text-muted-foreground font-medium mb-8">
-              We received your request. The NASO team will reach out to you via WhatsApp or Email within 24 hours to finalize delivery and payment. 
+              We received your order. The NASO team will reach out to you via WhatsApp or Email within 24 hours to finalize delivery and payment details. 
             </p>
             <Link
               to={ROUTES.HOME}

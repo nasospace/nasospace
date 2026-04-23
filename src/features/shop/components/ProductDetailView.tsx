@@ -290,12 +290,12 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
 
             {/* CTAs */}
               <div className="flex flex-col gap-3 w-full pt-2">
-                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                <div className="flex flex-col w-full">
                   <button
                     onClick={handleAddToCart}
                     disabled={!canAdd}
                     className={cn(
-                      "flex-1 inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground px-8 py-3",
+                      "w-full inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground px-8 py-3",
                       "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
                       "transition-all hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
                       !canAdd
@@ -313,21 +313,10 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
                       </>
                     ) : (
                       <>
-                        <ShoppingBag className="h-4 w-4" /> Grab yours
+                        <ShoppingBag className="h-4 w-4" /> Secure Checkout
                       </>
                     )}
                   </button>
-
-                  <Link
-                    to={inquiryPath}
-                    className={cn(
-                      "flex-1 inline-flex items-center justify-center rounded-full border-2 border-foreground px-8 py-3",
-                      "font-groovy text-xs font-bold uppercase tracking-wider",
-                      "bg-card text-foreground transition-shadow hover:shadow-retro"
-                    )}
-                  >
-                    Ask us about this
-                  </Link>
                 </div>
 
                 <button

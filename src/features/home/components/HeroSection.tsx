@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import confetti from "canvas-confetti";
 import { trackNaso } from "@/lib/analytics";
 import { Link } from "react-router-dom";
-<div className="badge">✨</div>
+
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
