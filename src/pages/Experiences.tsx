@@ -22,9 +22,18 @@ export default function ExperiencesPage() {
   return (
     <>
       <SEOHead
-        title="Experiences — Immersive Outings & Events by NASO"
-        description="Discover unique immersive experiences crafted by NASO in Cairo. From interactive installations to sensory journeys, explore our curated collection of memorable moments."
+        title="Cairo Events & Creative Workshops | NASO Experiences"
+        description="Join Cairo's best creative workshops, art classes, and immersive events. Book your spot at a NASO Experience and meet new people in Egypt. | احجز ورش عمل وتجارب فنية في القاهرة"
         canonical="/experiences"
+        ogImage="/assets/workshops_bg_1776810244802.png"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "NASO Experiences - Creative Workshops in Cairo",
+            "description": "Browse and book upcoming creative workshops and events by NASO Space in Cairo, Egypt."
+          }
+        ]}
       />
       <ExperienceHero />
       <Section>

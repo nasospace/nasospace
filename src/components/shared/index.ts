@@ -5,6 +5,8 @@ export { InfoRow } from "./InfoRow";
 export { SEOHead } from "./SEOHead";
 export { TrustCTA } from "./TrustCTA";
 export { SaveButton } from "./SaveButton";
+export { CustomCursor } from "./CustomCursor";
+export { SmoothScroll } from "./SmoothScroll";
 export {
   FlowerShape,
   StickerBadge,

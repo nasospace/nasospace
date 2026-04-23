@@ -1,3 +1,6 @@
+/* Syne loaded via Google Fonts (Unbounded & Inter via @fontsource npm + index.html) */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,9 +10,6 @@
   Brand: retro-cool · groovy · playful · Gen Z · artsy · Cairo creative culture
   Palette: #000000, #0063E2, #B9EC84, #B480D3, #CFAEE7, #FFFFFF + warm accents
 */
-
-/* Syne loaded via Google Fonts (Unbounded & Inter via @fontsource npm + index.html) */
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
@@ -59,8 +59,15 @@
     --radius: 0.75rem;
 
     /* === Spacing Rhythm === */
-    --section-y: 5rem;
-    --section-y-lg: 7.5rem;
+    --section-y: 8rem;
+    --section-y-lg: 12rem;
+
+    /* === Motion Timing (consistent across all components) === */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --duration-fast: 200ms;
+    --duration-base: 350ms;
+    --duration-slow: 600ms;
 
     /* === Shadows === */
     --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.06);
@@ -84,7 +91,7 @@
     /* === Typography === */
     --font-display: 'Space Grotesk', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
-    --font-groovy: 'Unbounded', 'Syne', system-ui, sans-serif;
+    --font-groovy: 'Outfit', system-ui, sans-serif;
   }
 
   .dark {
@@ -128,8 +135,25 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /* Selection color */
@@ -140,12 +164,17 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   h1 { @apply text-4xl font-bold md:text-6xl lg:text-7xl; }
   h2 { @apply text-3xl font-bold md:text-4xl lg:text-5xl; }
   h3 { @apply text-2xl font-semibold md:text-3xl; }
   h4 { @apply text-xl font-semibold; }
+
+  p {
+    text-wrap: pretty;
+  }
 }
 
 @layer components {
@@ -195,9 +224,9 @@
     background-size: 40px 40px;
   }
 
-  /* Noise texture overlay */
+  /* Noise texture overlay — cinematic film grain */
   .naso-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 200px 200px;
   }
@@ -291,5 +320,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* Premium easing curve */
+  .naso-ease {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

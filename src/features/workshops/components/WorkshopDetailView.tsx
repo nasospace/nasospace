@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
+import { Share2, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 import { Section, StickerBadge, MagneticButton, InfoRow, SaveButton } from "@/components/shared";
 import { SEOHead } from "@/components/shared/SEOHead";
 import { MotionDiv } from "@/components/shared/MotionDiv";
@@ -164,8 +166,35 @@ export function WorkshopDetailView({ slug }: WorkshopDetailViewProps) {
                     "transition-shadow hover:shadow-retro-lg"
                   )}
                 >
-                  Book This Workshop
+                  I'm in. Save my spot.
                 </MagneticButton>
+
+                <div className="mt-4 flex flex-col gap-3">
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 https://naso.space/workshops/${workshop.slug}`);
+                      toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                    }}
+                    className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0"
+                  >
+                    <Share2 className="h-4 w-4" />
+                    Send to Group Chat
+                  </button>
+
+                  <div className="mt-2 rounded-xl bg-muted/50 p-3 text-center">
+                    <p className="font-groovy text-xs font-bold text-foreground">
+                      ✦ No experience needed
+                    </p>
+                    <p className="mt-1 text-[10px] text-muted-foreground">
+                      Perfect for beginners. Come solo or bring friends—our hosts make sure no one feels left out.
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center justify-center gap-1.5 text-[10px] font-semibold text-muted-foreground">
+                    <CheckCircle2 className="h-3 w-3 text-secondary" />
+                    Free cancellation up to 48 hours before.
+                  </div>
+                </div>
               </div>
             </div>
           </MotionDiv>

@@ -5,3 +5,8 @@ export { FeaturedExperiencesSection } from "./FeaturedExperiencesSection";
 export { MoreToExploreSection } from "./MoreToExploreSection";
 export { BigCTASection } from "./BigCTASection";
 export { BottomTickerSection } from "./BottomTickerSection";
+export { HowItWorksSection } from "./HowItWorksSection";
+export { CommunityProofSection } from "./CommunityProofSection";
+export { VibeQuizSection } from "./VibeQuizSection";
+export { ExperienceCounter } from "./ExperienceCounter";
+export { DIYKitsSection } from "./DIYKitsSection";

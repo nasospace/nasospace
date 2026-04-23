@@ -25,7 +25,7 @@ export function ExploreWorldsSection() {
                 <span className="text-secondary">NASO</span>
               </h2>
               <p className="mt-4 text-sm text-background/50 lg:text-base">
-                Three ways to make your time unforgettable.
+                Every way in leads somewhere unforgettable.
               </p>
             </motion.div>
 

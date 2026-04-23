@@ -22,9 +22,18 @@ export default function ShopPage() {
   return (
     <>
       <SEOHead
-        title="Shop — Creative Products & Merch by NASO"
-        description="Browse NASO's curated collection of creative products, merchandise, and unique items crafted with intention and bold design."
+        title="DIY Art Kits & Creative Products Egypt | NASO Shop"
+        description="Take the vibe home with NASO's premium DIY art kits. Shop creative boxes, pottery kits, and curated materials delivered anywhere in Egypt. | تسوق أدوات فنية وورش عمل منزلية"
         canonical="/shop"
+        ogImage="/assets/shop_bg_1776810267092.png"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "NASO Shop - DIY Kits & Creative Products",
+            "description": "Shop DIY art kits, pottery kits, and curated creative boxes delivered across Egypt."
+          }
+        ]}
       />
       <ShopHero />
       <Section>

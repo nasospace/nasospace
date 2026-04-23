@@ -13,11 +13,11 @@ export const siteConfig = {
   locale: "en",
   nav: [
     { label: "Home", href: ROUTES.HOME },
-    { label: "About", href: ROUTES.ABOUT },
-    { label: "Experiences", href: ROUTES.EXPERIENCES },
+    { label: "Manifesto", href: ROUTES.ABOUT },
+    { label: "Moments", href: ROUTES.EXPERIENCES },
     { label: "Workshops", href: ROUTES.WORKSHOPS },
-    { label: "Shop", href: ROUTES.SHOP },
-    { label: "Contact", href: ROUTES.CONTACT },
+    { label: "Artifacts", href: ROUTES.SHOP },
+    { label: "Connect", href: ROUTES.CONTACT },
   ] as NavItem[],
   moreNav: [
     { label: "Community Love", href: ROUTES.COMMUNITY_LOVE },

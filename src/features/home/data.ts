@@ -29,9 +29,9 @@ export const heroPaletteColors = [
 /* ═══ Explore Worlds ═══ */
 export const worldCards = [
   {
-    title: "Experiences",
+    title: "Moments",
     emoji: "✦",
-    desc: "Curated outings and cultural adventures across Cairo. Group hangouts, date nights, solo explorations.",
+    desc: "Curated cultural adventures designed to be remembered. A new way to see Cairo, together.",
     href: ROUTES.EXPERIENCES,
     bg: "bg-primary",
     rotate: -2,
@@ -39,15 +39,15 @@ export const worldCards = [
   {
     title: "Workshops",
     emoji: "✿",
-    desc: "Hands-on creative sessions led by local artists. Pottery, painting, music, cooking, and more.",
+    desc: "Get your hands dirty with local artists. Walk in curious, leave with something you made — and a new skill.",
     href: ROUTES.WORKSHOPS,
     bg: "bg-secondary",
     rotate: 1,
   },
   {
-    title: "Shop",
+    title: "Artifacts",
     emoji: "★",
-    desc: "Original products, creative goods, and limited drops you won't find anywhere else.",
+    desc: "Exclusive drops and at-home experience kits. Pieces of the movement for your own sanctuary.",
     href: ROUTES.SHOP,
     bg: "bg-accent",
     rotate: -1,

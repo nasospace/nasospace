@@ -43,25 +43,37 @@ export function MoreToExploreSection() {
             <motion.div variants={slideInLeft}>
               <Link
                 to={ROUTES.WORKSHOPS}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card p-8 shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg lg:p-10"
+                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg min-h-[360px] lg:min-h-[400px]"
               >
-                <StickerBadge variant="filled" className="bg-naso-lilac" rotate={-4}>
-                  Workshops
-                </StickerBadge>
-                <h3 className="mt-5 font-groovy text-2xl font-bold text-foreground lg:text-3xl">
-                  Learn something
-                  <br />
-                  <span className="text-accent">you'll love.</span>
-                </h3>
-                <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  Pottery, painting, cooking, music — hands-on creative sessions
-                  led by Cairo's best artists and makers.
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-primary transition-transform duration-200 group-hover:translate-x-1">
-                  Browse workshops <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-                <div className="absolute -bottom-4 -right-4 opacity-8">
-                  <FlowerShape size={80} className="text-accent" />
+                <img 
+                  src="/assets/workshops_bg_1776810244802.png" 
+                  alt="Workshops" 
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent mix-blend-multiply" />
+                <div className="absolute inset-0 bg-naso-lilac/30 mix-blend-multiply" />
+                
+                <div className="relative z-10 flex h-full flex-col p-8 lg:p-10">
+                  <div className="mb-auto">
+                    <StickerBadge variant="filled" className="bg-naso-lilac text-foreground" rotate={-4}>
+                      Workshops
+                    </StickerBadge>
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <h3 className="mt-5 font-groovy text-2xl font-bold text-white lg:text-3xl">
+                      Learn something
+                      <br />
+                      <span className="text-naso-lilac">you'll love.</span>
+                    </h3>
+                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
+                      Pottery, painting, cooking, music — hands-on creative sessions
+                      led by Cairo's best artists and makers.
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-transform duration-200 group-hover:translate-x-1">
+                      Browse workshops <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>
@@ -69,29 +81,41 @@ export function MoreToExploreSection() {
             <motion.div variants={slideInRight}>
               <Link
                 to={ROUTES.SHOP}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-foreground p-8 text-background shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg lg:p-10"
+                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-foreground shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg min-h-[360px] lg:min-h-[400px]"
               >
-                <StickerBadge
-                  variant="filled"
-                  className="border-background/30 bg-primary text-primary-foreground"
-                  rotate={3}
-                >
-                  Shop
-                </StickerBadge>
-                <h3 className="mt-5 font-groovy text-2xl font-bold text-background lg:text-3xl">
-                  Wear the
-                  <br />
-                  <span className="text-secondary">moment.</span>
-                </h3>
-                <p className="mt-3 max-w-sm text-sm leading-relaxed text-background/60">
-                  Original apparel, creative tools, limited editions, and
-                  exclusive drops — all designed in Cairo.
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-secondary transition-transform duration-200 group-hover:translate-x-1">
-                  Visit shop <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-                <div className="absolute -bottom-3 -right-3 opacity-10">
-                  <Sparkle className="h-16 w-16 text-secondary" />
+                <img 
+                  src="/assets/shop_bg_1776810267092.png" 
+                  alt="Shop" 
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent mix-blend-multiply" />
+                <div className="absolute inset-0 bg-secondary/30 mix-blend-multiply" />
+                
+                <div className="relative z-10 flex h-full flex-col p-8 lg:p-10">
+                  <div className="mb-auto">
+                    <StickerBadge
+                      variant="filled"
+                      className="border-background/30 bg-primary text-primary-foreground"
+                      rotate={3}
+                    >
+                      Shop
+                    </StickerBadge>
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <h3 className="mt-5 font-groovy text-2xl font-bold text-white lg:text-3xl">
+                      Wear the
+                      <br />
+                      <span className="text-secondary">moment.</span>
+                    </h3>
+                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
+                      Original apparel, creative tools, limited editions, and
+                      exclusive drops — all designed in Cairo.
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-secondary transition-transform duration-200 group-hover:translate-x-1">
+                      Visit shop <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>

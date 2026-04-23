@@ -178,7 +178,7 @@ export function Header() {
             <SheetContent side="right" className="w-72 bg-background p-0">
               <SheetHeader className="p-6 pb-0">
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
-                <img alt={siteConfig.name} className="h-8 w-auto object-contain bg-secondary" src="/lovable-uploads/236365c6-be50-4223-9d35-4e1514fbec14.png" />
+                <img alt={siteConfig.name} className="h-8 w-auto object-contain bg-secondary" src={nasoLogo} />
               </SheetHeader>
               <nav className="mt-8 flex flex-col gap-1 px-4">
                 {allMobileNav.map((item) =>

@@ -20,34 +20,47 @@ export function ExperienceCategoryFilter({ active, onChange }: ExperienceCategor
   ];
 
   return (
-    <motion.div
-      variants={staggerFast}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className="naso-scrollbar-hide flex gap-2.5 overflow-x-auto pb-2 sm:gap-3 sm:flex-wrap sm:overflow-visible"
-    >
-      {options.map((opt) => {
-        const isActive = active === opt.key;
-        return (
-          <motion.button
-            key={opt.key}
-            variants={fadeUp}
-            onClick={() => onChange(opt.key)}
-            style={isActive ? { rotate: -2 } : undefined}
-            className={cn(
-              "shrink-0 rounded-full border-2 border-foreground px-4 py-2",
-              "font-groovy text-[10px] font-bold uppercase tracking-[0.12em]",
-              "transition-colors duration-200 whitespace-nowrap",
-              isActive
-                ? cn(opt.color, opt.textColor, "shadow-retro")
-                : "bg-card text-foreground hover:bg-muted"
-            )}
-          >
-            {opt.emoji} {opt.label}
-          </motion.button>
-        );
-      })}
-    </motion.div>
+    <div className="mb-16">
+      <motion.h3 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="font-groovy text-3xl font-black mb-6 text-foreground tracking-tight"
+      >
+        What's your vibe today?
+      </motion.h3>
+      <motion.div
+        variants={staggerFast}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="flex flex-wrap gap-4 sm:gap-6"
+      >
+        {options.map((opt, i) => {
+          const isActive = active === opt.key;
+          return (
+            <motion.button
+              key={opt.key}
+              variants={fadeUp}
+              onClick={() => onChange(opt.key)}
+              whileHover={{ scale: 1.05, rotate: i % 2 === 0 ? 2 : -2 }}
+              whileTap={{ scale: 0.95 }}
+              animate={isActive ? { scale: 1.05, rotate: -3 } : { scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className={cn(
+                "relative flex items-center gap-3 overflow-hidden rounded-full border-4 border-foreground px-6 py-4 shadow-retro",
+                "font-groovy text-sm sm:text-lg font-black uppercase tracking-widest",
+                "transition-colors duration-300",
+                isActive
+                  ? cn(opt.color, opt.textColor, "shadow-retro-lg border-opacity-100")
+                  : "bg-white text-foreground border-opacity-30 shadow-none hover:border-opacity-100 hover:shadow-retro"
+              )}
+            >
+              <span className="text-3xl">{opt.emoji}</span>
+              <span>{opt.label}</span>
+            </motion.button>
+          );
+        })}
+      </motion.div>
+    </div>
   );
 }

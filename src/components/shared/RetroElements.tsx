@@ -119,8 +119,9 @@ export function WavyDivider({ className, flip }: { className?: string; flip?: bo
 export function MagneticButton({
   children,
   className,
+  onClick,
   ...props
-}: React.ComponentProps<typeof Link>) {
+}: React.ComponentProps<typeof Link> & { onClick?: () => void }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -144,7 +145,8 @@ export function MagneticButton({
           x.set(0);
           y.set(0);
         }}
-        className={className}
+        onClick={onClick}
+        className={cn("focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2", className)}
         {...props}
       >
         {children}

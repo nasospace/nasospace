@@ -33,12 +33,42 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
             "transition-shadow duration-300 hover:shadow-retro-lg"
           )}
         >
-          {/* Category color strip with halftone */}
-          <div className={cn("relative h-28 sm:h-32", meta.color)}>
-            <div className="naso-halftone absolute inset-0" />
+          {/* Background Image with Overlay */}
+          <div className="relative h-28 sm:h-32 bg-muted overflow-hidden">
+            {experience.coverImage && (
+              <img
+                src={experience.coverImage.src}
+                alt={experience.coverImage.alt}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
+            <div className={cn("absolute inset-0 opacity-40 mix-blend-multiply", meta.color)} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="naso-halftone absolute inset-0 opacity-50" />
+
+            {/* LIVE Badge */}
+            {experience.published && experience.capacity > 0 && (
+              <div className="absolute top-3 right-3 z-10">
+                <span className="rounded-full border-2 border-foreground bg-[#B480D3] px-2.5 py-1 font-groovy text-[10px] font-black uppercase tracking-widest text-foreground shadow-retro-sm">
+                  <span className="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" />
+                  LIVE
+                </span>
+              </div>
+            )}
+
+            {/* SOLD OUT Overlay */}
+            {experience.capacity <= 0 && (
+              <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/80 backdrop-blur-[2px]">
+                <div className="rotate-[-12deg] rounded border-4 border-[#FFFFFF] px-4 py-2 opacity-90 shadow-retro-lg">
+                  <span className="font-groovy text-xl font-black uppercase tracking-widest text-[#FFFFFF]">
+                    SOLD OUT
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Category badge overlapping strip bottom */}
-            <div className="absolute -bottom-3 left-4">
+            <div className="absolute -bottom-3 left-4 z-10">
               <StickerBadge
                 variant="filled"
                 rotate={-2}

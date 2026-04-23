@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Check, ShoppingBag } from "lucide-react";
+import { Check, ShoppingBag, Share2, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeUp, staggerContainer, fadeUpDelay } from "@/lib/motion";
 import { Section, MagneticButton, SaveButton } from "@/components/shared";
@@ -11,6 +11,8 @@ import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { buildProductSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
+import { trackNaso } from "@/lib/analytics";
 import { useCart } from "@/features/cart";
 import { useProduct, useProducts } from "../hooks/useProducts";
 import { PRODUCT_CATEGORY_META } from "../types";
@@ -105,6 +107,7 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
       title: "Added to cart ✦",
       description: `${product.title}${selectedSize ? ` — ${selectedSize}` : ""}${selectedColor ? ` / ${selectedColor}` : ""} × ${quantity}`,
     });
+    trackNaso("product_add_to_cart", { slug: product.slug, quantity, price: product.price });
     setTimeout(() => setJustAdded(false), 2000);
   };
 
@@ -286,45 +289,73 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
             </motion.div>
 
             {/* CTAs */}
-            <motion.div variants={fadeUpDelay(0.35)} className="flex flex-col gap-3 pt-2 sm:flex-row">
-              <button
-                onClick={handleAddToCart}
-                disabled={!canAdd}
-                className={cn(
-                  "inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground px-8 py-3",
-                  "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
-                  "transition-all hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
-                  !canAdd
-                    ? "cursor-not-allowed bg-muted text-muted-foreground"
-                    : justAdded
-                      ? "bg-secondary text-secondary-foreground"
-                      : "bg-primary text-primary-foreground"
-                )}
-              >
-                {isSoldOut ? (
-                  "Sold Out"
-                ) : justAdded ? (
-                  <>
-                    <Check className="h-4 w-4" /> Added!
-                  </>
-                ) : (
-                  <>
-                    <ShoppingBag className="h-4 w-4" /> Add to Cart
-                  </>
-                )}
-              </button>
+              <div className="flex flex-col gap-3 w-full pt-2">
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={!canAdd}
+                    className={cn(
+                      "flex-1 inline-flex items-center justify-center gap-2 rounded-full border-2 border-foreground px-8 py-3",
+                      "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
+                      "transition-all hover:shadow-retro-lg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none",
+                      !canAdd
+                        ? "cursor-not-allowed bg-muted text-muted-foreground"
+                        : justAdded
+                          ? "bg-secondary text-secondary-foreground"
+                          : "bg-primary text-primary-foreground"
+                    )}
+                  >
+                    {isSoldOut ? (
+                      "Sold Out"
+                    ) : justAdded ? (
+                      <>
+                        <Check className="h-4 w-4" /> Added!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingBag className="h-4 w-4" /> Grab yours
+                      </>
+                    )}
+                  </button>
 
-              <Link
-                to={inquiryPath}
-                className={cn(
-                  "inline-flex items-center justify-center rounded-full border-2 border-foreground px-8 py-3",
-                  "font-groovy text-xs font-bold uppercase tracking-wider",
-                  "bg-card text-foreground transition-shadow hover:shadow-retro"
-                )}
-              >
-                Inquire About This
-              </Link>
-            </motion.div>
+                  <Link
+                    to={inquiryPath}
+                    className={cn(
+                      "flex-1 inline-flex items-center justify-center rounded-full border-2 border-foreground px-8 py-3",
+                      "font-groovy text-xs font-bold uppercase tracking-wider",
+                      "bg-card text-foreground transition-shadow hover:shadow-retro"
+                    )}
+                  >
+                    Ask us about this
+                  </Link>
+                </div>
+
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(`Look at this! We need to try it: 🔗 https://naso.space/shop/${product.slug}`);
+                    toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                  }}
+                  className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Send to Group Chat
+                </button>
+
+                <div className="mt-2 flex flex-col gap-2">
+                  <div className="rounded-xl bg-muted/50 p-3 text-center">
+                    <p className="font-groovy text-xs font-bold text-foreground">
+                      ✦ Everything you need is inside
+                    </p>
+                    <p className="mt-1 text-[10px] text-muted-foreground">
+                      No experience needed. Comes with premium materials and a curated guide to set the vibe.
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-center gap-1.5 text-[10px] font-semibold text-muted-foreground">
+                    <CheckCircle2 className="h-3 w-3 text-secondary" />
+                    Premium quality. Delivered anywhere in Egypt.
+                  </div>
+                </div>
+              </div>
           </motion.div>
         </div>
       </Section>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -16,7 +17,7 @@ export default {
       fontFamily: {
         display: ["Space Grotesk", "system-ui", "sans-serif"],
         poster: ["Syne", "system-ui", "sans-serif"],
-        groovy: ["Unbounded", "Syne", "system-ui", "sans-serif"],
+        groovy: ["Outfit", "system-ui", "sans-serif"],
         body: ["Inter", "system-ui", "sans-serif"],
       },
       colors: {
@@ -110,5 +111,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
