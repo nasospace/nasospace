@@ -13,7 +13,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { trackNaso } from "@/lib/analytics";
-import { getOrCreateDeviceId } from "@/lib/deviceId";
+import { getDeviceId } from "@/lib/deviceId";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, getSubtotal, getItemCount } = useCart();
