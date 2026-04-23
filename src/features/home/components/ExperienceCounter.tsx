@@ -82,7 +82,7 @@ export function ExperienceCounter() {
             <Link
               to={ROUTES.CONTACT}
               className="group flex h-14 w-full sm:w-auto items-center justify-center gap-2 rounded-full border-4 border-foreground bg-white px-8 font-groovy text-sm font-black uppercase tracking-widest text-foreground shadow-retro transition-transform hover:-translate-y-1 hover:shadow-retro-lg active:translate-y-0 active:shadow-none"
-              onClick={() => trackNaso("experience_counter_cta_click")}
+              onClick={() => trackNaso("counter_cta_click")}
             >
               Shape the movement
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
