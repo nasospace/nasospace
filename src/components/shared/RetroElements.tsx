@@ -12,8 +12,9 @@ export const FlowerShape = forwardRef<
     className?: string;
     petals?: number;
     size?: number;
+    style?: React.CSSProperties;
   }
->(({ className, petals = 6, size = 60 }, ref) => {
+>(({ className, petals = 6, size = 60, style }, ref) => {
   const petalPath = Array.from({ length: petals }, (_, i) => {
     const angle = (360 / petals) * i;
     return `rotate(${angle} ${size / 2} ${size / 2})`;
@@ -24,7 +25,7 @@ export const FlowerShape = forwardRef<
       ref={ref}
       viewBox={`0 0 ${size} ${size}`}
       className={cn("shrink-0", className)}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, ...style }}
     >
       {petalPath.map((transform, i) => (
         <ellipse
