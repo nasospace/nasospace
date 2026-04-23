@@ -13,6 +13,10 @@ export function CustomCursor() {
   const smoothX = useSpring(cursorX, springConfig);
   const smoothY = useSpring(cursorY, springConfig);
 
+  // Fast dot physics
+  const dotX = useSpring(cursorX, { stiffness: 1000, damping: 40 });
+  const dotY = useSpring(cursorY, { stiffness: 1000, damping: 40 });
+
   useEffect(() => {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX - 16);
@@ -46,8 +50,16 @@ export function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  // Disable custom cursor on smaller screens
-  if (typeof window !== "undefined" && window.innerWidth < 1024) {
+  // Disable custom cursor on smaller screens - moved to bottom to avoid hook count mismatch
+  const [isDesktop, setIsDesktop] = useState(typeof window !== "undefined" && window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (!isDesktop) {
     return null;
   }
 
@@ -55,10 +67,10 @@ export function CustomCursor() {
     <>
       {/* Small dot that follows exactly */}
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-primary mix-blend-difference hidden lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-primary mix-blend-difference"
         style={{
-          x: useSpring(cursorX, { stiffness: 1000, damping: 40 }),
-          y: useSpring(cursorY, { stiffness: 1000, damping: 40 }),
+          x: dotX,
+          y: dotY,
           translateX: 12,
           translateY: 12,
         }}
@@ -66,7 +78,7 @@ export function CustomCursor() {
       
       {/* Larger trailing ring */}
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[9998] flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-primary/20 backdrop-blur-sm hidden lg:flex overflow-hidden mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-[9998] flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-primary/20 backdrop-blur-sm overflow-hidden mix-blend-difference"
         style={{
           x: smoothX,
           y: smoothY,
