@@ -11,7 +11,7 @@ import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { buildProductSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { useToast } from "@/hooks/use-toast";
-import { toast } from "sonner";
+import { toast as sonnerToast } from "sonner";
 import { trackNaso } from "@/lib/analytics";
 import { useCart } from "@/features/cart";
 import { useProduct, useProducts } from "../hooks/useProducts";
