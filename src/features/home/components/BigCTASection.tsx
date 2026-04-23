@@ -2,11 +2,12 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
 import { MotionDiv } from "@/components/shared/MotionDiv";
-import { FlowerShape, Sparkle } from "@/components/shared/RetroElements";
+import { FlowerShape, Sparkle, StickerBadge } from "@/components/shared/RetroElements";
 import { staggerContainer, fadeUp, popIn } from "@/lib/motion";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { trackNaso } from "@/lib/analytics";
+
 
 export function BigCTASection() {
   const [email, setEmail] = useState("");
@@ -52,8 +53,9 @@ export function BigCTASection() {
               e.preventDefault();
               if (status === "submitting" || status === "success") return;
               setStatus("submitting");
-              
-              const { error } = await supabase.from("drop_list").insert({
+
+              // Casting to any to bypass missing table types for custom drop_list table
+              const { error } = await (supabase as any).from("drop_list").insert({
                 email,
                 source: "homepage_big_cta"
               });
@@ -68,8 +70,8 @@ export function BigCTASection() {
               trackNaso("drop_list_signup", { source: "homepage_big_cta" });
             }}
           >
-            <input 
-              type="email" 
+            <input
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"

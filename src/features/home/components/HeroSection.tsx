@@ -6,7 +6,8 @@ import nasoLogo from "@/assets/naso-logo.png";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 import { trackNaso } from "@/lib/analytics";
-
+import { Link } from "react-router-dom";
+<div className="badge">✨</div>
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -180,11 +181,11 @@ export function HeroSection() {
           </MagneticButton>
         </motion.div>
         <Link
-            to={ROUTES.EXPERIENCES}
-            className="font-groovy text-sm font-bold uppercase tracking-[0.15em] text-primary transition-colors hover:text-foreground underline decoration-2 underline-offset-8"
-          >
-            Discover the full drop →
-          </Link>
+          to={ROUTES.EXPERIENCES}
+          className="font-groovy text-sm font-bold uppercase tracking-[0.15em] text-primary transition-colors hover:text-foreground underline decoration-2 underline-offset-8"
+        >
+          Discover the full drop →
+        </Link>
       </motion.div>
     </section>
   );
