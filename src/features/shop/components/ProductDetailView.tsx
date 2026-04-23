@@ -11,7 +11,7 @@ import { ROUTES, buildInquiryPath, routeHelpers } from "@/config/routes";
 import { buildProductSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { useToast } from "@/hooks/use-toast";
-import { toast } from "sonner";
+import { toast as sonnerToast } from "sonner";
 import { trackNaso } from "@/lib/analytics";
 import { useCart } from "@/features/cart";
 import { useProduct, useProducts } from "../hooks/useProducts";
@@ -333,7 +333,7 @@ export function ProductDetailView({ slug }: ProductDetailViewProps) {
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText(`Look at this! We need to try it: 🔗 https://naso.space/shop/${product.slug}`);
-                    toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                    sonnerToast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
                   }}
                   className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0"
                 >

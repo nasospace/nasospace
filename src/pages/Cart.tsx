@@ -13,6 +13,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { trackNaso } from "@/lib/analytics";
+import { getDeviceId } from "@/lib/deviceId";
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, getSubtotal, getItemCount } = useCart();
@@ -35,9 +36,10 @@ export default function CartPage() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        message: `Order Details:\n${summary}\nTotal: ${subtotal} ${currency}\n\nCustomer Notes:\n${formData.notes}`,
+        notes: `Order Details:\n${summary}\nTotal: ${subtotal} ${currency}\n\nCustomer Notes:\n${formData.notes}`,
         status: "new",
-        type: "product"
+        inquiry_type: "product",
+        device_id: getDeviceId(),
       });
 
       if (error) throw error;

@@ -47,7 +47,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
             <div className="naso-halftone absolute inset-0 opacity-50" />
 
             {/* LIVE Badge */}
-            {experience.published && experience.capacity > 0 && (
+            {experience.capacity > 0 && (
               <div className="absolute top-3 right-3 z-10">
                 <span className="rounded-full border-2 border-foreground bg-[#B480D3] px-2.5 py-1 font-groovy text-[10px] font-black uppercase tracking-widest text-foreground shadow-retro-sm">
                   <span className="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-foreground" />
