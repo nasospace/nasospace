@@ -29,18 +29,31 @@ const EMPTY_FORM = {
   tags: [] as string[], date: "", location: "", price: 0, capacity: 20,
   difficulty: "easy", currency: "EGP", featured: false, published: true,
   cover_image_src: "", cover_image_alt: "", gallery: [] as string[],
+  slot_number: null as number | null, is_locked: false,
 };
 
 type FormData = typeof EMPTY_FORM;
 
 const columns: ColumnDef<any>[] = [
+  { key: "slot", label: "Slot", render: (item) => (
+    item.slot_number ? (
+      <span className="font-mono text-xs font-bold text-primary">#{String(item.slot_number).padStart(3, "0")}</span>
+    ) : (
+      <span className="text-xs text-muted-foreground/50">—</span>
+    )
+  )},
   { key: "title", label: "Title", render: (item) => <span className="font-medium">{item.title}</span> },
   { key: "category", label: "Category", render: (item) => <span className="capitalize text-muted-foreground">{item.category}</span> },
   { key: "price", label: "Price", render: (item) => <span className="font-mono text-muted-foreground">{item.price} {item.currency}</span> },
   { key: "status", label: "Status", render: (item) => (
-    <div className="flex gap-1.5">
+    <div className="flex flex-wrap gap-1.5">
       <PublishedBadge published={item.published} />
       <FeaturedBadge featured={item.featured} />
+      {item.is_locked && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+          🔒 Locked
+        </span>
+      )}
     </div>
   )},
 ];
@@ -70,6 +83,7 @@ export default function AdminExperiencesPage() {
       featured: item.featured ?? false, published: item.published ?? true,
       cover_image_src: item.cover_image_src ?? "", cover_image_alt: item.cover_image_alt ?? "",
       gallery: Array.isArray(item.gallery) ? item.gallery : [],
+      slot_number: item.slot_number ?? null, is_locked: item.is_locked ?? false,
     });
     setDialogOpen(true);
   };
@@ -79,8 +93,18 @@ export default function AdminExperiencesPage() {
       toast({ title: "Missing required fields", description: "Title, slug, and summary are required.", variant: "destructive" });
       return;
     }
+    if (form.slot_number !== null && (form.slot_number < 1 || form.slot_number > 100)) {
+      toast({ title: "Slot must be 1–100", description: "Or leave it empty to skip the journey map.", variant: "destructive" });
+      return;
+    }
     try {
-      const payload = { ...form, tags: JSON.stringify(form.tags), gallery: JSON.stringify(form.gallery) };
+      const payload = {
+        ...form,
+        tags: JSON.stringify(form.tags),
+        gallery: JSON.stringify(form.gallery),
+        // Send slot_number as null when empty, not 0
+        slot_number: form.slot_number === null || (form.slot_number as any) === "" ? null : Number(form.slot_number),
+      };
       if (editId) {
         await updateMut.mutateAsync({ id: editId, updates: payload });
         toast({ title: "Experience updated" });
