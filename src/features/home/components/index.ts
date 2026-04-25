@@ -7,6 +7,6 @@ export { BigCTASection } from "./BigCTASection";
 export { BottomTickerSection } from "./BottomTickerSection";
 export { HowItWorksSection } from "./HowItWorksSection";
 export { CommunityProofSection } from "./CommunityProofSection";
-export { VibeQuizSection } from "./VibeQuizSection";
+/* VibeQuizSection removed from public homepage. File kept for potential reuse. */
 export { ExperienceCounter } from "./ExperienceCounter";
 export { DIYKitsSection } from "./DIYKitsSection";

@@ -7,8 +7,12 @@ export const ROUTES = {
   ABOUT: "/about",
   EXPERIENCES: "/experiences",
   EXPERIENCE_DETAIL: "/experiences/:slug",
-  WORKSHOPS: "/workshops",
-  WORKSHOP_DETAIL: "/workshops/:slug",
+  /**
+   * @deprecated Workshops are now Experiences. These routes redirect to /experiences.
+   * Kept only so old links keep resolving — do NOT use in new code.
+   */
+  WORKSHOPS: "/experiences",
+  WORKSHOP_DETAIL: "/experiences/:slug",
   SERVICES: "/services",
   PORTFOLIO: "/portfolio",
   PORTFOLIO_DETAIL: "/portfolio/:slug",
@@ -35,7 +39,6 @@ export const ROUTES = {
   ADMIN_SAVED: "/admin/saved",
   ADMIN_PRODUCTS: "/admin/products",
   ADMIN_EXPERIENCES: "/admin/experiences",
-  ADMIN_WORKSHOPS: "/admin/workshops",
   ADMIN_PORTFOLIO: "/admin/portfolio",
   ADMIN_BLOG: "/admin/blog",
   ADMIN_FAQ: "/admin/faq",
@@ -47,7 +50,8 @@ export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];
 /** Route path helpers for dynamic segments */
 export const routeHelpers = {
   experienceDetail: (slug: string) => `/experiences/${slug}` as const,
-  workshopDetail: (slug: string) => `/workshops/${slug}` as const,
+  /** @deprecated Workshops migrated into experiences. Returns experience path. */
+  workshopDetail: (slug: string) => `/experiences/${slug}` as const,
   portfolioDetail: (slug: string) => `/portfolio/${slug}` as const,
   blogDetail: (slug: string) => `/blog/${slug}` as const,
   shopDetail: (slug: string) => `/shop/${slug}` as const,

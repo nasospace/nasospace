@@ -29,18 +29,31 @@ const EMPTY_FORM = {
   tags: [] as string[], date: "", location: "", price: 0, capacity: 20,
   difficulty: "easy", currency: "EGP", featured: false, published: true,
   cover_image_src: "", cover_image_alt: "", gallery: [] as string[],
+  slot_number: null as number | null, is_locked: false,
 };
 
 type FormData = typeof EMPTY_FORM;
 
 const columns: ColumnDef<any>[] = [
+  { key: "slot", label: "Slot", render: (item) => (
+    item.slot_number ? (
+      <span className="font-mono text-xs font-bold text-primary">#{String(item.slot_number).padStart(3, "0")}</span>
+    ) : (
+      <span className="text-xs text-muted-foreground/50">—</span>
+    )
+  )},
   { key: "title", label: "Title", render: (item) => <span className="font-medium">{item.title}</span> },
   { key: "category", label: "Category", render: (item) => <span className="capitalize text-muted-foreground">{item.category}</span> },
   { key: "price", label: "Price", render: (item) => <span className="font-mono text-muted-foreground">{item.price} {item.currency}</span> },
   { key: "status", label: "Status", render: (item) => (
-    <div className="flex gap-1.5">
+    <div className="flex flex-wrap gap-1.5">
       <PublishedBadge published={item.published} />
       <FeaturedBadge featured={item.featured} />
+      {item.is_locked && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+          🔒 Locked
+        </span>
+      )}
     </div>
   )},
 ];
@@ -70,6 +83,7 @@ export default function AdminExperiencesPage() {
       featured: item.featured ?? false, published: item.published ?? true,
       cover_image_src: item.cover_image_src ?? "", cover_image_alt: item.cover_image_alt ?? "",
       gallery: Array.isArray(item.gallery) ? item.gallery : [],
+      slot_number: item.slot_number ?? null, is_locked: item.is_locked ?? false,
     });
     setDialogOpen(true);
   };
@@ -79,8 +93,18 @@ export default function AdminExperiencesPage() {
       toast({ title: "Missing required fields", description: "Title, slug, and summary are required.", variant: "destructive" });
       return;
     }
+    if (form.slot_number !== null && (form.slot_number < 1 || form.slot_number > 100)) {
+      toast({ title: "Slot must be 1–100", description: "Or leave it empty to skip the journey map.", variant: "destructive" });
+      return;
+    }
     try {
-      const payload = { ...form, tags: JSON.stringify(form.tags), gallery: JSON.stringify(form.gallery) };
+      const payload = {
+        ...form,
+        tags: JSON.stringify(form.tags),
+        gallery: JSON.stringify(form.gallery),
+        // Send slot_number as null when empty, not 0
+        slot_number: form.slot_number === null || (form.slot_number as any) === "" ? null : Number(form.slot_number),
+      };
       if (editId) {
         await updateMut.mutateAsync({ id: editId, updates: payload });
         toast({ title: "Experience updated" });
@@ -140,6 +164,46 @@ export default function AdminExperiencesPage() {
           <TagsField label="Tags" name="tags" value={form.tags} onChange={(v) => set("tags", v)} />
           <ImageUploadField label="Cover Image" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} folder="experiences" altValue={form.cover_image_alt} onAltChange={(v) => set("cover_image_alt", v)} />
           <GalleryUploadField label="Gallery" name="gallery" value={form.gallery} onChange={(v) => set("gallery", v)} folder="experiences/gallery" />
+
+          {/* 100 Experiences journey controls */}
+          <div className="rounded-lg border border-dashed border-primary/30 bg-primary/5 p-4 space-y-3">
+            <div>
+              <p className="font-display text-sm font-semibold">100 Experiences journey</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Assign a slot (1–100) to place this experience in the public journey map.
+                Leave blank if it shouldn't appear in the map.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="slot_number" className="mb-1 block font-display text-xs font-medium">
+                  Slot number (1–100)
+                </label>
+                <input
+                  id="slot_number"
+                  type="number"
+                  min={1}
+                  max={100}
+                  value={form.slot_number ?? ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    set("slot_number", v === "" ? null : Number(v));
+                  }}
+                  placeholder="e.g. 1"
+                  className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+                />
+              </div>
+              <div className="flex items-end">
+                <SwitchField
+                  label="Locked / Mystery"
+                  name="is_locked"
+                  checked={form.is_locked}
+                  onChange={(v) => set("is_locked", v)}
+                  description="Show 🔒 chain in the journey map"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="space-y-2">
             <SwitchField label="Published" name="published" checked={form.published} onChange={(v) => set("published", v)} description="Visible to public" />

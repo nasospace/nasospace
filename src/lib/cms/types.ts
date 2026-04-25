@@ -24,6 +24,10 @@ export interface CmsExperienceRow {
   gallery: Array<{ src: string; alt: string }>;
   featured: boolean;
   published: boolean;
+  /** Position in the 100 Experiences journey (1–100). Null = not part of the journey. */
+  slot_number: number | null;
+  /** Locked slots show as mystery/coming-soon in the journey map. */
+  is_locked: boolean;
 }
 
 export interface CmsWorkshopRow {

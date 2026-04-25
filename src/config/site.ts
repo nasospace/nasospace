@@ -8,14 +8,13 @@ interface NavItem {
 export const siteConfig = {
   name: "NASO",
   description:
-    "Premium creative experiences, workshops, events, and products from Cairo.",
+    "Premium creative experiences, kits, and products from Cairo.",
   url: "https://naso.co", // TODO: Replace with final production domain before launch
   locale: "en",
   nav: [
     { label: "Home", href: ROUTES.HOME },
     { label: "Manifesto", href: ROUTES.ABOUT },
-    { label: "Moments", href: ROUTES.EXPERIENCES },
-    { label: "Workshops", href: ROUTES.WORKSHOPS },
+    { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Artifacts", href: ROUTES.SHOP },
     { label: "Connect", href: ROUTES.CONTACT },
   ] as NavItem[],

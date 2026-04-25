@@ -21,6 +21,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "/assets/citadel_sunset_1776810168845.png", alt: "Sunset at the Citadel" },
     gallery: [],
     featured: true,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-002",
@@ -42,6 +44,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "/assets/pottery_chill_1776810187258.png", alt: "Pottery & Chill" },
     gallery: [],
     featured: true,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-003",
@@ -63,6 +67,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "/assets/cairo_jazz_1776810208777.png", alt: "Cairo Jazz Night" },
     gallery: [],
     featured: false,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-004",
@@ -84,6 +90,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "/assets/street_art_1776810227236.png", alt: "Street Art Walk: Muizz" },
     gallery: [],
     featured: true,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-005",
@@ -105,6 +113,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800&q=80", alt: "Wadi Degla Hike" },
     gallery: [],
     featured: false,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-006",
@@ -126,6 +136,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80", alt: "Collage Night" },
     gallery: [],
     featured: false,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-007",
@@ -147,6 +159,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&q=80", alt: "Rooftop Film Club" },
     gallery: [],
     featured: true,
+    slotNumber: null,
+    isLocked: false,
   },
   {
     id: "exp-008",
@@ -168,6 +182,8 @@ export const MOCK_EXPERIENCES: ExperienceDetail[] = [
     coverImage: { src: "https://images.unsplash.com/photo-1542401886-65d6c61db217?w=800&q=80", alt: "Fayoum Overnight" },
     gallery: [],
     featured: true,
+    slotNumber: null,
+    isLocked: false,
   },
 ];
 

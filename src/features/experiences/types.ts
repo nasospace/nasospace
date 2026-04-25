@@ -46,6 +46,10 @@ export interface ExperienceDetail extends Experience {
   description: string;
   gallery: ImageAsset[];
   featured: boolean;
+  /** 100 Experiences journey: position 1–100, or null if not in the journey. */
+  slotNumber: number | null;
+  /** Locked = sealed/mystery in the journey map. */
+  isLocked: boolean;
 }
 
 /* ═══ Filters ═══ */

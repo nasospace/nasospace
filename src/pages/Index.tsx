@@ -10,7 +10,6 @@ import {
   BottomTickerSection,
   HowItWorksSection,
   CommunityProofSection,
-  VibeQuizSection,
   ExperienceCounter,
   DIYKitsSection,
 } from "@/features/home/components";
@@ -33,7 +32,6 @@ export default function HomePage() {
       />
       <HeroSection />
       <WhatNasoIsSection />
-      <VibeQuizSection />
       <FeaturedExperiencesSection />
       <ExperienceCounter />
       <ExploreWorldsSection />

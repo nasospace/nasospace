@@ -14,7 +14,6 @@ import {
   PanelLeft,
   ShoppingBag,
   Compass,
-  Sparkles,
   Image,
   FileText,
   HelpCircle,
@@ -39,7 +38,6 @@ const NAV_SECTIONS = [
     label: "Content",
     items: [
       { label: "Experiences", path: "/admin/experiences", icon: Compass },
-      { label: "Workshops", path: "/admin/workshops", icon: Sparkles },
       { label: "Products", path: "/admin/products", icon: ShoppingBag },
       { label: "Portfolio", path: "/admin/portfolio", icon: Image },
       { label: "Blog", path: "/admin/blog", icon: FileText },
@@ -52,7 +50,6 @@ const NAV_SECTIONS = [
 const QUICK_LINKS = [
   { label: "Homepage", path: "/" },
   { label: "Experiences", path: "/experiences" },
-  { label: "Workshops", path: "/workshops" },
   { label: "Shop", path: "/shop" },
   { label: "Blog", path: "/blog" },
   { label: "Portfolio", path: "/portfolio" },
