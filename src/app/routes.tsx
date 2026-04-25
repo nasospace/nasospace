@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, useParams } from "react-router-dom";
 import { RootLayout } from "@/app/layout";
 import { ROUTES } from "@/config/routes";
 import { RequireAuth } from "@/lib/auth/RequireAuth";
@@ -6,8 +6,6 @@ import HomePage from "@/pages/Index";
 import AboutPage from "@/pages/About";
 import ExperiencesPage from "@/pages/Experiences";
 import ExperienceDetailPage from "@/pages/ExperienceDetail";
-import WorkshopsPage from "@/pages/Workshops";
-import WorkshopDetailPage from "@/pages/WorkshopDetail";
 import InquiriesPage from "@/pages/Inquiries";
 import PortfolioPage from "@/pages/Portfolio";
 import PortfolioDetailPage from "@/pages/PortfolioDetail";
@@ -30,7 +28,7 @@ import AccountSavedPage from "@/pages/AccountSaved";
 import AccountRequestsPage from "@/pages/AccountRequests";
 import AccountSettingsPage from "@/pages/AccountSettings";
 
-// Admin (lazy-ish but still static imports for router config)
+// Admin
 import { RequireAdmin } from "@/features/admin/components/RequireAdmin";
 import { AdminLayout } from "@/features/admin/components/AdminLayout";
 import AdminOverviewPage from "@/pages/admin/AdminOverview";
@@ -39,11 +37,16 @@ import AdminUsersPage from "@/pages/admin/AdminUsers";
 import AdminSavedItemsPage from "@/pages/admin/AdminSavedItems";
 import AdminProductsPage from "@/pages/admin/AdminProducts";
 import AdminExperiencesPage from "@/pages/admin/AdminExperiences";
-import AdminWorkshopsPage from "@/pages/admin/AdminWorkshops";
 import AdminPortfolioPage from "@/pages/admin/AdminPortfolio";
 import AdminBlogPage from "@/pages/admin/AdminBlog";
 import AdminFaqPage from "@/pages/admin/AdminFaq";
 import AdminTestimonialsPage from "@/pages/admin/AdminTestimonials";
+
+/** Redirect /workshops/:slug -> /experiences/:slug while preserving the slug. */
+function WorkshopSlugRedirect() {
+  const { slug } = useParams();
+  return <Navigate to={slug ? `/experiences/${slug}` : "/experiences"} replace />;
+}
 
 /**
  * Central route definitions.
@@ -56,9 +59,11 @@ export const router = createBrowserRouter([
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.EXPERIENCES, element: <ExperiencesPage /> },
       { path: ROUTES.EXPERIENCE_DETAIL, element: <ExperienceDetailPage /> },
-      { path: ROUTES.WORKSHOPS, element: <WorkshopsPage /> },
-      { path: ROUTES.WORKSHOP_DETAIL, element: <WorkshopDetailPage /> },
-      /* /services removed — no page built yet. Re-add when Services feature is ready. */
+
+      /* Legacy workshop routes — permanent redirect to experiences */
+      { path: "/workshops", element: <Navigate to="/experiences" replace /> },
+      { path: "/workshops/:slug", element: <WorkshopSlugRedirect /> },
+
       { path: ROUTES.PORTFOLIO, element: <PortfolioPage /> },
       { path: ROUTES.PORTFOLIO_DETAIL, element: <PortfolioDetailPage /> },
       { path: ROUTES.BLOG, element: <BlogPage /> },
@@ -112,7 +117,8 @@ export const router = createBrowserRouter([
       { path: "saved", element: <AdminSavedItemsPage /> },
       { path: "products", element: <AdminProductsPage /> },
       { path: "experiences", element: <AdminExperiencesPage /> },
-      { path: "workshops", element: <AdminWorkshopsPage /> },
+      /* /admin/workshops removed — workshops now managed inside Experiences */
+      { path: "workshops", element: <Navigate to="/admin/experiences" replace /> },
       { path: "portfolio", element: <AdminPortfolioPage /> },
       { path: "blog", element: <AdminBlogPage /> },
       { path: "faq", element: <AdminFaqPage /> },
@@ -120,4 +126,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-

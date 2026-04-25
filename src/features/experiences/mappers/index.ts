@@ -28,6 +28,8 @@ export function mapCmsExperienceToDetail(row: CmsExperienceRow): ExperienceDetai
     },
     gallery: Array.isArray(row.gallery) ? row.gallery : [],
     featured: row.featured,
+    slotNumber: row.slot_number ?? null,
+    isLocked: row.is_locked ?? false,
   };
 }
 
