@@ -5,7 +5,6 @@ import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/config/routes";
 import { useCart } from "@/features/cart";
 import { useAuth } from "@/lib/auth";
-import nasoLogo from "@/assets/naso-logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,9 +52,19 @@ export function Header() {
       )}>
       
       <div className="container flex h-16 items-center justify-between md:h-[72px]">
-        {/* Logo */}
-        <Link to="/" className="flex items-center">
-          <img src={nasoLogo} alt={siteConfig.name} className="h-8 w-auto transition-all duration-300 md:h-9" />
+        {/* Wordmark logo — clean, no boxed background */}
+        <Link
+          to="/"
+          className="group flex items-baseline gap-1.5 leading-none"
+          aria-label={`${siteConfig.name} home`}
+        >
+          <span className="font-groovy text-2xl font-black tracking-tight text-foreground transition-colors group-hover:text-primary md:text-[26px]">
+            naso
+          </span>
+          <span
+            aria-hidden="true"
+            className="h-1.5 w-1.5 translate-y-[-2px] rounded-full bg-primary transition-transform duration-300 group-hover:scale-150"
+          />
         </Link>
 
         {/* Desktop nav */}
@@ -178,7 +187,12 @@ export function Header() {
             <SheetContent side="right" className="w-72 bg-background p-0">
               <SheetHeader className="p-6 pb-0">
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
-                <img alt={siteConfig.name} className="h-8 w-auto object-contain bg-secondary" src={nasoLogo} />
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-groovy text-2xl font-black tracking-tight text-foreground">
+                    naso
+                  </span>
+                  <span aria-hidden="true" className="h-1.5 w-1.5 translate-y-[-2px] rounded-full bg-primary" />
+                </div>
               </SheetHeader>
               <nav className="mt-8 flex flex-col gap-1 px-4">
                 {allMobileNav.map((item) =>
