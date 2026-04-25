@@ -165,6 +165,46 @@ export default function AdminExperiencesPage() {
           <ImageUploadField label="Cover Image" name="cover_image_src" value={form.cover_image_src} onChange={(v) => set("cover_image_src", v)} folder="experiences" altValue={form.cover_image_alt} onAltChange={(v) => set("cover_image_alt", v)} />
           <GalleryUploadField label="Gallery" name="gallery" value={form.gallery} onChange={(v) => set("gallery", v)} folder="experiences/gallery" />
 
+          {/* 100 Experiences journey controls */}
+          <div className="rounded-lg border border-dashed border-primary/30 bg-primary/5 p-4 space-y-3">
+            <div>
+              <p className="font-display text-sm font-semibold">100 Experiences journey</p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Assign a slot (1–100) to place this experience in the public journey map.
+                Leave blank if it shouldn't appear in the map.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="slot_number" className="mb-1 block font-display text-xs font-medium">
+                  Slot number (1–100)
+                </label>
+                <input
+                  id="slot_number"
+                  type="number"
+                  min={1}
+                  max={100}
+                  value={form.slot_number ?? ""}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    set("slot_number", v === "" ? null : Number(v));
+                  }}
+                  placeholder="e.g. 1"
+                  className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+                />
+              </div>
+              <div className="flex items-end">
+                <SwitchField
+                  label="Locked / Mystery"
+                  name="is_locked"
+                  checked={form.is_locked}
+                  onChange={(v) => set("is_locked", v)}
+                  description="Show 🔒 chain in the journey map"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <SwitchField label="Published" name="published" checked={form.published} onChange={(v) => set("published", v)} description="Visible to public" />
             <SwitchField label="Featured" name="featured" checked={form.featured} onChange={(v) => set("featured", v)} description="Show in featured sections" />
