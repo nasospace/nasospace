@@ -94,9 +94,11 @@ export type Database = {
           featured: boolean
           gallery: Json
           id: string
+          is_locked: boolean
           location: string | null
           price: number
           published: boolean
+          slot_number: number | null
           slug: string
           summary: string
           tags: Json
@@ -116,9 +118,11 @@ export type Database = {
           featured?: boolean
           gallery?: Json
           id?: string
+          is_locked?: boolean
           location?: string | null
           price?: number
           published?: boolean
+          slot_number?: number | null
           slug: string
           summary: string
           tags?: Json
@@ -138,9 +142,11 @@ export type Database = {
           featured?: boolean
           gallery?: Json
           id?: string
+          is_locked?: boolean
           location?: string | null
           price?: number
           published?: boolean
+          slot_number?: number | null
           slug?: string
           summary?: string
           tags?: Json
