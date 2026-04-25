@@ -32,15 +32,15 @@ export function InquirySuccessState() {
       <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
         <MagneticButton
           to={ROUTES.EXPERIENCES}
-          className="rounded-full border-[2.5px] border-foreground bg-card px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider shadow-retro transition-shadow hover:shadow-retro-lg"
+          className="rounded-full border-[2.5px] border-foreground bg-secondary px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-secondary-foreground shadow-retro transition-shadow hover:shadow-retro-lg"
         >
           Browse Experiences
         </MagneticButton>
         <MagneticButton
-          to={ROUTES.WORKSHOPS}
-          className="rounded-full border-[2.5px] border-foreground bg-secondary px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-secondary-foreground shadow-retro transition-shadow hover:shadow-retro-lg"
+          to={ROUTES.SHOP}
+          className="rounded-full border-[2.5px] border-foreground bg-card px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider shadow-retro transition-shadow hover:shadow-retro-lg"
         >
-          Browse Workshops
+          Visit Shop
         </MagneticButton>
       </div>
     </motion.div>

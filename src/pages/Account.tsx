@@ -64,17 +64,17 @@ export default function AccountPage() {
         <span className="text-3xl">🌿</span>
         <h3 className="mt-3 font-display text-lg font-semibold">Discover more NASO</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Explore experiences, workshops, and products from Cairo's creative scene.
+          Explore experiences, kits, and limited drops from Cairo's creative scene.
         </p>
         <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
           <Button asChild variant="outline" className="rounded-full">
             <Link to={ROUTES.EXPERIENCES}>Experiences</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full">
-            <Link to={ROUTES.WORKSHOPS}>Workshops</Link>
+            <Link to={ROUTES.SHOP}>Shop</Link>
           </Button>
           <Button asChild variant="outline" className="rounded-full">
-            <Link to={ROUTES.SHOP}>Shop</Link>
+            <Link to={ROUTES.PORTFOLIO}>Portfolio</Link>
           </Button>
         </div>
       </motion.div>

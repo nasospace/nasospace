@@ -42,36 +42,36 @@ export function MoreToExploreSection() {
           <div className="grid gap-6 lg:grid-cols-2">
             <motion.div variants={slideInLeft}>
               <Link
-                to={ROUTES.WORKSHOPS}
+                to={ROUTES.EXPERIENCES}
                 className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg min-h-[360px] lg:min-h-[400px]"
               >
-                <img 
-                  src="/assets/workshops_bg_1776810244802.png" 
-                  alt="Workshops" 
+                <img
+                  src="/assets/workshops_bg_1776810244802.png"
+                  alt="Hands-on creative experiences"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent mix-blend-multiply" />
                 <div className="absolute inset-0 bg-naso-lilac/30 mix-blend-multiply" />
-                
+
                 <div className="relative z-10 flex h-full flex-col p-8 lg:p-10">
                   <div className="mb-auto">
                     <StickerBadge variant="filled" className="bg-naso-lilac text-foreground" rotate={-4}>
-                      Workshops
+                      100 Experiences
                     </StickerBadge>
                   </div>
-                  
+
                   <div className="mt-auto">
                     <h3 className="mt-5 font-groovy text-2xl font-bold text-white lg:text-3xl">
-                      Learn something
+                      100 unforgettable
                       <br />
-                      <span className="text-naso-lilac">you'll love.</span>
+                      <span className="text-naso-lilac">moments.</span>
                     </h3>
                     <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
-                      Pottery, painting, cooking, music — hands-on creative sessions
-                      led by Cairo's best artists and makers.
+                      Hands-on workshops, outings, adventures, nights out — a new
+                      experience every drop. Most still sealed.
                     </p>
                     <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-transform duration-200 group-hover:translate-x-1">
-                      Browse workshops <ArrowRight className="h-3.5 w-3.5" />
+                      Enter the journey <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </div>
                 </div>
