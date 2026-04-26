@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function PortfolioHero() {
   return (
     <PageHero
+      cmsPageKey="portfolio"
       tone="lilac"
       eyebrow="Past Work · Selected"
       title="Receipts."

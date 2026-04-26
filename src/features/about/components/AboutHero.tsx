@@ -12,6 +12,7 @@ export function AboutHero({ headline, subline }: AboutHeroProps) {
 
   return (
     <PageHero
+      cmsPageKey="about"
       tone="lilac"
       eyebrow="The NASO Manifesto"
       title={h}

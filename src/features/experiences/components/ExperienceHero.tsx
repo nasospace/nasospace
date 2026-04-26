@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function ExperienceHero() {
   return (
     <PageHero
+      cmsPageKey="experiences"
       tone="cream"
       eyebrow="The 100 Drop · Vol. 001"
       title="100 experiences."

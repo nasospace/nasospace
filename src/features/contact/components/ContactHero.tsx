@@ -8,6 +8,7 @@ interface ContactHeroProps {
 export function ContactHero({ headline, subline }: ContactHeroProps) {
   return (
     <PageHero
+      cmsPageKey="contact"
       tone="coral"
       eyebrow="Connect with NASO"
       title={headline || "Say it."}

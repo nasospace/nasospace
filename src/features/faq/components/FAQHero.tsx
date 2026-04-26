@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function FAQHero() {
   return (
     <PageHero
+      cmsPageKey="faq"
       tone="card"
       eyebrow="Need answers?"
       title="The fine print"

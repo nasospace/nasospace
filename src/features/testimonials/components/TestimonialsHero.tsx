@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function TestimonialsHero() {
   return (
     <PageHero
+      cmsPageKey="community"
       tone="lemon"
       eyebrow="Community Love"
       title="Memories,"
