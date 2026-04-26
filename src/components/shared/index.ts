@@ -1,5 +1,6 @@
 export { Section } from "./Section";
 export { SectionHeader } from "./SectionHeader";
+export { PageHero } from "./PageHero";
 export { MotionDiv } from "./MotionDiv";
 export { InfoRow } from "./InfoRow";
 export { SEOHead } from "./SEOHead";
