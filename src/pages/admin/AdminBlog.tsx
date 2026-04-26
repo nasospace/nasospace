@@ -115,6 +115,15 @@ export default function AdminBlogPage() {
         onEdit={openEdit}
         onDelete={(id) => deleteMut.mutate(id, { onSuccess: () => toast({ title: "Deleted" }) })}
         isDeleting={deleteMut.isPending}
+        onBulkPublish={async (ids, published) => {
+          await bulkPublishMut.mutateAsync({ ids, published });
+          toast({ title: published ? `${ids.length} published` : `${ids.length} unpublished` });
+        }}
+        onBulkDelete={async (ids) => {
+          await bulkDeleteMut.mutateAsync(ids);
+          toast({ title: `${ids.length} deleted` });
+        }}
+        isBulking={bulkPublishMut.isPending || bulkDeleteMut.isPending}
       />
 
       <AdminCmsFormDialog
