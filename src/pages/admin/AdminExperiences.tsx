@@ -2,7 +2,7 @@
  * Admin Experiences — full CRUD for cms_experiences.
  */
 import { useState } from "react";
-import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/features/admin/hooks/useAdminCms";
+import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete, useAdminBulkPublish, useAdminBulkDelete } from "@/features/admin/hooks/useAdminCms";
 import { AdminCmsListPage, PublishedBadge, FeaturedBadge, type ColumnDef } from "@/features/admin/components/cms/AdminCmsListPage";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SlugField, SwitchField, TagsField } from "@/features/admin/components/cms/FormFields";
@@ -133,6 +133,15 @@ export default function AdminExperiencesPage() {
         onEdit={openEdit}
         onDelete={(id) => deleteMut.mutate(id, { onSuccess: () => toast({ title: "Deleted" }) })}
         isDeleting={deleteMut.isPending}
+        onBulkPublish={async (ids, published) => {
+          await bulkPublishMut.mutateAsync({ ids, published });
+          toast({ title: published ? `${ids.length} published` : `${ids.length} unpublished` });
+        }}
+        onBulkDelete={async (ids) => {
+          await bulkDeleteMut.mutateAsync(ids);
+          toast({ title: `${ids.length} deleted` });
+        }}
+        isBulking={bulkPublishMut.isPending || bulkDeleteMut.isPending}
       />
 
       <AdminCmsFormDialog
