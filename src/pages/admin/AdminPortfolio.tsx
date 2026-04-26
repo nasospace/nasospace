@@ -2,7 +2,7 @@
  * Admin Portfolio — full CRUD for cms_portfolio_items.
  */
 import { useState } from "react";
-import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/features/admin/hooks/useAdminCms";
+import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete, useAdminBulkPublish, useAdminBulkDelete } from "@/features/admin/hooks/useAdminCms";
 import { AdminCmsListPage, PublishedBadge, FeaturedBadge, type ColumnDef } from "@/features/admin/components/cms/AdminCmsListPage";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, SelectField, SlugField, SwitchField, TagsField } from "@/features/admin/components/cms/FormFields";
@@ -46,6 +46,8 @@ export default function AdminPortfolioPage() {
   const createMut = useAdminCreate("cms_portfolio_items");
   const updateMut = useAdminUpdate("cms_portfolio_items");
   const deleteMut = useAdminDelete("cms_portfolio_items");
+  const bulkPublishMut = useAdminBulkPublish("cms_portfolio_items");
+  const bulkDeleteMut = useAdminBulkDelete("cms_portfolio_items");
   const { toast } = useToast();
 
   const [dialogOpen, setDialogOpen] = useState(false);

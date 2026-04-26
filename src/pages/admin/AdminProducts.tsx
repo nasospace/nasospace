@@ -2,7 +2,7 @@
  * Admin Products — full CRUD for cms_products.
  */
 import { useState } from "react";
-import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete } from "@/features/admin/hooks/useAdminCms";
+import { useAdminList, useAdminCreate, useAdminUpdate, useAdminDelete, useAdminBulkPublish, useAdminBulkDelete } from "@/features/admin/hooks/useAdminCms";
 import { AdminCmsListPage, PublishedBadge, FeaturedBadge, type ColumnDef } from "@/features/admin/components/cms/AdminCmsListPage";
 import { AdminCmsFormDialog } from "@/features/admin/components/cms/AdminCmsFormDialog";
 import { TextField, TextAreaField, NumberField, SelectField, SlugField, SwitchField, TagsField } from "@/features/admin/components/cms/FormFields";
@@ -66,6 +66,8 @@ export default function AdminProductsPage() {
   const createMut = useAdminCreate("cms_products");
   const updateMut = useAdminUpdate("cms_products");
   const deleteMut = useAdminDelete("cms_products");
+  const bulkPublishMut = useAdminBulkPublish("cms_products");
+  const bulkDeleteMut = useAdminBulkDelete("cms_products");
   const { toast } = useToast();
 
   const [dialogOpen, setDialogOpen] = useState(false);
