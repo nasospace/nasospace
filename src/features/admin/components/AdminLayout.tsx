@@ -18,6 +18,7 @@ import {
   FileText,
   HelpCircle,
   Quote,
+  LayoutTemplate,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,7 @@ const NAV_SECTIONS = [
   {
     label: "Content",
     items: [
+      { label: "Page Content", path: "/admin/page-content", icon: LayoutTemplate },
       { label: "Experiences", path: "/admin/experiences", icon: Compass },
       { label: "Products", path: "/admin/products", icon: ShoppingBag },
       { label: "Portfolio", path: "/admin/portfolio", icon: Image },
