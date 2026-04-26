@@ -63,6 +63,8 @@ export default function AdminExperiencesPage() {
   const createMut = useAdminCreate("cms_experiences");
   const updateMut = useAdminUpdate("cms_experiences");
   const deleteMut = useAdminDelete("cms_experiences");
+  const bulkPublishMut = useAdminBulkPublish("cms_experiences");
+  const bulkDeleteMut = useAdminBulkDelete("cms_experiences");
   const { toast } = useToast();
 
   const [dialogOpen, setDialogOpen] = useState(false);
