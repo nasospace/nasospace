@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function ShopHero() {
   return (
     <PageHero
+      cmsPageKey="shop"
       tone="lemon"
       eyebrow="Naso Artifacts"
       title="Wear it."

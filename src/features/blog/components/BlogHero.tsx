@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared";
 export function BlogHero() {
   return (
     <PageHero
+      cmsPageKey="blog"
       tone="cream"
       eyebrow="The NASO Journal"
       title="Stories,"

@@ -41,6 +41,7 @@ import AdminPortfolioPage from "@/pages/admin/AdminPortfolio";
 import AdminBlogPage from "@/pages/admin/AdminBlog";
 import AdminFaqPage from "@/pages/admin/AdminFaq";
 import AdminTestimonialsPage from "@/pages/admin/AdminTestimonials";
+import AdminPageContentPage from "@/pages/admin/AdminPageContent";
 
 /** Redirect /workshops/:slug -> /experiences/:slug while preserving the slug. */
 function WorkshopSlugRedirect() {
@@ -123,6 +124,7 @@ export const router = createBrowserRouter([
       { path: "blog", element: <AdminBlogPage /> },
       { path: "faq", element: <AdminFaqPage /> },
       { path: "testimonials", element: <AdminTestimonialsPage /> },
+      { path: "page-content", element: <AdminPageContentPage /> },
     ],
   },
 ]);

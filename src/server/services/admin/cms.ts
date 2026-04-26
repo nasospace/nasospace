@@ -14,7 +14,8 @@ export type CmsTable =
   | "cms_portfolio_items"
   | "cms_blog_posts"
   | "cms_faq_items"
-  | "cms_testimonials";
+  | "cms_testimonials"
+  | "cms_page_content";
 
 /* ═══ Helpers ═══ */
 
@@ -43,6 +44,9 @@ export async function fetchAllAdmin(table: CmsTable): Promise<Record<string, any
       break;
     case "cms_testimonials":
       result = await supabase.from("cms_testimonials").select("*").order("sort_order", { ascending: true });
+      break;
+    case "cms_page_content":
+      result = await supabase.from("cms_page_content").select("*").order("page_key", { ascending: true });
       break;
   }
 
@@ -78,6 +82,9 @@ export async function fetchOneAdmin(table: CmsTable, id: string): Promise<Record
     case "cms_testimonials":
       result = await supabase.from("cms_testimonials").select("*").eq("id", id).single();
       break;
+    case "cms_page_content":
+      result = await supabase.from("cms_page_content").select("*").eq("id", id).single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
@@ -108,6 +115,9 @@ export async function createAdmin(table: CmsTable, record: Record<string, unknow
       break;
     case "cms_testimonials":
       result = await supabase.from("cms_testimonials").insert(record as any).select().single();
+      break;
+    case "cms_page_content":
+      result = await supabase.from("cms_page_content").insert(record as any).select().single();
       break;
   }
 
@@ -141,6 +151,9 @@ export async function updateAdmin(table: CmsTable, id: string, updates: Record<s
     case "cms_testimonials":
       result = await supabase.from("cms_testimonials").update(payload as any).eq("id", id).select().single();
       break;
+    case "cms_page_content":
+      result = await supabase.from("cms_page_content").update(payload as any).eq("id", id).select().single();
+      break;
   }
 
   if (result.error) throw new Error(result.error.message);
@@ -171,6 +184,84 @@ export async function deleteAdmin(table: CmsTable, id: string): Promise<void> {
       break;
     case "cms_testimonials":
       ({ error } = await supabase.from("cms_testimonials").delete().eq("id", id));
+      break;
+    case "cms_page_content":
+      ({ error } = await supabase.from("cms_page_content").delete().eq("id", id));
+      break;
+  }
+
+  if (error) throw new Error(error.message);
+}
+
+/* ═══ Bulk operations ═══ */
+
+export async function bulkUpdatePublished(
+  table: CmsTable,
+  ids: string[],
+  published: boolean,
+): Promise<void> {
+  if (ids.length === 0) return;
+  const payload = { published, updated_at: new Date().toISOString() };
+  let error: any;
+
+  switch (table) {
+    case "cms_experiences":
+      ({ error } = await supabase.from("cms_experiences").update(payload as any).in("id", ids));
+      break;
+    case "cms_workshops":
+      ({ error } = await supabase.from("cms_workshops").update(payload as any).in("id", ids));
+      break;
+    case "cms_products":
+      ({ error } = await supabase.from("cms_products").update(payload as any).in("id", ids));
+      break;
+    case "cms_portfolio_items":
+      ({ error } = await supabase.from("cms_portfolio_items").update(payload as any).in("id", ids));
+      break;
+    case "cms_blog_posts":
+      ({ error } = await supabase.from("cms_blog_posts").update(payload as any).in("id", ids));
+      break;
+    case "cms_faq_items":
+      ({ error } = await supabase.from("cms_faq_items").update(payload as any).in("id", ids));
+      break;
+    case "cms_testimonials":
+      ({ error } = await supabase.from("cms_testimonials").update(payload as any).in("id", ids));
+      break;
+    case "cms_page_content":
+      ({ error } = await supabase.from("cms_page_content").update(payload as any).in("id", ids));
+      break;
+  }
+
+  if (error) throw new Error(error.message);
+}
+
+export async function bulkDelete(table: CmsTable, ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  let error: any;
+
+  switch (table) {
+    case "cms_experiences":
+      ({ error } = await supabase.from("cms_experiences").delete().in("id", ids));
+      break;
+    case "cms_workshops":
+      ({ error } = await supabase.from("cms_workshops").delete().in("id", ids));
+      break;
+    case "cms_products":
+      ({ error } = await supabase.from("cms_products").delete().in("id", ids));
+      break;
+    case "cms_portfolio_items":
+      ({ error } = await supabase.from("cms_portfolio_items").delete().in("id", ids));
+      break;
+    case "cms_blog_posts":
+      ({ error } = await supabase.from("cms_blog_posts").delete().in("id", ids));
+      break;
+    case "cms_faq_items":
+      ({ error } = await supabase.from("cms_faq_items").delete().in("id", ids));
+      break;
+    case "cms_testimonials":
+      ({ error } = await supabase.from("cms_testimonials").delete().in("id", ids));
+      break;
+    case "cms_page_content":
+      ({ error } = await supabase.from("cms_page_content").delete().in("id", ids));
       break;
   }
 
