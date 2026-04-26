@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FlowerShape, Sparkle } from "./RetroElements";
+import { usePageContent, getSection } from "@/hooks/usePageContent";
 
 type Tone =
   | "cream"
@@ -72,23 +73,39 @@ interface PageHeroProps {
   /** Optional right-side index/number ("01 / 100") for editorial feel */
   marker?: string;
   className?: string;
+  /** When set, this hero will check cms_page_content for an override row at (pageKey, "hero") */
+  cmsPageKey?: string;
+}
+
+interface HeroOverride {
+  eyebrow?: string;
+  title?: string;
+  accent?: string;
+  subtitle?: string;
+  marker?: string;
+  tone?: Tone;
 }
 
 /**
  * Unified, editorial page hero used across all secondary pages.
  * Two-column on desktop: left = type stack, right = decorative tile.
  * One-column on mobile.
+ *
+ * If `cmsPageKey` is provided, looks up `cms_page_content` for a "hero" section
+ * and overrides any matching props with the admin-edited values.
  */
-export function PageHero({
-  eyebrow,
-  title,
-  accent,
-  subtitle,
-  children,
-  tone = "cream",
-  marker,
-  className,
-}: PageHeroProps) {
+export function PageHero(props: PageHeroProps) {
+  const { data: sections } = usePageContent(props.cmsPageKey ?? "__none__");
+  const override = props.cmsPageKey
+    ? getSection<HeroOverride>(sections, "hero")
+    : null;
+
+  const eyebrow = override?.eyebrow ?? props.eyebrow;
+  const title = override?.title ?? props.title;
+  const accent = override?.accent ?? props.accent;
+  const subtitle = override?.subtitle ?? props.subtitle;
+  const marker = override?.marker ?? props.marker;
+  const tone: Tone = (override?.tone as Tone) ?? props.tone ?? "cream";
   const t = toneClasses[tone];
 
   return (
@@ -97,7 +114,7 @@ export function PageHero({
         "relative overflow-hidden border-b-[2.5px] border-foreground",
         t.bg,
         t.text,
-        className,
+        props.className,
       )}
       aria-label={title}
     >
@@ -182,14 +199,14 @@ export function PageHero({
               </motion.p>
             )}
 
-            {children && (
+            {props.children && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.5 }}
                 className="mt-8"
               >
-                {children}
+                {props.children}
               </motion.div>
             )}
           </div>

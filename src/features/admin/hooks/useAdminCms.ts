@@ -8,6 +8,8 @@ import {
   createAdmin,
   updateAdmin,
   deleteAdmin,
+  bulkUpdatePublished,
+  bulkDelete,
 } from "@/server/services/admin/cms";
 
 type CmsTable =
@@ -17,7 +19,8 @@ type CmsTable =
   | "cms_portfolio_items"
   | "cms_blog_posts"
   | "cms_faq_items"
-  | "cms_testimonials";
+  | "cms_testimonials"
+  | "cms_page_content";
 
 export function useAdminList(table: CmsTable) {
   return useQuery({
@@ -43,6 +46,7 @@ export function useAdminCreate(table: CmsTable) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", table] });
       qc.invalidateQueries({ queryKey: ["cms"] });
+      qc.invalidateQueries({ queryKey: ["cms-page-content"] });
     },
   });
 }
@@ -55,6 +59,7 @@ export function useAdminUpdate(table: CmsTable) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", table] });
       qc.invalidateQueries({ queryKey: ["cms"] });
+      qc.invalidateQueries({ queryKey: ["cms-page-content"] });
     },
   });
 }
@@ -66,6 +71,32 @@ export function useAdminDelete(table: CmsTable) {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["admin", table] });
       qc.invalidateQueries({ queryKey: ["cms"] });
+      qc.invalidateQueries({ queryKey: ["cms-page-content"] });
+    },
+  });
+}
+
+export function useAdminBulkPublish(table: CmsTable) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ ids, published }: { ids: string[]; published: boolean }) =>
+      bulkUpdatePublished(table, ids, published),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin", table] });
+      qc.invalidateQueries({ queryKey: ["cms"] });
+      qc.invalidateQueries({ queryKey: ["cms-page-content"] });
+    },
+  });
+}
+
+export function useAdminBulkDelete(table: CmsTable) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (ids: string[]) => bulkDelete(table, ids),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["admin", table] });
+      qc.invalidateQueries({ queryKey: ["cms"] });
+      qc.invalidateQueries({ queryKey: ["cms-page-content"] });
     },
   });
 }
