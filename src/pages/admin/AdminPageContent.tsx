@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PublishedBadge } from "@/features/admin/components/cms/AdminCmsListPage";
+import { WorldsEditor, HowItWorksEditor } from "@/features/admin/components/cms/HomeSectionEditors";
 
 const TONE_OPTIONS = [
   { value: "cream", label: "Cream (warm off-white)" },
