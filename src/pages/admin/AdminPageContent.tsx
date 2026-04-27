@@ -75,7 +75,9 @@ export default function AdminPageContent() {
       <header>
         <h1 className="font-groovy text-2xl font-bold">Page Content</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Edit hero copy for every public page. Changes go live immediately.
+          Edit hero copy and home sections for every public page. Add{" "}
+          <code className="rounded bg-muted px-1 text-[11px]">?preview=1</code> to any URL while
+          signed in as admin to preview unpublished drafts.
         </p>
       </header>
 
