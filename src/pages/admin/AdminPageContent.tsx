@@ -137,10 +137,10 @@ export default function AdminPageContent() {
               {page.key === "home" && (
                 <>
                   <WorldsEditor
-                    row={rows.find((r) => r.page_key === "home" && r.section_key === "worlds") ?? null}
+                    row={(rows.find((r) => r.page_key === "home" && r.section_key === "worlds") ?? null) as any}
                   />
                   <HowItWorksEditor
-                    row={rows.find((r) => r.page_key === "home" && r.section_key === "how_it_works") ?? null}
+                    row={(rows.find((r) => r.page_key === "home" && r.section_key === "how_it_works") ?? null) as any}
                   />
                 </>
               )}
