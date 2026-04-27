@@ -94,7 +94,7 @@ export default function AdminPageContent() {
           </TabsList>
 
           {PAGES.map((page) => (
-            <TabsContent key={page.key} value={page.key} className="mt-6">
+            <TabsContent key={page.key} value={page.key} className="mt-6 space-y-6">
               <PageHeroEditor
                 page={page}
                 row={rows.find((r) => r.page_key === page.key && r.section_key === "hero") ?? null}
@@ -132,6 +132,18 @@ export default function AdminPageContent() {
                 }}
                 isSaving={updateMut.isPending || createMut.isPending}
               />
+
+              {/* Home page gets extra section editors */}
+              {page.key === "home" && (
+                <>
+                  <WorldsEditor
+                    row={rows.find((r) => r.page_key === "home" && r.section_key === "worlds") ?? null}
+                  />
+                  <HowItWorksEditor
+                    row={rows.find((r) => r.page_key === "home" && r.section_key === "how_it_works") ?? null}
+                  />
+                </>
+              )}
             </TabsContent>
           ))}
         </Tabs>
