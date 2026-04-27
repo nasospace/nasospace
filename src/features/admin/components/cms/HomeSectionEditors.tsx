@@ -12,11 +12,12 @@ import { PublishedBadge } from "@/features/admin/components/cms/AdminCmsListPage
 
 interface SectionRow {
   id: string;
-  page_key: string;
-  section_key: string;
-  content: Record<string, unknown>;
-  published: boolean;
-  sort_order: number;
+  page_key?: string;
+  section_key?: string;
+  content?: Record<string, unknown> | null;
+  published?: boolean;
+  sort_order?: number;
+  [key: string]: unknown;
 }
 
 /* ═══════════════════════════════════════════════════════
