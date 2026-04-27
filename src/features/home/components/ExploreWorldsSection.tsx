@@ -31,15 +31,44 @@ const colorToBg: Record<string, string> = {
   "naso-pink": "bg-naso-pink",
 };
 
+const DEFAULTS = {
+  heading: "The worlds of",
+  heading_accent: "NASO",
+  subtitle: "Every way in leads somewhere unforgettable.",
+};
+
+/** Normalize a single card from CMS, falling back per-field. */
+function normalizeCard(raw: Partial<WorldCard> | null | undefined, fallback: WorldCard): WorldCard {
+  if (!raw || typeof raw !== "object") return fallback;
+  return {
+    title: (raw.title?.trim?.() || fallback.title) as string,
+    emoji: (raw.emoji?.trim?.() || fallback.emoji) as string,
+    desc: (raw.desc?.trim?.() || fallback.desc) as string,
+    href: (raw.href?.trim?.() || fallback.href) as string,
+    color: raw.color ?? fallback.color,
+    bg: raw.bg ?? fallback.bg,
+    rotate: typeof raw.rotate === "number" ? raw.rotate : fallback.rotate,
+  };
+}
+
 export function ExploreWorldsSection() {
   const { data: sections } = usePageContent("home");
   const cms = getSection<WorldsContent>(sections, "worlds");
 
-  const heading = cms?.heading ?? "The worlds of";
-  const headingAccent = cms?.heading_accent ?? "NASO";
-  const subtitle = cms?.subtitle ?? "Every way in leads somewhere unforgettable.";
+  const fallbackCards = defaultCards as unknown as WorldCard[];
+
+  // Trim/empty-safe text fallbacks
+  const heading = cms?.heading?.trim() || DEFAULTS.heading;
+  const headingAccent = cms?.heading_accent?.trim() || DEFAULTS.heading_accent;
+  const subtitle = cms?.subtitle?.trim() || DEFAULTS.subtitle;
+
+  // Cards: if CMS array is missing, empty, or non-array → use full defaults.
+  // Otherwise normalize each card with per-field fallback to the matching default (by index).
+  const rawCards = Array.isArray(cms?.cards) ? cms!.cards! : [];
   const cards: WorldCard[] =
-    cms?.cards && cms.cards.length > 0 ? cms.cards : (defaultCards as unknown as WorldCard[]);
+    rawCards.length === 0
+      ? fallbackCards
+      : rawCards.map((c, i) => normalizeCard(c, fallbackCards[i] ?? fallbackCards[0]));
 
   return (
     <>
