@@ -55,13 +55,34 @@ const DEFAULT_STEPS: Step[] = [
   { icon: "users", title: "The Memory", description: "Step into the space. Leave with something real—and someone new.", color: "secondary" },
 ];
 
+const DEFAULTS = {
+  eyebrow: "How it works",
+  heading: "Effortless from click to Cairo.",
+};
+
+/** Normalize one step against an indexed default; never returns broken fields. */
+function normalizeStep(raw: Partial<Step> | null | undefined, fallback: Step): Step {
+  if (!raw || typeof raw !== "object") return fallback;
+  return {
+    icon: (raw.icon && ICONS[raw.icon] ? raw.icon : fallback.icon) as string,
+    title: raw.title?.trim() || fallback.title,
+    description: raw.description?.trim() || fallback.description,
+    color: (raw.color && COLORS[raw.color] ? raw.color : fallback.color) as string,
+  };
+}
+
 export function HowItWorksSection() {
   const { data: sections } = usePageContent("home");
   const cms = getSection<HowItWorksContent>(sections, "how_it_works");
 
-  const eyebrow = cms?.eyebrow ?? "How it works";
-  const heading = cms?.heading ?? "Effortless from click to Cairo.";
-  const steps: Step[] = cms?.steps && cms.steps.length > 0 ? cms.steps : DEFAULT_STEPS;
+  const eyebrow = cms?.eyebrow?.trim() || DEFAULTS.eyebrow;
+  const heading = cms?.heading?.trim() || DEFAULTS.heading;
+
+  const rawSteps = Array.isArray(cms?.steps) ? cms!.steps! : [];
+  const steps: Step[] =
+    rawSteps.length === 0
+      ? DEFAULT_STEPS
+      : rawSteps.map((s, i) => normalizeStep(s, DEFAULT_STEPS[i] ?? DEFAULT_STEPS[0]));
 
   return (
     <section className="relative overflow-hidden bg-foreground py-section-lg text-background">
