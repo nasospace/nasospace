@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PublishedBadge } from "@/features/admin/components/cms/AdminCmsListPage";
+import { WorldsEditor, HowItWorksEditor } from "@/features/admin/components/cms/HomeSectionEditors";
 
 const TONE_OPTIONS = [
   { value: "cream", label: "Cream (warm off-white)" },
@@ -74,7 +75,9 @@ export default function AdminPageContent() {
       <header>
         <h1 className="font-groovy text-2xl font-bold">Page Content</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Edit hero copy for every public page. Changes go live immediately.
+          Edit hero copy and home sections for every public page. Add{" "}
+          <code className="rounded bg-muted px-1 text-[11px]">?preview=1</code> to any URL while
+          signed in as admin to preview unpublished drafts.
         </p>
       </header>
 
@@ -93,7 +96,7 @@ export default function AdminPageContent() {
           </TabsList>
 
           {PAGES.map((page) => (
-            <TabsContent key={page.key} value={page.key} className="mt-6">
+            <TabsContent key={page.key} value={page.key} className="mt-6 space-y-6">
               <PageHeroEditor
                 page={page}
                 row={rows.find((r) => r.page_key === page.key && r.section_key === "hero") ?? null}
@@ -131,6 +134,18 @@ export default function AdminPageContent() {
                 }}
                 isSaving={updateMut.isPending || createMut.isPending}
               />
+
+              {/* Home page gets extra section editors */}
+              {page.key === "home" && (
+                <>
+                  <WorldsEditor
+                    row={(rows.find((r) => r.page_key === "home" && r.section_key === "worlds") ?? null) as any}
+                  />
+                  <HowItWorksEditor
+                    row={(rows.find((r) => r.page_key === "home" && r.section_key === "how_it_works") ?? null) as any}
+                  />
+                </>
+              )}
             </TabsContent>
           ))}
         </Tabs>

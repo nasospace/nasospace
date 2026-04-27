@@ -1,7 +1,8 @@
-import { Outlet, useLocation, ScrollRestoration } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { RouteErrorBoundary } from "@/components/shared/RouteErrorBoundary";
+import { PreviewModeBanner } from "@/components/shared/PreviewModeBanner";
 import { useEffect } from "react";
 
 /**
@@ -23,6 +24,8 @@ export function RootLayout() {
         </RouteErrorBoundary>
       </main>
       <Footer />
+      <PreviewModeBanner />
     </div>
   );
 }
+
