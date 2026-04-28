@@ -102,8 +102,8 @@ export default function AdminExperiencesPage() {
     try {
       const payload = {
         ...form,
-        tags: JSON.stringify(form.tags),
-        gallery: JSON.stringify(form.gallery),
+        tags: form.tags,
+        gallery: form.gallery,
         // Send slot_number as null when empty, not 0
         slot_number: form.slot_number === null || (form.slot_number as any) === "" ? null : Number(form.slot_number),
       };

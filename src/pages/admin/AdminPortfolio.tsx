@@ -83,8 +83,8 @@ export default function AdminPortfolioPage() {
     try {
       const payload = {
         ...form,
-        tags: JSON.stringify(form.tags),
-        gallery: JSON.stringify(form.gallery),
+        tags: form.tags,
+        gallery: form.gallery,
         audience_type: form.audience_type || null,
         vibe: form.vibe || null,
         location: form.location || null,
