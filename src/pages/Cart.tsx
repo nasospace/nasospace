@@ -37,7 +37,7 @@ export default function CartPage() {
         email: formData.email,
         phone: formData.phone,
         notes: `Order Details:\n${summary}\nTotal: ${subtotal} ${currency}\n\nCustomer Notes:\n${formData.notes}`,
-        status: "new",
+        status: "sent",
         inquiry_type: "order",
         device_id: getDeviceId(),
       });

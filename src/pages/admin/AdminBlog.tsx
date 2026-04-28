@@ -82,7 +82,7 @@ export default function AdminBlogPage() {
     try {
       const payload = {
         ...form,
-        tags: JSON.stringify(form.tags),
+        tags: form.tags,
         linked_experience_slug: form.linked_experience_slug || null,
         linked_workshop_slug: form.linked_workshop_slug || null,
         linked_portfolio_slug: form.linked_portfolio_slug || null,

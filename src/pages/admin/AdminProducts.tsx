@@ -103,8 +103,8 @@ export default function AdminProductsPage() {
     try {
       const payload = {
         ...form,
-        tags: JSON.stringify(form.tags),
-        gallery: JSON.stringify(form.gallery),
+        tags: form.tags,
+        gallery: form.gallery,
         linked_experience_slug: form.linked_experience_slug || null,
         linked_workshop_slug: form.linked_workshop_slug || null,
         linked_portfolio_slug: form.linked_portfolio_slug || null,
