@@ -170,7 +170,8 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                     );
                     setJustAdded(true);
                     toast.success("Spot reserved in your cart ✦");
-                    trackNaso("save_spot_clicked", {
+                    trackNaso("experience_cta_click", {
+                      action: "save_spot",
                       productId: experience.id,
                       slug: experience.slug,
                       title: experience.title,
