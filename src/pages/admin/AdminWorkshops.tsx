@@ -83,7 +83,7 @@ export default function AdminWorkshopsPage() {
       return;
     }
     try {
-      const payload = { ...form, tags: JSON.stringify(form.tags), gallery: JSON.stringify(form.gallery) };
+      const payload = { ...form, tags: form.tags, gallery: form.gallery };
       if (editId) {
         await updateMut.mutateAsync({ id: editId, updates: payload });
         toast({ title: "Workshop updated" });
