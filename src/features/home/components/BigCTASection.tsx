@@ -54,8 +54,7 @@ export function BigCTASection() {
               if (status === "submitting" || status === "success") return;
               setStatus("submitting");
 
-              // Casting to any to bypass missing table types for custom drop_list table
-              const { error } = await (supabase as any).from("drop_list").insert({
+              const { error } = await supabase.from("drop_list").insert({
                 email,
                 source: "homepage_big_cta"
               });
