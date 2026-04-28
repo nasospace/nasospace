@@ -198,7 +198,7 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                       const shareUrl = `https://naso.space/experiences/${experience.slug}`;
                       navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 ${shareUrl}`);
                       toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
-                      trackNaso("experience_shared", {
+                      trackNaso("share_group_chat", {
                         productId: experience.id,
                         slug: experience.slug,
                         title: experience.title,
