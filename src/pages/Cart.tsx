@@ -124,7 +124,7 @@ export default function CartPage() {
                       {items.map((item) => (
                         <div
                           key={`${item.slug}-${item.selectedSize ?? ""}-${item.selectedColor ?? ""}`}
-                          className="flex items-start gap-4 p-5 sm:items-center sm:gap-6 sm:p-6 bg-white transition-colors hover:bg-muted/50"
+                          className="relative flex items-start gap-4 p-5 sm:items-center sm:gap-6 sm:p-6 bg-white transition-colors hover:bg-muted/50"
                         >
                           <Link to={routeHelpers.shopDetail(item.slug)} className="shrink-0 block overflow-hidden rounded-2xl border-2 border-foreground shadow-retro-sm">
                             <img
