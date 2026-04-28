@@ -170,6 +170,15 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                     );
                     setJustAdded(true);
                     toast.success("Spot reserved in your cart ✦");
+                    trackNaso("save_spot_clicked", {
+                      productId: experience.id,
+                      slug: experience.slug,
+                      title: experience.title,
+                      price: experience.price,
+                      currency: experience.currency,
+                      category: experience.category,
+                      surface: "experience_detail",
+                    });
                     setTimeout(() => setJustAdded(false), 2000);
                   }}
                   className={cn(
@@ -185,8 +194,17 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                 <div className="mt-4 flex flex-col gap-3">
                   <button
                     onClick={() => {
-                      navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 https://naso.space/experiences/${experience.slug}`);
+                      const shareUrl = `https://naso.space/experiences/${experience.slug}`;
+                      navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 ${shareUrl}`);
                       toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                      trackNaso("experience_shared", {
+                        productId: experience.id,
+                        slug: experience.slug,
+                        title: experience.title,
+                        category: experience.category,
+                        method: "copy_link",
+                        surface: "experience_detail",
+                      });
                     }}
                     className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0"
                   >
