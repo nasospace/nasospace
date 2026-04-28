@@ -12,6 +12,7 @@ import { ROUTES } from "@/config/routes";
 import { buildEventSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { useCart } from "@/features/cart";
+import { trackNaso } from "@/lib/analytics";
 import { useExperience, useRelatedExperiences } from "../hooks/useExperiences";
 import { CATEGORY_META } from "../types";
 import { ExperienceGrid } from "./ExperienceGrid";
