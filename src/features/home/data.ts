@@ -26,29 +26,29 @@ export const heroPaletteColors = [
   "bg-naso-pink",
 ];
 
-/* ═══ Explore Worlds ═══ */
+/* ═══ The Ecosystem (formerly Explore Worlds) ═══ */
 export const worldCards = [
   {
-    title: "Moments",
+    title: "The Chapters",
     emoji: "✦",
-    desc: "Curated cultural adventures designed to be remembered. A new way to see Cairo, together.",
+    desc: "100 unique, unrepeatable creative drops across Cairo. Our core movement.",
     href: ROUTES.EXPERIENCES,
     bg: "bg-primary",
     rotate: -2,
   },
   {
-    title: "Workshops",
-    emoji: "✿",
-    desc: "Get your hands dirty with local artists. Walk in curious, leave with something you made — and a new skill.",
-    href: ROUTES.EXPERIENCES,
+    title: "The Artifacts",
+    emoji: "★",
+    desc: "Physical kits designed for your own space. Bring the NASO ritual home.",
+    href: ROUTES.SHOP,
     bg: "bg-secondary",
     rotate: 1,
   },
   {
-    title: "Artifacts",
-    emoji: "★",
-    desc: "Exclusive drops and at-home experience kits. Pieces of the movement for your own sanctuary.",
-    href: ROUTES.SHOP,
+    title: "The Studio",
+    emoji: "✹",
+    desc: "Custom-built experiences for private gatherings and corporate teams. We design the unforgettable.",
+    href: ROUTES.CONTACT,
     bg: "bg-accent",
     rotate: -1,
   },

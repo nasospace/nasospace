@@ -10,7 +10,6 @@ import {
   BottomTickerSection,
   HowItWorksSection,
   CommunityProofSection,
-  ExperienceCounter,
   DIYKitsSection,
 } from "@/features/home/components";
 import { Link } from "react-router-dom";
@@ -33,7 +32,6 @@ export default function HomePage() {
       <HeroSection />
       <WhatNasoIsSection />
       <FeaturedExperiencesSection />
-      <ExperienceCounter />
       <ExploreWorldsSection />
       <DIYKitsSection />
       <CommunityProofSection />
@@ -46,14 +44,14 @@ export default function HomePage() {
       <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-in slide-in-from-bottom-10 fade-in duration-700 delay-1000">
         <div className="flex items-center justify-between rounded-full border-[3px] border-foreground bg-white/95 backdrop-blur-md p-2 shadow-retro-lg">
           <div className="ml-4 flex flex-col">
-            <span className="font-groovy text-xs font-bold text-foreground leading-tight">The Current Shift</span>
-            <span className="font-body text-[10px] font-semibold text-primary">Cairo's newest memories are live</span>
+            <span className="font-groovy text-xs font-bold text-foreground leading-tight">The 100 Chapters</span>
+            <span className="font-body text-[10px] font-semibold text-primary">New memories unlocked</span>
           </div>
           <Link
             to={ROUTES.EXPERIENCES}
             className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-primary px-5 font-groovy text-[11px] font-black uppercase tracking-wider text-primary-foreground shadow-retro-sm transition-all duration-200 active:translate-y-0.5 active:shadow-none"
           >
-            Access the drop
+            Explore now
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
