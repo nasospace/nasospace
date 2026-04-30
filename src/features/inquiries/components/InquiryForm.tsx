@@ -65,7 +65,7 @@ const inquirySchema = z.object({
 
 interface InquiryFormProps {
   context: InquiryPageContext;
-  onSuccess: () => void;
+  onSuccess: (inquiryId?: string) => void;
 }
 
 /* ═══ Component ═══ */
