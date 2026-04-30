@@ -27,7 +27,6 @@ export type Database = {
           id: string
           linked_experience_slug: string | null
           linked_portfolio_slug: string | null
-          linked_workshop_slug: string | null
           publish_date: string | null
           published: boolean
           reading_time: string
@@ -48,7 +47,6 @@ export type Database = {
           id?: string
           linked_experience_slug?: string | null
           linked_portfolio_slug?: string | null
-          linked_workshop_slug?: string | null
           publish_date?: string | null
           published?: boolean
           reading_time?: string
@@ -69,7 +67,6 @@ export type Database = {
           id?: string
           linked_experience_slug?: string | null
           linked_portfolio_slug?: string | null
-          linked_workshop_slug?: string | null
           publish_date?: string | null
           published?: boolean
           reading_time?: string
@@ -233,7 +230,6 @@ export type Database = {
           gallery: Json
           id: string
           linked_experience_slug: string | null
-          linked_workshop_slug: string | null
           location: string | null
           published: boolean
           slug: string
@@ -257,7 +253,6 @@ export type Database = {
           gallery?: Json
           id?: string
           linked_experience_slug?: string | null
-          linked_workshop_slug?: string | null
           location?: string | null
           published?: boolean
           slug: string
@@ -281,7 +276,6 @@ export type Database = {
           gallery?: Json
           id?: string
           linked_experience_slug?: string | null
-          linked_workshop_slug?: string | null
           location?: string | null
           published?: boolean
           slug?: string
@@ -311,7 +305,6 @@ export type Database = {
           limited_edition: boolean
           linked_experience_slug: string | null
           linked_portfolio_slug: string | null
-          linked_workshop_slug: string | null
           price: number
           published: boolean
           sizes: Json | null
@@ -336,7 +329,6 @@ export type Database = {
           limited_edition?: boolean
           linked_experience_slug?: string | null
           linked_portfolio_slug?: string | null
-          linked_workshop_slug?: string | null
           price?: number
           published?: boolean
           sizes?: Json | null
@@ -361,7 +353,6 @@ export type Database = {
           limited_edition?: boolean
           linked_experience_slug?: string | null
           linked_portfolio_slug?: string | null
-          linked_workshop_slug?: string | null
           price?: number
           published?: boolean
           sizes?: Json | null
@@ -431,81 +422,6 @@ export type Database = {
           quote?: string
           sort_order?: number
           source_type?: string
-        }
-        Relationships: []
-      }
-      cms_workshops: {
-        Row: {
-          capacity: number
-          category: string
-          cover_image_alt: string
-          cover_image_src: string
-          created_at: string
-          currency: string
-          date: string | null
-          description: string
-          duration: string
-          featured: boolean
-          gallery: Json
-          id: string
-          location: string | null
-          materials_included: boolean
-          price: number
-          published: boolean
-          skill_level: string
-          slug: string
-          summary: string
-          tags: Json
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          capacity?: number
-          category?: string
-          cover_image_alt?: string
-          cover_image_src?: string
-          created_at?: string
-          currency?: string
-          date?: string | null
-          description?: string
-          duration?: string
-          featured?: boolean
-          gallery?: Json
-          id?: string
-          location?: string | null
-          materials_included?: boolean
-          price?: number
-          published?: boolean
-          skill_level?: string
-          slug: string
-          summary: string
-          tags?: Json
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          capacity?: number
-          category?: string
-          cover_image_alt?: string
-          cover_image_src?: string
-          created_at?: string
-          currency?: string
-          date?: string | null
-          description?: string
-          duration?: string
-          featured?: boolean
-          gallery?: Json
-          id?: string
-          location?: string | null
-          materials_included?: boolean
-          price?: number
-          published?: boolean
-          skill_level?: string
-          slug?: string
-          summary?: string
-          tags?: Json
-          title?: string
-          updated_at?: string
         }
         Relationships: []
       }
