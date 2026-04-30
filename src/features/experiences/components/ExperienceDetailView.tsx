@@ -194,10 +194,19 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
 
                 <div className="mt-4 flex flex-col gap-3">
                   <button
-                    onClick={() => {
-                      const shareUrl = `https://naso.space/experiences/${experience.slug}`;
-                      navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 ${shareUrl}`);
-                      toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                  onClick={async () => {
+                      const shareUrl = `${typeof window !== "undefined" ? window.location.origin : siteConfig.url}/experiences/${experience.slug}`;
+                      const shareText = `Thinking about doing this. You in? 🔗 ${shareUrl}`;
+                      try {
+                        if (navigator.share) {
+                          await navigator.share({ title: experience.title, text: shareText, url: shareUrl });
+                        } else {
+                          await navigator.clipboard.writeText(shareText);
+                          toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                        }
+                      } catch {
+                        // user cancelled share — no-op
+                      }
                       trackNaso("share_group_chat", {
                         productId: experience.id,
                         slug: experience.slug,
