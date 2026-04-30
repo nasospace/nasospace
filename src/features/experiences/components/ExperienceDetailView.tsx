@@ -182,11 +182,13 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                     });
                     setTimeout(() => setJustAdded(false), 2000);
                   }}
+                  aria-label={`Reserve a spot for ${experience.title}`}
                   className={cn(
                     "flex w-full items-center justify-center gap-2 rounded-full border-[2.5px] border-foreground px-6 py-3",
                     "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
                     meta.color, meta.textColor,
-                    "transition-all hover:shadow-retro-lg active:translate-y-0.5 active:shadow-none"
+                    "transition-all hover:shadow-retro-lg active:translate-y-0.5 active:shadow-none",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   )}
                 >
                   {justAdded ? "Added to Cart" : "I'm in. Save my spot."}
@@ -194,10 +196,19 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
 
                 <div className="mt-4 flex flex-col gap-3">
                   <button
-                    onClick={() => {
-                      const shareUrl = `https://naso.space/experiences/${experience.slug}`;
-                      navigator.clipboard.writeText(`Thinking about doing this. You in? 🔗 ${shareUrl}`);
-                      toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                  onClick={async () => {
+                      const shareUrl = `${typeof window !== "undefined" ? window.location.origin : siteConfig.url}/experiences/${experience.slug}`;
+                      const shareText = `Thinking about doing this. You in? 🔗 ${shareUrl}`;
+                      try {
+                        if (navigator.share) {
+                          await navigator.share({ title: experience.title, text: shareText, url: shareUrl });
+                        } else {
+                          await navigator.clipboard.writeText(shareText);
+                          toast.success("Copied link! Send it to the group chat 💅", { duration: 4000 });
+                        }
+                      } catch {
+                        // user cancelled share — no-op
+                      }
                       trackNaso("share_group_chat", {
                         productId: experience.id,
                         slug: experience.slug,
@@ -207,9 +218,10 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                         surface: "experience_detail",
                       });
                     }}
-                    className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0"
+                    aria-label={`Share ${experience.title} with friends`}
+                    className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-foreground bg-white px-6 py-2.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-foreground shadow-retro-sm transition-all hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
-                    <Share2 className="h-4 w-4" />
+                    <Share2 className="h-4 w-4" aria-hidden="true" />
                     Send to Group Chat
                   </button>
 

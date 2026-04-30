@@ -6,7 +6,8 @@ import { useInquiryContext } from "@/features/inquiries/hooks/useInquiryContext"
 
 export default function InquiriesPage() {
   const context = useInquiryContext();
-  const [submitted, setSubmitted] = useState(false);
+  const [submittedRef, setSubmittedRef] = useState<string | null | undefined>(undefined);
+  const submitted = submittedRef !== undefined;
 
   return (
     <>
@@ -19,9 +20,9 @@ export default function InquiriesPage() {
       <Section>
         <div className="mx-auto max-w-xl">
           {submitted ? (
-            <InquirySuccessState />
+            <InquirySuccessState referenceId={submittedRef ?? undefined} />
           ) : (
-            <InquiryForm context={context} onSuccess={() => setSubmitted(true)} />
+            <InquiryForm context={context} onSuccess={(id) => setSubmittedRef(id ?? null)} />
           )}
         </div>
       </Section>
