@@ -143,9 +143,9 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
     setSubmitting(true);
     try {
       const { submitInquiry } = await import("@/server/services/inquiries");
-      const result = await submitInquiry(form);
-      if (!result.success) {
-        setSubmitError(result.message);
+      const submission = await submitInquiry(form);
+      if (!submission.success) {
+        setSubmitError(submission.message);
         return;
       }
       recordSubmission("inquiry");
@@ -153,7 +153,7 @@ export function InquiryForm({ context, onSuccess }: InquiryFormProps) {
         title: "Request sent! ✦",
         description: "Your inquiry has been submitted. We'll get back to you within 24 hours.",
       });
-      onSuccess();
+      onSuccess(submission.inquiryId);
     } catch {
       setSubmitError("Something went wrong. Please try again.");
     } finally {
