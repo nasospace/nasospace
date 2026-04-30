@@ -21,24 +21,20 @@ async function enrichSavedItems(
 ): Promise<SavedItem[]> {
   if (rows.length === 0) return [];
 
-  // Group slugs by type for batch queries
-  const experienceSlugs = rows.filter((r) => r.item_type === "experience").map((r) => r.item_slug);
-  const workshopSlugs = rows.filter((r) => r.item_type === "workshop").map((r) => r.item_slug);
+  // Group slugs by type for batch queries.
+  // Legacy "workshop" saved items are folded into experiences — workshops no longer exist.
+  const experienceSlugs = rows
+    .filter((r) => r.item_type === "experience" || r.item_type === "workshop")
+    .map((r) => r.item_slug);
   const productSlugs = rows.filter((r) => r.item_type === "product").map((r) => r.item_slug);
 
   // Batch fetch from CMS tables
-  const [expResult, wsResult] = await Promise.all([
-    experienceSlugs.length > 0
-      ? supabase.from("cms_experiences").select("slug, title, summary, cover_image_src, cover_image_alt, price, currency, location").in("slug", experienceSlugs)
-      : Promise.resolve({ data: [] }),
-    workshopSlugs.length > 0
-      ? supabase.from("cms_workshops").select("slug, title, summary, cover_image_src, cover_image_alt, price, currency, location").in("slug", workshopSlugs)
-      : Promise.resolve({ data: [] }),
-  ]);
+  const expResult = experienceSlugs.length > 0
+    ? await supabase.from("cms_experiences").select("slug, title, summary, cover_image_src, cover_image_alt, price, currency, location").in("slug", experienceSlugs)
+    : { data: [] as any[] };
 
-  // Build lookup maps
+  // Build lookup map (shared by experience + legacy workshop items)
   const expMap = new Map((expResult.data ?? []).map((r) => [r.slug, r]));
-  const wsMap = new Map((wsResult.data ?? []).map((r) => [r.slug, r]));
 
   // Fetch products from CMS
   const [prodResult] = await Promise.all([
@@ -52,22 +48,13 @@ async function enrichSavedItems(
   // Map rows to SavedItem
   return rows
     .map((row): SavedItem | null => {
-      if (row.item_type === "experience") {
+      if (row.item_type === "experience" || row.item_type === "workshop") {
         const exp = expMap.get(row.item_slug);
         if (!exp) return null;
         return {
           id: row.id, type: "experience", slug: exp.slug, title: exp.title,
           summary: exp.summary, coverImage: { src: exp.cover_image_src, alt: exp.cover_image_alt },
           savedAt: row.created_at, price: exp.price, currency: exp.currency, meta: exp.location,
-        };
-      }
-      if (row.item_type === "workshop") {
-        const ws = wsMap.get(row.item_slug);
-        if (!ws) return null;
-        return {
-          id: row.id, type: "workshop", slug: ws.slug, title: ws.title,
-          summary: ws.summary, coverImage: { src: ws.cover_image_src, alt: ws.cover_image_alt },
-          savedAt: row.created_at, price: ws.price, currency: ws.currency, meta: ws.location,
         };
       }
       if (row.item_type === "product") {
@@ -134,7 +121,6 @@ export function useSavedItems() {
   const counts = useMemo(() => ({
     all: allItems.length,
     experience: allItems.filter((i) => i.type === "experience").length,
-    workshop: allItems.filter((i) => i.type === "workshop").length,
     product: allItems.filter((i) => i.type === "product").length,
   }), [allItems]);
 

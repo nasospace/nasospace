@@ -11,11 +11,14 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
 const CATEGORIES = [
-  { value: "outing", label: "Outing" },
-  { value: "adventure", label: "Adventure" },
-  { value: "cultural", label: "Cultural" },
-  { value: "wellness", label: "Wellness" },
-  { value: "social", label: "Social" },
+  { value: "art", label: "Art" },
+  { value: "pottery", label: "Pottery" },
+  { value: "painting", label: "Painting" },
+  { value: "cooking", label: "Cooking" },
+  { value: "music", label: "Music" },
+  { value: "craft", label: "Craft" },
+  { value: "journaling", label: "Journaling" },
+  { value: "diy", label: "DIY" },
 ];
 
 const DIFFICULTIES = [
@@ -25,7 +28,7 @@ const DIFFICULTIES = [
 ];
 
 const EMPTY_FORM = {
-  title: "", slug: "", summary: "", description: "", category: "outing",
+  title: "", slug: "", summary: "", description: "", category: "art",
   tags: [] as string[], date: "", location: "", price: 0, capacity: 20,
   difficulty: "easy", currency: "EGP", featured: false, published: true,
   cover_image_src: "", cover_image_alt: "", gallery: [] as string[],
@@ -78,7 +81,7 @@ export default function AdminExperiencesPage() {
     setEditId(item.id);
     setForm({
       title: item.title ?? "", slug: item.slug ?? "", summary: item.summary ?? "",
-      description: item.description ?? "", category: item.category ?? "outing",
+      description: item.description ?? "", category: item.category ?? "art",
       tags: Array.isArray(item.tags) ? item.tags : [], date: item.date ?? "",
       location: item.location ?? "", price: item.price ?? 0, capacity: item.capacity ?? 20,
       difficulty: item.difficulty ?? "easy", currency: item.currency ?? "EGP",
@@ -126,7 +129,7 @@ export default function AdminExperiencesPage() {
     <>
       <AdminCmsListPage
         title="Experiences"
-        subtitle="Manage outings, adventures, and events"
+        subtitle="Manage NASO's 100 hands-on creative workshops"
         items={items}
         isLoading={isLoading}
         columns={columns}

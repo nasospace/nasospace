@@ -9,7 +9,6 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type CmsTable =
   | "cms_experiences"
-  | "cms_workshops"
   | "cms_products"
   | "cms_portfolio_items"
   | "cms_blog_posts"
@@ -20,15 +19,11 @@ export type CmsTable =
 /* ═══ Helpers ═══ */
 
 export async function fetchAllAdmin(table: CmsTable): Promise<Record<string, any>[]> {
-  // Use explicit table calls to avoid deep type instantiation
   let result: { data: any; error: any };
 
   switch (table) {
     case "cms_experiences":
       result = await supabase.from("cms_experiences").select("*").order("created_at", { ascending: false });
-      break;
-    case "cms_workshops":
-      result = await supabase.from("cms_workshops").select("*").order("created_at", { ascending: false });
       break;
     case "cms_products":
       result = await supabase.from("cms_products").select("*").order("created_at", { ascending: false });
@@ -64,9 +59,6 @@ export async function fetchOneAdmin(table: CmsTable, id: string): Promise<Record
     case "cms_experiences":
       result = await supabase.from("cms_experiences").select("*").eq("id", id).single();
       break;
-    case "cms_workshops":
-      result = await supabase.from("cms_workshops").select("*").eq("id", id).single();
-      break;
     case "cms_products":
       result = await supabase.from("cms_products").select("*").eq("id", id).single();
       break;
@@ -97,9 +89,6 @@ export async function createAdmin(table: CmsTable, record: Record<string, unknow
   switch (table) {
     case "cms_experiences":
       result = await supabase.from("cms_experiences").insert(record as any).select().single();
-      break;
-    case "cms_workshops":
-      result = await supabase.from("cms_workshops").insert(record as any).select().single();
       break;
     case "cms_products":
       result = await supabase.from("cms_products").insert(record as any).select().single();
@@ -133,9 +122,6 @@ export async function updateAdmin(table: CmsTable, id: string, updates: Record<s
     case "cms_experiences":
       result = await supabase.from("cms_experiences").update(payload as any).eq("id", id).select().single();
       break;
-    case "cms_workshops":
-      result = await supabase.from("cms_workshops").update(payload as any).eq("id", id).select().single();
-      break;
     case "cms_products":
       result = await supabase.from("cms_products").update(payload as any).eq("id", id).select().single();
       break;
@@ -166,9 +152,6 @@ export async function deleteAdmin(table: CmsTable, id: string): Promise<void> {
   switch (table) {
     case "cms_experiences":
       ({ error } = await supabase.from("cms_experiences").delete().eq("id", id));
-      break;
-    case "cms_workshops":
-      ({ error } = await supabase.from("cms_workshops").delete().eq("id", id));
       break;
     case "cms_products":
       ({ error } = await supabase.from("cms_products").delete().eq("id", id));
@@ -208,9 +191,6 @@ export async function bulkUpdatePublished(
     case "cms_experiences":
       ({ error } = await supabase.from("cms_experiences").update(payload as any).in("id", ids));
       break;
-    case "cms_workshops":
-      ({ error } = await supabase.from("cms_workshops").update(payload as any).in("id", ids));
-      break;
     case "cms_products":
       ({ error } = await supabase.from("cms_products").update(payload as any).in("id", ids));
       break;
@@ -241,9 +221,6 @@ export async function bulkDelete(table: CmsTable, ids: string[]): Promise<void> 
   switch (table) {
     case "cms_experiences":
       ({ error } = await supabase.from("cms_experiences").delete().in("id", ids));
-      break;
-    case "cms_workshops":
-      ({ error } = await supabase.from("cms_workshops").delete().in("id", ids));
       break;
     case "cms_products":
       ({ error } = await supabase.from("cms_products").delete().in("id", ids));
