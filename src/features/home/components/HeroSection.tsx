@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, Variants } from "framer-motion";
 import { ROUTES } from "@/config/routes";
 import { Sparkle, FlowerShape, MagneticButton, StickerBadge, MarqueeTicker } from "@/components/shared/RetroElements";
 import { trackNaso } from "@/lib/analytics";
@@ -32,7 +32,7 @@ export function HeroSection() {
   };
 
   // Stagger Text Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -43,14 +43,14 @@ export function HeroSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 60, opacity: 0, rotate: 5, filter: "blur(10px)" },
     visible: {
       y: 0,
       opacity: 1,
       rotate: 0,
       filter: "blur(0px)",
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
   };
 
@@ -123,8 +123,8 @@ export function HeroSection() {
       {/* Huge Background Marquee */}
       <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center opacity-10 pointer-events-none select-none mix-blend-overlay">
         <motion.div style={{ y: yBg }} className="rotate-[-10deg] scale-125 w-[150vw]">
-          <MarqueeTicker speed={30} className="text-[12vw] font-black font-poster text-transparent" style={{ WebkitTextStroke: "2px white" }}>
-            NASO CAIRO <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" /> A CREATIVE MOVEMENT <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" />
+          <MarqueeTicker speed={30} className="text-[12vw] font-black font-poster text-transparent">
+            <span style={{ WebkitTextStroke: "2px white" }}>NASO CAIRO</span> <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" /> <span style={{ WebkitTextStroke: "2px white" }}>A CREATIVE MOVEMENT</span> <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" />
           </MarqueeTicker>
         </motion.div>
       </div>
