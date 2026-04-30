@@ -182,11 +182,13 @@ export function ExperienceDetailView({ slug }: ExperienceDetailViewProps) {
                     });
                     setTimeout(() => setJustAdded(false), 2000);
                   }}
+                  aria-label={`Reserve a spot for ${experience.title}`}
                   className={cn(
                     "flex w-full items-center justify-center gap-2 rounded-full border-[2.5px] border-foreground px-6 py-3",
                     "font-groovy text-xs font-bold uppercase tracking-wider shadow-retro",
                     meta.color, meta.textColor,
-                    "transition-all hover:shadow-retro-lg active:translate-y-0.5 active:shadow-none"
+                    "transition-all hover:shadow-retro-lg active:translate-y-0.5 active:shadow-none",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   )}
                 >
                   {justAdded ? "Added to Cart" : "I'm in. Save my spot."}
