@@ -17,19 +17,19 @@ const contactMethods = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@naso.co",
-    href: "mailto:hello@naso.co",
+    value: "nasoevents22@gmail.com",
+    href: "mailto:nasoevents22@gmail.com",
   },
   {
     icon: Instagram,
     label: "Instagram",
-    value: "@naso",
+    value: "@naso_planner",
     href: siteConfig.social.instagram,
   },
   {
     icon: TikTokIcon,
     label: "TikTok",
-    value: "@naso",
+    value: "@naso_space",
     href: siteConfig.social.tiktok,
   },
   {
