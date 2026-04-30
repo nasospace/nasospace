@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   MessageSquare, Users, Heart, Clock, ArrowRight, ExternalLink,
-  BookOpen, Palette, Calendar, ShoppingBag, Image, Newspaper,
+  Palette, Calendar, ShoppingBag, Image, Newspaper,
 } from "lucide-react";
 import {
   getOverviewStats, getInquiries, getTopSavedItems,
@@ -14,7 +14,6 @@ import {
 
 const CONTENT_LINKS = [
   { label: "Experiences", path: "/experiences", icon: Calendar },
-  { label: "Workshops", path: "/workshops", icon: BookOpen },
   { label: "Shop", path: "/shop", icon: ShoppingBag },
   { label: "Portfolio", path: "/portfolio", icon: Image },
   { label: "Blog", path: "/blog", icon: Newspaper },
