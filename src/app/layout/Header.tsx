@@ -45,25 +45,41 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ?
-        "bg-background/95 backdrop-blur-md shadow-soft border-b border-border/50" :
-        "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex justify-center",
+        scrolled ? "pt-4 md:pt-6" : "pt-0"
       )}>
       
-      <div className="container flex h-16 items-center justify-between md:h-[72px]">
-        {/* Wordmark logo — clean, no boxed background */}
+      <div className={cn(
+        "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between",
+        scrolled 
+          ? "h-14 md:h-[64px] w-[95%] md:w-[85%] max-w-6xl rounded-full bg-naso-black/80 backdrop-blur-xl border border-white/10 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)] px-6 md:px-10" 
+          : "h-16 md:h-[72px] w-full container px-4 md:px-8 bg-transparent"
+      )}>
+        {/* Logo — image with hover glow transition */}
         <Link
           to="/"
-          className="group flex items-baseline gap-1.5 leading-none"
+          className="group flex items-center gap-2 leading-none relative"
           aria-label={`${siteConfig.name} home`}
         >
-          <span className="font-groovy text-2xl font-black tracking-tight text-foreground transition-colors group-hover:text-primary md:text-[26px]">
-            naso
-          </span>
+          <div className="relative flex items-center">
+            <img 
+              src="/assets/naso-logo.png" 
+              alt="NASO" 
+              className="h-10 md:h-12 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_12px_hsl(var(--primary)/0.8)]"
+              onError={(e) => {
+                // Fallback to text if image isn't found yet
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextElementSibling?.classList.remove('hidden');
+              }}
+            />
+            {/* Fallback text just in case the image hasn't been moved yet */}
+            <span className="hidden font-groovy text-2xl font-black tracking-tight text-foreground transition-colors group-hover:text-primary md:text-[26px]">
+              naso
+            </span>
+          </div>
           <span
             aria-hidden="true"
-            className="h-1.5 w-1.5 translate-y-[-2px] rounded-full bg-primary transition-transform duration-300 group-hover:scale-150"
+            className="h-1.5 w-1.5 rounded-full bg-primary transition-transform duration-300 group-hover:scale-150"
           />
         </Link>
 
@@ -74,11 +90,16 @@ export function Header() {
             key={item.href}
             to={item.href}
             className={cn(
-              "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200",
-              isActive(item.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              "font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 relative group/link py-1",
+              scrolled 
+                ? (isActive(item.href) ? "text-white" : "text-white/70 hover:text-white")
+                : (isActive(item.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground")
             )}>
-            
               {item.label}
+              <span className={cn(
+                "absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300",
+                isActive(item.href) ? "w-full" : "w-0 group-hover/link:w-full"
+              )} />
             </Link>
           )}
 
@@ -86,11 +107,17 @@ export function Header() {
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger
               className={cn(
-                "inline-flex items-center gap-1 font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 outline-none",
-                moreIsActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                "inline-flex items-center gap-1 font-groovy text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-200 outline-none group/link py-1 relative",
+                scrolled
+                  ? (moreIsActive ? "text-white" : "text-white/70 hover:text-white")
+                  : (moreIsActive ? "text-foreground" : "text-muted-foreground hover:text-foreground")
               )}>
               
-              More <ChevronDown className="h-3 w-3" />
+              More <ChevronDown className="h-3 w-3 transition-transform group-data-[state=open]/link:rotate-180" />
+              <span className={cn(
+                "absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300",
+                moreIsActive ? "w-full" : "w-0 group-hover/link:w-full"
+              )} />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-[180px]">
               {siteConfig.moreNav.map((item) =>
@@ -107,8 +134,10 @@ export function Header() {
           <Link
             to={ROUTES.CART}
             className={cn(
-              "relative ml-2 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive(ROUTES.CART) ? "border-foreground bg-foreground text-background" : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+              "relative ml-2 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300",
+              scrolled
+                ? (isActive(ROUTES.CART) ? "bg-primary text-naso-black" : "text-white/70 hover:text-white hover:bg-white/10")
+                : (isActive(ROUTES.CART) ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground hover:bg-foreground/5")
             )}
             aria-label="Your cart">
             
@@ -125,8 +154,10 @@ export function Header() {
           <DropdownMenu modal={false}>
               <DropdownMenuTrigger
               className={cn(
-                "ml-1 flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200 outline-none",
-                isActive(ROUTES.ACCOUNT) ? "border-foreground bg-foreground text-background" : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                "ml-1 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 outline-none",
+                scrolled
+                  ? (isActive(ROUTES.ACCOUNT) ? "bg-primary text-naso-black" : "text-white/70 hover:text-white hover:bg-white/10")
+                  : (isActive(ROUTES.ACCOUNT) ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground hover:bg-foreground/5")
               )}
               aria-label="Your account">
               
@@ -153,7 +184,12 @@ export function Header() {
 
           <Link
             to={ROUTES.SIGN_IN}
-            className="ml-1 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 font-groovy text-[10px] font-bold uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">
+            className={cn(
+              "ml-1 inline-flex items-center gap-1.5 rounded-full px-4 py-2 font-groovy text-[10px] font-bold uppercase tracking-wider transition-all duration-300",
+              scrolled
+                ? "bg-primary text-naso-black hover:bg-primary/90 hover:scale-105 shadow-[0_0_15px_hsl(var(--primary)/0.4)]"
+                : "border border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+            )}>
             
               Sign In
             </Link>
@@ -165,8 +201,10 @@ export function Header() {
           <Link
             to={ROUTES.CART}
             className={cn(
-              "relative flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-200",
-              isActive(ROUTES.CART) ? "border-foreground bg-foreground text-background" : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+              "relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300",
+              scrolled
+                ? (isActive(ROUTES.CART) ? "bg-primary text-naso-black" : "text-white/80 hover:text-white hover:bg-white/10")
+                : (isActive(ROUTES.CART) ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground hover:bg-foreground/5")
             )}
             aria-label="Your cart">
             
@@ -180,18 +218,35 @@ export function Header() {
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={cn(
+                  "md:hidden h-9 w-9 rounded-full transition-colors",
+                  scrolled ? "text-white hover:bg-white/10" : ""
+                )} 
+                aria-label="Open menu"
+              >
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-72 bg-background p-0">
               <SheetHeader className="p-6 pb-0">
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="font-groovy text-2xl font-black tracking-tight text-foreground">
+                <div className="flex items-center gap-2">
+                  <img 
+                    src="/assets/naso-logo.png" 
+                    alt="NASO" 
+                    className="h-10 w-auto object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <span className="hidden font-groovy text-2xl font-black tracking-tight text-foreground">
                     naso
                   </span>
-                  <span aria-hidden="true" className="h-1.5 w-1.5 translate-y-[-2px] rounded-full bg-primary" />
+                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary" />
                 </div>
               </SheetHeader>
               <nav className="mt-8 flex flex-col gap-1 px-4">
