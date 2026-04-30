@@ -14,7 +14,6 @@ import {
 
 type CmsTable =
   | "cms_experiences"
-  | "cms_workshops"
   | "cms_products"
   | "cms_portfolio_items"
   | "cms_blog_posts"
