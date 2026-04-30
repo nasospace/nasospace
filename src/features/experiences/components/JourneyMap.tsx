@@ -83,7 +83,7 @@ function SlotTile({ slot, experience }: SlotTileProps) {
   const isUnlocked = !!experience && !experience.isLocked;
 
   if (isUnlocked && experience) {
-    const meta = CATEGORY_META[experience.category] ?? CATEGORY_META.outing;
+    const meta = CATEGORY_META[experience.category] ?? CATEGORY_META.art;
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.85 }}

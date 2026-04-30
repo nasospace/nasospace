@@ -1,15 +1,20 @@
 import type { Experience } from "@/types/domains";
 import type { ImageAsset } from "@/types/common";
 
-/* ═══ Category System ═══ */
+/* ═══ Category System ═══
+   Experiences at NASO are 100 curated workshops — hands-on creative sessions.
+   Categories reflect the *type of making*, not the setting.
+*/
 
 export const EXPERIENCE_CATEGORIES = [
-  "outing",
-  "workshop",
-  "cultural",
-  "adventure",
-  "nightlife",
-  "creative",
+  "art",
+  "pottery",
+  "painting",
+  "cooking",
+  "music",
+  "craft",
+  "journaling",
+  "diy",
 ] as const;
 
 export type ExperienceCategory = (typeof EXPERIENCE_CATEGORIES)[number];
@@ -24,12 +29,14 @@ export interface CategoryMeta {
 }
 
 export const CATEGORY_META: Record<ExperienceCategory, CategoryMeta> = {
-  outing:    { label: "Outing",    emoji: "🌿", color: "bg-secondary",   textColor: "text-secondary-foreground" },
-  workshop:  { label: "Workshop",  emoji: "🎨", color: "bg-naso-lilac",  textColor: "text-foreground" },
-  cultural:  { label: "Cultural",  emoji: "🏛️", color: "bg-primary",     textColor: "text-primary-foreground" },
-  adventure: { label: "Adventure", emoji: "⛰️", color: "bg-naso-coral",  textColor: "text-foreground" },
-  nightlife: { label: "Nightlife", emoji: "🌙", color: "bg-naso-purple", textColor: "text-primary-foreground" },
-  creative:  { label: "Creative",  emoji: "✂️", color: "bg-naso-pink",   textColor: "text-foreground" },
+  art:        { label: "Art",        emoji: "🎨", color: "bg-naso-lilac",  textColor: "text-foreground" },
+  pottery:    { label: "Pottery",    emoji: "🏺", color: "bg-naso-coral",  textColor: "text-foreground" },
+  painting:   { label: "Painting",   emoji: "🖌️", color: "bg-naso-pink",   textColor: "text-foreground" },
+  cooking:    { label: "Cooking",    emoji: "🍳", color: "bg-naso-lemon",  textColor: "text-foreground" },
+  music:      { label: "Music",      emoji: "🎵", color: "bg-naso-purple", textColor: "text-primary-foreground" },
+  craft:      { label: "Craft",      emoji: "✂️", color: "bg-secondary",   textColor: "text-secondary-foreground" },
+  journaling: { label: "Journaling", emoji: "📓", color: "bg-naso-cream",  textColor: "text-foreground" },
+  diy:        { label: "DIY",        emoji: "🔧", color: "bg-primary",     textColor: "text-primary-foreground" },
 };
 
 /* ═══ Experience Detail ═══ */
