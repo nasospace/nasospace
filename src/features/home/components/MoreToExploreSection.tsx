@@ -1,27 +1,47 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, ShoppingBag, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROUTES } from "@/config/routes";
-import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   FlowerShape,
   StickerBadge,
-  Sparkle,
 } from "@/components/shared/RetroElements";
-import { staggerContainer, fadeUp, slideInLeft, slideInRight, popIn } from "@/lib/motion";
+import { staggerContainer, fadeUp } from "@/lib/motion";
+import { cn } from "@/lib/utils";
+
+const EXPLORE_CARDS = [
+  {
+    title: "The 100 Chapters",
+    subtitle: "Sealed experiences across Cairo",
+    description: "Each chapter is a new adventure. Most are still sealed. Will you be there when they unlock?",
+    href: ROUTES.EXPERIENCES,
+    cta: "Enter the archive",
+    badge: "100 Drops",
+    color: "bg-naso-lilac",
+    icon: MapPin,
+    img: "/assets/workshops_bg_1776810244802.png",
+    rotate: -1,
+  },
+  {
+    title: "The Artifact Shop",
+    subtitle: "Bring NASO home",
+    description: "Original kits, merch, and limited editions—all designed in Cairo, delivered to your door.",
+    href: ROUTES.SHOP,
+    cta: "Browse artifacts",
+    badge: "New Drops",
+    color: "bg-secondary",
+    icon: ShoppingBag,
+    img: "/assets/shop_bg_1776810267092.png",
+    rotate: 1,
+  },
+];
 
 export function MoreToExploreSection() {
   return (
-    <section className="relative overflow-hidden border-y-[2.5px] border-foreground bg-secondary/15 py-section-lg">
-      <div className="absolute inset-0 naso-checkerboard opacity-25" />
-      <div className="absolute inset-0 naso-noise" />
-
-      <MotionDiv variants={popIn} className="absolute -left-12 top-20 opacity-10">
-        <FlowerShape size={120} className="text-naso-purple naso-flower-spin" />
-      </MotionDiv>
-      <MotionDiv variants={popIn} className="absolute -right-8 bottom-16 opacity-8">
-        <FlowerShape size={80} className="text-primary naso-flower-spin" />
-      </MotionDiv>
+    <section className="relative overflow-hidden bg-foreground py-32 border-y-4 border-foreground">
+      {/* Background textures */}
+      <div className="absolute inset-0 naso-checkerboard opacity-[0.03] mix-blend-screen pointer-events-none" />
+      <div className="absolute inset-0 naso-noise opacity-20 mix-blend-overlay pointer-events-none" />
 
       <div className="container relative z-10">
         <motion.div
@@ -30,98 +50,81 @@ export function MoreToExploreSection() {
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeUp} className="mb-10 text-center">
-            <h2 className="font-groovy text-[clamp(1.6rem,4.5vw,3rem)] font-black leading-[1.05] text-foreground">
-              More to explore
+          {/* Header */}
+          <motion.div variants={fadeUp} className="mb-20 text-center flex flex-col items-center">
+            <StickerBadge variant="filled" className="bg-primary text-foreground mb-8" rotate={2}>
+              <Zap className="inline w-4 h-4 mr-1 -mt-0.5" /> Keep Going
+            </StickerBadge>
+            <h2 className="font-groovy text-[clamp(2.5rem,7vw,5rem)] font-black leading-[0.85] tracking-tighter text-background uppercase">
+              More To <br />
+              <span className="text-primary drop-shadow-[0_0_20px_hsl(var(--primary)/0.4)]">Explore.</span>
             </h2>
-            <p className="mt-3 text-sm text-muted-foreground lg:text-base">
-              Creative sessions and original products, all designed by NASO.
-            </p>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            <motion.div variants={slideInLeft}>
-              <Link
-                to={ROUTES.EXPERIENCES}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-card shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg min-h-[360px] lg:min-h-[400px]"
-              >
-                <img
-                  src="/assets/workshops_bg_1776810244802.png"
-                  alt="Hands-on creative experiences"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent mix-blend-multiply" />
-                <div className="absolute inset-0 bg-naso-lilac/30 mix-blend-multiply" />
+          {/* Cards Grid */}
+          <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
+            {EXPLORE_CARDS.map((card, idx) => {
+              const Icon = card.icon;
+              return (
+                <motion.div key={idx} variants={fadeUp}>
+                  <Link
+                    to={card.href}
+                    className="group relative block overflow-hidden rounded-[2rem] border-4 border-white/10 min-h-[480px] md:min-h-[520px] transition-all duration-500 hover:-translate-y-2 hover:border-white/30"
+                    style={{ transform: `rotate(${card.rotate}deg)` }}
+                  >
+                    {/* Background Image */}
+                    <img
+                      src={card.img}
+                      alt={card.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    
+                    {/* Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                    <div className={cn("absolute inset-0 opacity-20 mix-blend-multiply", card.color)} />
 
-                <div className="relative z-10 flex h-full flex-col p-8 lg:p-10">
-                  <div className="mb-auto">
-                    <StickerBadge variant="filled" className="bg-naso-lilac text-foreground" rotate={-4}>
-                      100 Experiences
-                    </StickerBadge>
-                  </div>
+                    {/* Content */}
+                    <div className="relative z-10 flex h-full flex-col p-8 md:p-12">
+                      {/* Top: Badge */}
+                      <div className="mb-auto flex items-start justify-between">
+                        <StickerBadge variant="filled" className={cn("text-foreground shadow-[4px_4px_0_rgba(0,0,0,0.3)]", card.color)} rotate={-4}>
+                          {card.badge}
+                        </StickerBadge>
+                        <div className={cn("w-14 h-14 rounded-full border-4 border-white/20 flex items-center justify-center opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-all", card.color)}>
+                          <Icon className="w-6 h-6 text-foreground" />
+                        </div>
+                      </div>
 
-                  <div className="mt-auto">
-                    <h3 className="mt-5 font-groovy text-2xl font-bold text-white lg:text-3xl">
-                      100 unforgettable
-                      <br />
-                      <span className="text-naso-lilac">moments.</span>
-                    </h3>
-                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
-                      Hands-on workshops, outings, adventures, nights out — a new
-                      experience every drop. Most still sealed.
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-white transition-transform duration-200 group-hover:translate-x-1">
-                      Enter the journey <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
-            <motion.div variants={slideInRight}>
-              <Link
-                to={ROUTES.SHOP}
-                className="group relative block overflow-hidden rounded-2xl border-[2.5px] border-foreground bg-foreground shadow-retro transition-all duration-300 hover:-translate-y-1 hover:shadow-retro-lg min-h-[360px] lg:min-h-[400px]"
-              >
-                <img 
-                  src="/assets/shop_bg_1776810267092.png" 
-                  alt="Shop" 
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent mix-blend-multiply" />
-                <div className="absolute inset-0 bg-secondary/30 mix-blend-multiply" />
-                
-                <div className="relative z-10 flex h-full flex-col p-8 lg:p-10">
-                  <div className="mb-auto">
-                    <StickerBadge
-                      variant="filled"
-                      className="border-background/30 bg-primary text-primary-foreground"
-                      rotate={3}
-                    >
-                      Shop
-                    </StickerBadge>
-                  </div>
-                  
-                  <div className="mt-auto">
-                    <h3 className="mt-5 font-groovy text-2xl font-bold text-white lg:text-3xl">
-                      Wear the
-                      <br />
-                      <span className="text-secondary">moment.</span>
-                    </h3>
-                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
-                      Original apparel, creative tools, limited editions, and
-                      exclusive drops — all designed in Cairo.
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 font-groovy text-[10px] font-bold uppercase tracking-[0.12em] text-secondary transition-transform duration-200 group-hover:translate-x-1">
-                      Visit shop <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+                      {/* Bottom: Text & CTA */}
+                      <div className="mt-auto">
+                        <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/50 mb-3 font-bold">
+                          {card.subtitle}
+                        </p>
+                        <h3 className="font-groovy text-3xl md:text-4xl lg:text-5xl font-black text-white leading-[0.95] tracking-tight mb-4">
+                          {card.title}
+                        </h3>
+                        <p className="max-w-sm text-base md:text-lg text-white/70 font-medium leading-relaxed mb-8">
+                          {card.description}
+                        </p>
+                        <div className="inline-flex items-center gap-3 font-groovy text-sm font-black uppercase tracking-[0.15em] text-white transition-all group-hover:gap-5">
+                          {card.cta}
+                          <div className={cn("w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:border-white/60 transition-all", card.color)}>
+                            <ArrowRight className="h-4 w-4 text-foreground" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
+      
+      {/* Decorative */}
+      <FlowerShape size={100} className="absolute top-20 -right-8 text-primary/10 naso-flower-spin pointer-events-none hidden lg:block" />
     </section>
   );
 }

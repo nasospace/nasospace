@@ -1,17 +1,29 @@
 import { MarqueeTicker } from "@/components/shared/RetroElements";
-import { bottomTickerWords } from "@/features/home/data";
+
+const TICKER_WORDS = [
+  "MAKE",
+  "CREATE",
+  "CONNECT",
+  "EXPLORE",
+  "DISCOVER",
+  "EXPERIENCE",
+  "REMEMBER",
+  "BELONG",
+  "UNLOCK",
+  "REPEAT",
+];
 
 export function BottomTickerSection() {
   return (
-    <div className="border-t-[2.5px] border-foreground bg-background py-3.5">
-      <MarqueeTicker speed={35}>
-        {bottomTickerWords.map((word) => (
+    <div className="border-t-4 border-foreground bg-foreground py-5 overflow-hidden">
+      <MarqueeTicker speed={30}>
+        {TICKER_WORDS.map((word) => (
           <span
             key={word}
-            className="mx-8 font-groovy text-sm font-bold uppercase tracking-[0.15em] text-foreground/20"
+            className="mx-6 font-groovy text-lg md:text-xl font-black uppercase tracking-[0.2em] text-white/10 hover:text-primary/40 transition-colors duration-300 cursor-default"
           >
             {word}
-            <span className="mx-8 text-foreground/10">✦</span>
+            <span className="mx-6 text-primary/20">✦</span>
           </span>
         ))}
       </MarqueeTicker>

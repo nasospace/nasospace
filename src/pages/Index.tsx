@@ -42,17 +42,17 @@ export default function HomePage() {
 
       {/* Sticky Mobile Action Bar */}
       <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-in slide-in-from-bottom-10 fade-in duration-700 delay-1000">
-        <div className="flex items-center justify-between rounded-full border-[3px] border-foreground bg-white/95 backdrop-blur-md p-2 shadow-retro-lg">
+        <div className="flex items-center justify-between rounded-full border-4 border-foreground bg-white/95 backdrop-blur-md p-2 shadow-[4px_4px_0_hsl(var(--foreground))]">
           <div className="ml-4 flex flex-col">
-            <span className="font-groovy text-xs font-bold text-foreground leading-tight">The 100 Chapters</span>
-            <span className="font-body text-[10px] font-semibold text-primary">New memories unlocked</span>
+            <span className="font-groovy text-xs font-black text-foreground leading-tight tracking-tight">The 100 Chapters</span>
+            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-primary">Mysteries await</span>
           </div>
           <Link
             to={ROUTES.EXPERIENCES}
-            className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-primary px-5 font-groovy text-[11px] font-black uppercase tracking-wider text-primary-foreground shadow-retro-sm transition-all duration-200 active:translate-y-0.5 active:shadow-none"
+            className="flex h-11 items-center justify-center gap-2 rounded-full border-2 border-foreground bg-primary px-6 font-groovy text-[11px] font-black uppercase tracking-wider text-white shadow-[2px_2px_0_hsl(var(--foreground))] transition-all duration-200 active:translate-y-0.5 active:shadow-none"
           >
-            Explore now
-            <ArrowRight className="h-3 w-3" />
+            Explore
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </div>

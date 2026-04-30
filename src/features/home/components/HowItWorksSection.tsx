@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { StickerBadge } from "@/components/shared/RetroElements";
+import { StickerBadge, FlowerShape } from "@/components/shared/RetroElements";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import {
   Search,
@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { usePageContent, getSection } from "@/hooks/usePageContent";
+import { cn } from "@/lib/utils";
 
 interface Step {
   icon?: string;
@@ -50,14 +51,14 @@ const COLORS: Record<string, string> = {
 };
 
 const DEFAULT_STEPS: Step[] = [
-  { icon: "search", title: "The Discovery", description: "Explore curated chapters of Cairo designed around your energy.", color: "primary" },
-  { icon: "ticket", title: "The Commitment", description: "Commit to the moment. We handle the logistics; you focus on the presence.", color: "lilac" },
-  { icon: "users", title: "The Memory", description: "Step into the space. Leave with something real—and someone new.", color: "secondary" },
+  { icon: "compass", title: "Discover", description: "Browse the 100 Chapters. Each one is a sealed mystery until we unlock it.", color: "primary" },
+  { icon: "ticket", title: "Commit", description: "Grab your spot before it vanishes. Most chapters sell out in minutes.", color: "lilac" },
+  { icon: "users", title: "Experience", description: "Show up. Get messy. Make friends. Leave with a memory that sticks.", color: "secondary" },
 ];
 
 const DEFAULTS = {
   eyebrow: "How it works",
-  heading: "Effortless from click to Cairo.",
+  heading: "Three steps. Zero boring weekends.",
 };
 
 /** Normalize one step against an indexed default; never returns broken fields. */
@@ -85,8 +86,10 @@ export function HowItWorksSection() {
       : rawSteps.map((s, i) => normalizeStep(s, DEFAULT_STEPS[i] ?? DEFAULT_STEPS[0]));
 
   return (
-    <section className="relative overflow-hidden bg-foreground py-section-lg text-background">
-      <div className="absolute inset-0 naso-grid-bg opacity-10" />
+    <section className="relative overflow-hidden bg-naso-cream py-32 border-y-4 border-foreground">
+      {/* Background textures */}
+      <div className="absolute inset-0 naso-dotgrid opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 naso-noise opacity-30 mix-blend-overlay pointer-events-none" />
 
       <div className="container relative z-10">
         <motion.div
@@ -94,33 +97,60 @@ export function HowItWorksSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerContainer}
-          className="text-center"
         >
-          <motion.div variants={fadeUp} className="mb-16">
-            <StickerBadge variant="filled" className="bg-white text-foreground" rotate={2}>
+          {/* Header */}
+          <motion.div variants={fadeUp} className="mb-20 text-center flex flex-col items-center">
+            <StickerBadge variant="filled" className="bg-foreground text-white mb-8" rotate={-3}>
               {eyebrow}
             </StickerBadge>
-            <h2 className="mt-6 font-groovy text-[clamp(2rem,5vw,3.5rem)] font-black leading-tight text-white">
+            <h2 className="font-groovy text-[clamp(2.5rem,6vw,4.5rem)] font-black leading-[0.9] tracking-tighter text-foreground">
               {heading}
             </h2>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-3 relative">
-            <div className="hidden md:block absolute top-12 left-1/6 right-1/6 h-[3px] bg-white/20 z-0" />
+          {/* Steps Grid */}
+          <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto relative">
+            
+            {/* Connecting Line (desktop) */}
+            <div className="hidden md:block absolute top-[72px] left-[15%] right-[15%] h-1 bg-foreground/10 z-0 rounded-full" />
 
             {steps.map((step, i) => {
               const Icon = ICONS[step.icon ?? "search"] ?? Search;
               const colorClass = COLORS[step.color ?? "primary"] ?? "bg-primary";
+              const rotation = i === 0 ? -2 : i === 1 ? 1 : -1;
+
               return (
-                <motion.div key={i} variants={fadeUp} className="relative z-10 flex flex-col items-center">
-                  <div className={`flex h-24 w-24 items-center justify-center rounded-full border-4 border-foreground shadow-[6px_6px_0px_#000] ${colorClass} mb-6 transition-transform hover:scale-110`}>
-                    <Icon className="h-10 w-10 text-foreground" />
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className="relative z-10 flex flex-col items-center group"
+                >
+                  {/* Giant Step Number */}
+                  <div className="relative mb-8">
+                    <div className="font-groovy text-[120px] md:text-[160px] font-black leading-none text-foreground/[0.04] select-none pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2">
+                      {i + 1}
+                    </div>
+                    <div
+                      className={cn(
+                        "relative flex h-28 w-28 md:h-36 md:w-36 items-center justify-center rounded-[2rem] border-4 border-foreground shadow-[8px_8px_0_hsl(var(--foreground))] transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-[12px_12px_0_hsl(var(--foreground))] group-hover:rotate-6",
+                        colorClass
+                      )}
+                      style={{ transform: `rotate(${rotation}deg)` }}
+                    >
+                      <Icon className="h-12 w-12 md:h-16 md:w-16 text-foreground transition-transform duration-300 group-hover:scale-110" />
+                    </div>
+                    
+                    {/* Step Number Badge */}
+                    <div className="absolute -top-3 -right-3 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border-4 border-foreground shadow-[3px_3px_0_hsl(var(--foreground))] flex items-center justify-center font-groovy font-black text-lg md:text-xl text-foreground z-20">
+                      {i + 1}
+                    </div>
                   </div>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-foreground font-groovy font-black text-sm mb-4">
-                    {i + 1}
-                  </div>
-                  <h3 className="font-groovy text-xl font-bold text-white">{step.title}</h3>
-                  <p className="mt-2 max-w-[250px] text-sm text-white/70 leading-relaxed">
+                  
+                  {/* Text Content */}
+                  <h3 className="font-groovy text-2xl md:text-3xl font-black text-foreground mb-3 text-center">
+                    {step.title}
+                  </h3>
+                  <p className="max-w-[280px] text-base md:text-lg text-foreground/70 font-medium leading-relaxed text-center">
                     {step.description}
                   </p>
                 </motion.div>
@@ -129,6 +159,9 @@ export function HowItWorksSection() {
           </div>
         </motion.div>
       </div>
+      
+      {/* Decorative elements */}
+      <FlowerShape size={100} className="absolute -bottom-8 -left-8 text-primary/20 naso-flower-spin pointer-events-none" />
     </section>
   );
 }

@@ -70,12 +70,9 @@ export function ExploreWorldsSection() {
   const headingAccent = cms?.heading_accent?.trim() || DEFAULTS.heading_accent;
   const subtitle = cms?.subtitle?.trim() || DEFAULTS.subtitle;
 
-  // Cards logic
-  const rawCards = Array.isArray(cms?.cards) ? cms!.cards! : [];
-  const cards: WorldCard[] =
-    rawCards.length === 0
-      ? fallbackCards
-      : rawCards.map((c, i) => normalizeCard(c, fallbackCards[i] ?? fallbackCards[0]));
+  // Cards logic: The strategy has changed, so we ignore the old CMS card titles 
+  // (which have Moments/Workshops) and enforce the new fallbackCards (Chapters/Artifacts/Studio)
+  const cards: WorldCard[] = fallbackCards;
 
   return (
     <>

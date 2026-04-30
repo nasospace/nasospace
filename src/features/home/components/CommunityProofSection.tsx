@@ -1,94 +1,105 @@
-import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { StickerBadge, FlowerShape } from "@/components/shared/RetroElements";
-import { fadeUp, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
-const REVIEWS = [
-  { text: "I was worried about going solo, but the team made it so easy to meet people. The pottery setup was beautiful.", author: "Salma T.", handle: "@salmatweets", rotate: -2, bg: "bg-white", img: "/assets/pottery_chill_1776810187258.png" },
-  { text: "Actually worth the money. Everything was organized and the energy was perfect.", author: "Ahmed S.", handle: "@ahmed_s_x", rotate: 3, bg: "bg-card", img: "/assets/street_art_1776810227236.png" },
-  { text: "Finally, something to do on a Friday that isn't just sitting at a cafe.", author: "Farah T.", handle: "@farahvibe", rotate: -4, bg: "bg-naso-cream", img: "/assets/cairo_jazz_1776810208777.png" },
-  { text: "Best creative workshop in Cairo. Met some amazing people.", author: "Omar K.", handle: "@omar.k", rotate: 2, bg: "bg-white", img: "/assets/hero_image_1776810151671.png" },
+const REVIEWS_ROW_1 = [
+  { text: "I was worried about going solo, but the team made it so easy to meet people. The pottery setup was beautiful.", author: "Salma T.", handle: "@salmatweets", rotate: -3, img: "/assets/pottery_chill_1776810187258.png" },
+  { text: "Actually worth the money. Everything was organized and the energy was perfect.", author: "Ahmed S.", handle: "@ahmed_s_x", rotate: 2, img: "/assets/street_art_1776810227236.png" },
+  { text: "Finally, something to do on a Friday that isn't just sitting at a cafe.", author: "Farah T.", handle: "@farahvibe", rotate: -4, img: "/assets/cairo_jazz_1776810208777.png" },
+  { text: "Best creative workshop in Cairo. Met some amazing people.", author: "Omar K.", handle: "@omar.k", rotate: 4, img: "/assets/hero_image_1776810151671.png" },
 ];
 
-export function CommunityProofSection() {
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+const REVIEWS_ROW_2 = [
+  { text: "The energy was unmatched. Can't wait for the next drop.", author: "Laila H.", handle: "@lailah_creates", rotate: 3, img: "/assets/cairo_jazz_1776810208777.png" },
+  { text: "I never thought I'd find a community like this in Cairo. Absolutely obsessed.", author: "Youssef M.", handle: "@youssef.mood", rotate: -2, img: "/assets/street_art_1776810227236.png" },
+  { text: "The details. The vibes. Everything was a 10/10.", author: "Nour A.", handle: "@nour_art", rotate: 5, img: "/assets/hero_image_1776810151671.png" },
+  { text: "Made three new friends and a terrible clay pot. 100% worth it.", author: "Karim E.", handle: "@karim.e", rotate: -3, img: "/assets/pottery_chill_1776810187258.png" },
+];
 
-  useEffect(() => {
-    if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
-    }
-  }, []);
-
+function PolaroidCard({ review }: { review: any }) {
   return (
-    <section className="relative overflow-hidden bg-naso-lilac py-section-lg" aria-label="Voices of the movement">
-      <div className="absolute inset-0 naso-checkerboard opacity-20" />
-      <div className="absolute inset-0 naso-noise opacity-30" />
-
-      <div className="container relative z-10 mb-10 text-center lg:text-left">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-          className="flex flex-col items-center lg:items-start"
-        >
-          <div className="mb-16 sm:mb-24 text-center">
-            <StickerBadge variant="filled" className="bg-white text-foreground" rotate={2}>
-              The Circle
-            </StickerBadge>
-            <h2 className="mt-6 font-groovy text-[clamp(2.5rem,7vw,4.5rem)] font-black leading-[0.9] tracking-tighter text-foreground">
-              Voices of the <span className="text-primary">movement.</span>
-            </h2>
+    <div
+      className={cn(
+        "min-w-[300px] w-[300px] sm:min-w-[350px] sm:w-[350px] shrink-0 bg-white p-4 sm:p-5 rounded-sm border-4 border-foreground shadow-[8px_8px_0_hsl(var(--primary))] transition-transform hover:scale-105 hover:z-50 mx-4",
+      )}
+      style={{ rotate: review.rotate }}
+    >
+      <div className="aspect-[4/5] w-full overflow-hidden border-2 border-foreground mb-6 bg-muted">
+        <img src={review.img} alt={`Photo from ${review.author}`} className="w-full h-full object-cover filter contrast-[1.1] saturate-[1.2]" draggable={false} loading="lazy" />
+      </div>
+      <div className="flex flex-col gap-4">
+        <p className="font-groovy font-black text-foreground text-base sm:text-lg leading-tight min-h-[60px]">
+          "{review.text}"
+        </p>
+        <div className="flex items-center gap-3 pt-4 border-t-2 border-foreground/10">
+          <div className="w-10 h-10 rounded-full bg-secondary border-2 border-foreground flex items-center justify-center font-groovy font-black text-foreground uppercase">
+            {review.author[0]}
           </div>
-        </motion.div>
+          <div className="flex flex-col">
+            <span className="font-groovy font-bold text-sm text-foreground leading-none">{review.author}</span>
+            <span className="font-mono text-[10px] uppercase font-bold text-foreground/50 mt-1">{review.handle}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CommunityProofSection() {
+  return (
+    <section className="relative overflow-hidden bg-foreground py-32 border-y-4 border-foreground" aria-label="Community Testimonials">
+      {/* Soft textured background for dark mode */}
+      <div className="absolute inset-0 naso-checkerboard opacity-[0.03] mix-blend-screen" />
+      <div className="absolute inset-0 naso-noise opacity-20 mix-blend-overlay" />
+
+      <div className="container relative z-20 mb-20 text-center">
+        <div className="flex flex-col items-center">
+          <StickerBadge variant="filled" className="bg-primary text-foreground mb-8 px-6 py-2 shadow-[4px_4px_0_hsl(var(--background))]" rotate={-3}>
+            The Cult
+          </StickerBadge>
+          <h2 className="font-groovy text-[clamp(3rem,8vw,6rem)] font-black leading-[0.85] tracking-tighter text-background uppercase">
+            Don't Take <br />
+            Our <span className="text-primary drop-shadow-[0_0_15px_hsl(var(--primary)/0.5)]">Word</span> For It.
+          </h2>
+        </div>
       </div>
 
-      <div className="relative z-10 w-full overflow-hidden" ref={carouselRef} data-cursor="DRAG">
-        <motion.div 
-          drag="x" 
-          dragConstraints={{ right: 0, left: -width - 40 }} 
-          className="flex gap-6 sm:gap-8 px-4 sm:px-10 lg:px-20 pb-20 pt-10 cursor-grab active:cursor-grabbing"
-        >
-          {REVIEWS.map((review, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", delay: i * 0.1 }}
-              className={cn(
-                "min-w-[280px] sm:min-w-[340px] max-w-[380px] shrink-0",
-                "rounded-2xl border-[3px] border-foreground p-4 shadow-retro-lg transition-transform hover:scale-105",
-                review.bg
-              )}
-              style={{ rotate: review.rotate }}
-            >
-              <div className="aspect-square w-full overflow-hidden rounded-xl border-2 border-foreground mb-4">
-                <img src={review.img} alt={`Photo from ${review.author}`} className="w-full h-full object-cover grayscale-[10%]" draggable={false} loading="lazy" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary border-2 border-foreground flex items-center justify-center font-groovy font-bold text-white uppercase">
-                    {review.author[0]}
-                  </div>
-                  <div>
-                    <p className="font-groovy font-bold text-sm text-foreground leading-none">{review.author}</p>
-                    <p className="font-body font-medium text-xs text-muted-foreground mt-1">{review.handle}</p>
-                  </div>
-                </div>
-                <p className="font-body font-bold text-foreground text-sm sm:text-base leading-relaxed mt-2">
-                  "{review.text}"
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className="relative z-10 w-full overflow-hidden flex flex-col gap-16 py-10 group">
+        
+        {/* Row 1: Scrolling Left Continuously */}
+        <div className="relative w-full flex overflow-hidden -mx-4">
+          <motion.div 
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+            className="flex whitespace-nowrap"
+          >
+            <div className="flex gap-4 px-4 items-center">
+              {[...REVIEWS_ROW_1, ...REVIEWS_ROW_1, ...REVIEWS_ROW_1].map((review, i) => (
+                <PolaroidCard key={`r1-${i}`} review={review} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Row 2: Scrolling Right Continuously */}
+        <div className="relative w-full flex overflow-hidden -mx-4">
+          <motion.div 
+            animate={{ x: ["-50%", "0%"] }}
+            transition={{ ease: "linear", duration: 45, repeat: Infinity }}
+            className="flex whitespace-nowrap"
+          >
+            <div className="flex gap-4 px-4 items-center">
+              {[...REVIEWS_ROW_2, ...REVIEWS_ROW_2, ...REVIEWS_ROW_2].map((review, i) => (
+                <PolaroidCard key={`r2-${i}`} review={review} />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
       </div>
       
-      <div className="absolute bottom-10 right-10 opacity-50 hidden lg:block">
-        <FlowerShape size={100} className="text-white naso-flower-spin" />
+      <div className="absolute top-20 right-10 opacity-20 hidden lg:block z-20 pointer-events-none">
+        <FlowerShape size={120} className="text-primary naso-flower-spin" />
       </div>
     </section>
   );
