@@ -74,7 +74,7 @@ export function HeroSection() {
           role="presentation"
           className="absolute inset-0 h-full w-full object-cover opacity-60"
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
         />
       </motion.div>
 
