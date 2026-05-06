@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { MotionDiv } from "@/components/shared/MotionDiv";
 import {
   StickerBadge,
@@ -25,7 +25,7 @@ export function WhatNasoIsSection() {
   const flower2Y = useTransform(scrollYProgress, [0, 1], [-50, 100]);
 
   // Stagger variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -33,7 +33,7 @@ export function WhatNasoIsSection() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 40, opacity: 0, rotate: 2 },
     visible: {
       y: 0,
