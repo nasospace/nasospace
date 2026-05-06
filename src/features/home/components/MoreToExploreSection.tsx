@@ -38,7 +38,7 @@ const EXPLORE_CARDS = [
 
 export function MoreToExploreSection() {
   return (
-    <section className="relative overflow-hidden bg-foreground py-32 border-y-4 border-foreground">
+    <section className="relative overflow-hidden bg-foreground py-32">
       {/* Background textures */}
       <div className="absolute inset-0 naso-checkerboard opacity-[0.03] mix-blend-screen pointer-events-none" />
       <div className="absolute inset-0 naso-noise opacity-20 mix-blend-overlay pointer-events-none" />

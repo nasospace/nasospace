@@ -21,6 +21,8 @@ import SignInPage from "@/pages/SignIn";
 import SignUpPage from "@/pages/SignUp";
 import ForgotPasswordPage from "@/pages/ForgotPassword";
 import ResetPasswordPage from "@/pages/ResetPassword";
+import PrivacyPage from "@/pages/Privacy";
+import TermsPage from "@/pages/Terms";
 import NotFound from "@/pages/NotFound";
 import { AccountLayout } from "@/features/account/components/AccountLayout";
 import AccountPage from "@/pages/Account";
@@ -76,6 +78,8 @@ export const router = createBrowserRouter([
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.INQUIRIES, element: <InquiriesPage /> },
       { path: ROUTES.COMMUNITY_LOVE, element: <CommunityLovePage /> },
+      { path: ROUTES.PRIVACY, element: <PrivacyPage /> },
+      { path: ROUTES.TERMS, element: <TermsPage /> },
 
       /* ═══ Auth Pages ═══ */
       { path: ROUTES.SIGN_IN, element: <SignInPage /> },

@@ -182,6 +182,57 @@ export function MarqueeTicker({
 }
 
 /* ═══════════════════════════════════════════
+   NARRATIVE MARQUEE DIVIDER — bold typography strip
+   ═══════════════════════════════════════════ */
+export function NarrativeMarqueeDivider({ 
+  words, 
+  className, 
+  speed = 20,
+  direction = 1
+}: { 
+  words: string[]; 
+  className?: string;
+  speed?: number;
+  direction?: 1 | -1;
+}) {
+  return (
+    <div className={cn("w-full border-y-2 border-foreground/20 py-4 overflow-hidden", className)}>
+      <motion.div 
+        animate={{ x: direction === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
+        transition={{ ease: "linear", duration: speed, repeat: Infinity }}
+        className="flex whitespace-nowrap items-center"
+      >
+        {/* Render three times for seamless loop */}
+        {[...words, ...words, ...words, ...words].map((word, i) => (
+          <span
+            key={`${word}-${i}`}
+            className="flex items-center mx-6 md:mx-8 font-groovy text-sm md:text-base font-black uppercase tracking-[0.25em] cursor-default"
+          >
+            {word}
+            <Sparkle className="mx-6 md:mx-8 h-3 w-3 opacity-40" />
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
+   ELEGANT DIVIDER — minimal centered ornament
+   ═══════════════════════════════════════════ */
+export function ElegantDivider({ className }: { className?: string }) {
+  return (
+    <div className={cn("w-full py-8 md:py-12 flex items-center justify-center", className)}>
+      <div className="container flex items-center gap-6">
+        <div className="flex-1 h-px bg-current opacity-10" />
+        <FlowerShape size={24} className="text-current opacity-15 naso-flower-spin shrink-0" />
+        <div className="flex-1 h-px bg-current opacity-10" />
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════
    CHECKERBOARD BLOCK — decorative pattern area
    ═══════════════════════════════════════════ */
 export function CheckerboardBlock({ className }: { className?: string }) {

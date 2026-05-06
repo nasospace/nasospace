@@ -25,7 +25,9 @@ export const siteConfig = {
     { label: "Blog", href: ROUTES.BLOG },
   ] as NavItem[],
   social: {
-    instagram: "https://instagram.com/naso", // TODO: Replace with real Instagram handle
-    tiktok: "https://tiktok.com/@naso", // TODO: Replace with real TikTok handle
+    instagram: "https://instagram.com/nasospace", 
+    tiktok: "https://tiktok.com/@nasospace",
+    facebook: "https://facebook.com/nasospace",
+    linkedin: "https://linkedin.com/company/nasospace",
   },
 } as const;

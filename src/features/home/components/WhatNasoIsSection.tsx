@@ -44,7 +44,7 @@ export function WhatNasoIsSection() {
   };
 
   return (
-    <section ref={containerRef} className="relative overflow-hidden bg-background py-24 md:py-32 border-y-4 border-foreground">
+    <section ref={containerRef} className="relative overflow-hidden bg-background py-24 md:py-32">
       {/* Background Textures */}
       <div className="absolute inset-0 naso-checkerboard opacity-[0.03] mix-blend-multiply pointer-events-none" />
       <div className="absolute inset-0 naso-noise opacity-30 mix-blend-overlay pointer-events-none z-[5]" />
@@ -99,7 +99,7 @@ export function WhatNasoIsSection() {
                 <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-primary via-naso-blue to-naso-purple opacity-40 blur-xl animate-pulse" />
                 
                 <div className="relative bg-background/95 backdrop-blur-xl p-8 rounded-3xl border-4 border-foreground shadow-[10px_10px_0_hsl(var(--foreground))]">
-                  <Sparkles className="absolute -top-5 -right-5 h-12 w-12 text-primary animate-bounce bg-background rounded-full p-2 border-4 border-foreground" />
+                  <Sparkles className="absolute -top-5 -right-5 h-12 w-12 text-primary bg-background rounded-full p-2 border-4 border-foreground animate-pulse" />
                   
                   <h3 className="font-groovy text-2xl md:text-3xl font-black leading-tight text-foreground">
                     NASO is the creative energy Cairo was missing.

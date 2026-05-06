@@ -12,7 +12,7 @@ export function BigCTASection() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   return (
-    <section className="relative overflow-hidden bg-naso-cream py-32 border-y-4 border-foreground">
+    <section className="relative overflow-hidden bg-naso-cream py-32">
       {/* Background textures */}
       <div className="absolute inset-0 naso-dotgrid opacity-20 pointer-events-none" />
       <div className="absolute inset-0 naso-noise opacity-30 mix-blend-overlay pointer-events-none" />

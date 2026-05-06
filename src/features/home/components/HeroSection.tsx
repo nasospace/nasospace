@@ -224,7 +224,7 @@ export function HeroSection() {
             className="mt-10 max-w-xl font-body text-base sm:text-lg text-white/90 leading-relaxed font-medium"
           >
             Workshops, kits, and experiences designed to make ordinary days
-            <span className="text-secondary font-bold inline-block mx-1 animate-pulse"> unforgettable</span>.
+            <span className="text-secondary font-bold inline-block mx-1"> unforgettable</span>.
           </motion.p>
 
           {/* CTAs — punchy, minimal */}
@@ -276,7 +276,7 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="h-10 w-[2px] rounded-full bg-gradient-to-b from-secondary to-transparent"
+          className="h-8 w-[2px] rounded-full bg-gradient-to-b from-secondary to-transparent"
         />
       </motion.div>
     </section>

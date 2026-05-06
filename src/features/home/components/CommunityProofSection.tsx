@@ -47,7 +47,7 @@ function PolaroidCard({ review }: { review: any }) {
 
 export function CommunityProofSection() {
   return (
-    <section className="relative overflow-hidden bg-foreground py-32 border-y-4 border-foreground" aria-label="Community Testimonials">
+    <section className="relative overflow-hidden bg-foreground py-32" aria-label="Community Testimonials">
       {/* Soft textured background for dark mode */}
       <div className="absolute inset-0 naso-checkerboard opacity-[0.03] mix-blend-screen" />
       <div className="absolute inset-0 naso-noise opacity-20 mix-blend-overlay" />
