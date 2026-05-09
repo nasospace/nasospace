@@ -13,10 +13,10 @@ export function AboutHero({ headline, subline }: AboutHeroProps) {
   return (
     <PageHero
       cmsPageKey="about"
-      tone="lilac"
-      eyebrow="The NASO Manifesto"
+      tone="ink"
+      eyebrow="The Manifesto"
       title={h}
-      accent="Built in Cairo."
+      accent=""
       subtitle={s}
       marker="EST · 24"
     />

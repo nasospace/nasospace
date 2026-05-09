@@ -18,12 +18,12 @@ export function ValuesSection({ items }: ValuesSectionProps) {
         <div className="mx-auto max-w-3xl text-center">
           <MotionDiv variants={popIn} className="flex justify-center">
             <StickerBadge variant="outline" rotate={3}>
-              Our vibe
+              The Code
             </StickerBadge>
           </MotionDiv>
           <MotionDiv>
             <h2 className="mt-6 font-groovy text-[clamp(1.5rem,4vw,2.5rem)] font-bold">
-              Why NASO feels different
+              How we operate
             </h2>
           </MotionDiv>
         </div>
@@ -33,28 +33,27 @@ export function ValuesSection({ items }: ValuesSectionProps) {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={staggerContainer}
-          className="mx-auto mt-12 grid max-w-3xl gap-8 md:grid-cols-2"
+          className="mx-auto mt-16 grid max-w-4xl gap-6 md:grid-cols-2"
         >
-          {data.map((v) => (
+          {data.map((v, idx) => (
             <motion.div
               key={v.title}
               variants={fadeUp}
-              whileHover={{ x: 6 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="flex gap-4 rounded-xl p-3 transition-colors hover:bg-muted/50"
+              className="group flex flex-col gap-4 rounded-3xl border-4 border-foreground bg-white p-8 transition-all duration-300 hover:-translate-y-2 hover:bg-naso-lilac hover:shadow-[12px_12px_0_hsl(var(--foreground))] shadow-[6px_6px_0_hsl(var(--foreground))]"
             >
-              <motion.div
-                whileHover={{ rotate: 90, scale: 1.2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
-              >
-                <Sparkle className="mt-1 h-5 w-5 shrink-0 text-primary" />
-              </motion.div>
-              <div>
-                <h4 className="font-display text-base font-bold">{v.title}</h4>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {v.body}
-                </p>
+              <div className="flex items-center gap-4">
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-foreground bg-muted group-hover:bg-primary shadow-[4px_4px_0_hsl(var(--foreground))] transition-colors duration-300"
+                >
+                  <span className="font-groovy text-xl font-bold">0{idx + 1}</span>
+                </motion.div>
+                <h4 className="font-groovy text-xl md:text-2xl font-black uppercase leading-tight tracking-tight text-foreground">{v.title}</h4>
               </div>
+              <p className="mt-2 text-sm md:text-base font-medium leading-relaxed text-foreground/80 pl-4 border-l-4 border-border group-hover:border-primary transition-colors duration-300">
+                {v.body}
+              </p>
             </motion.div>
           ))}
         </motion.div>

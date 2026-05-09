@@ -36,7 +36,7 @@ const PAGES: PageDef[] = [
   { key: "home", label: "Home", publicPath: "/", description: "Landing page hero" },
   { key: "experiences", label: "Experiences", publicPath: "/experiences", description: "100 Experiences journey hero" },
   { key: "shop", label: "Shop", publicPath: "/shop", description: "Drops & merch hero" },
-  { key: "about", label: "About", publicPath: "/about", description: "Manifesto hero" },
+  { key: "about", label: "Manifesto", publicPath: "/manifesto", description: "Manifesto hero" },
   { key: "contact", label: "Contact", publicPath: "/contact", description: "Contact / collabs hero" },
   { key: "faq", label: "FAQ", publicPath: "/faq", description: "FAQ hero" },
   { key: "blog", label: "Blog", publicPath: "/blog", description: "Journal hero" },

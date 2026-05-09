@@ -4,7 +4,7 @@
  */
 export const ROUTES = {
   HOME: "/",
-  ABOUT: "/about",
+  ABOUT: "/manifesto",
   EXPERIENCES: "/experiences",
   EXPERIENCE_DETAIL: "/experiences/:slug",
   /**

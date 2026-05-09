@@ -1,7 +1,7 @@
 export const aboutHero = {
-  headline: "We don't do ordinary.",
+  headline: "This is NASO.",
   subline:
-    "NASO is a Cairo-born creative world — designing experiences, workshops, events, and products for people who want their free time to actually mean something.",
+    "We build worlds. We design the moments you didn't know you needed. NASO is Cairo's creative pulse—where experiences, artifacts, and connection collide.",
 };
 
 export interface OfferingItem {
@@ -12,28 +12,28 @@ export interface OfferingItem {
 
 export const offerings: OfferingItem[] = [
   {
-    emoji: "🌿",
+    emoji: "🔮",
     title: "Experiences",
     description:
-      "Curated outings across Cairo that turn a random weekend into a core memory.",
+      "Curated trips and immersive gatherings designed to shake up your routine and unlock new perspectives.",
   },
   {
-    emoji: "🎨",
+    emoji: "🛠️",
     title: "Workshops",
     description:
-      "Hands-on creative sessions — pottery, art, cooking, and more — led by passionate makers.",
+      "Get your hands dirty. Real-world creative sessions led by Cairo's most passionate makers and doers.",
   },
   {
-    emoji: "🎉",
+    emoji: "🥂",
     title: "Private Events",
     description:
-      "Custom-designed gatherings for friends, couples, or teams — every detail handled.",
+      "Bespoke gatherings tailored to your exact vibe. From intimate dinners to high-energy celebrations.",
   },
   {
-    emoji: "🛍️",
-    title: "Shop",
+    emoji: "📦",
+    title: "Artifacts",
     description:
-      "Original NASO products and creative goods — things you'll actually want to keep.",
+      "Tangible pieces of the NASO world. Goods, kits, and products designed with intention and brutalist flair.",
   },
 ];
 
@@ -44,19 +44,19 @@ export interface ValueItem {
 
 export const values: ValueItem[] = [
   {
-    title: "Human over hustle",
-    body: "We're not a tech startup. We're people who love good moments — and build them for others.",
+    title: "Vibe is everything",
+    body: "We obsess over the invisible details. The lighting, the sound, the energy—if it doesn't feel alive, we don't do it.",
   },
   {
-    title: "Cairo at heart",
-    body: "Every experience is rooted in the city we love. Cairo's energy, chaos, and beauty fuel everything we do.",
+    title: "Cairo DNA",
+    body: "We are shaped by this city's beautiful chaos. Our work reflects its raw edge, its hidden beauty, and its relentless pulse.",
   },
   {
-    title: "Details matter",
-    body: "From the playlist to the packaging — if it doesn't feel right, it doesn't go out.",
+    title: "Radical Intentionality",
+    body: "Every experience, every product, every pixel is placed with purpose. We reject the generic and embrace the bold.",
   },
   {
-    title: "Creativity first",
-    body: "We'd rather do one thing that's unforgettable than ten things that are fine.",
+    title: "Community First",
+    body: "We don't just host events; we build culture. NASO is a space for the curious, the creative, and the unapologetic.",
   },
 ];

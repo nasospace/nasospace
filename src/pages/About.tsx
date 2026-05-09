@@ -18,9 +18,9 @@ export default function AboutPage() {
   return (
     <>
       <SEOHead
-        title="About NASO — Our Story, Values & Creative Vision"
-        description="NASO is a Cairo-born creative brand designing experiences, workshops, events, and products for people who want their free time to actually mean something."
-        canonical="/about"
+        title="The Manifesto | NASO"
+        description="NASO is Cairo's creative pulse—where experiences, artifacts, and connection collide. We build worlds and design the moments you didn't know you needed."
+        canonical="/manifesto"
       />
       <AboutHero headline={hero?.headline} subline={hero?.subline} />
       <WhatNasoIsSection title={whatNaso?.title} body={whatNaso?.body} />

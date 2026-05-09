@@ -22,8 +22,8 @@ export function OfferingsSection({ items }: OfferingsSectionProps) {
           <h2 className="font-groovy text-[clamp(1.5rem,4vw,2.5rem)] font-bold">
             What we create
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            Four ways NASO turns your time into something you'll remember.
+          <p className="mt-3 text-muted-foreground text-lg">
+            The four pillars of the NASO experience. Choose your reality.
           </p>
         </MotionDiv>
       </div>
@@ -39,24 +39,23 @@ export function OfferingsSection({ items }: OfferingsSectionProps) {
           <motion.div
             key={item.title}
             variants={fadeUp}
-            initial="rest"
-            whileHover="hover"
-            animate="rest"
-            className="rounded-2xl border border-border bg-background p-6 text-center transition-colors"
+            className="group relative overflow-hidden rounded-3xl border-4 border-foreground bg-white p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-naso-lemon hover:shadow-[12px_12px_0_hsl(var(--foreground))] shadow-[6px_6px_0_hsl(var(--foreground))]"
           >
-            <motion.div variants={cardHover} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+            <div className="relative z-10">
               <motion.span
-                className="inline-block text-4xl"
-                whileHover={{ scale: 1.25, rotate: 8 }}
+                className="inline-block text-5xl md:text-6xl drop-shadow-md"
+                whileHover={{ scale: 1.25, rotate: 12 }}
                 transition={{ type: "spring", stiffness: 400, damping: 12 }}
               >
                 {item.emoji}
               </motion.span>
-              <h3 className="mt-4 font-display text-lg font-bold">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <h3 className="mt-6 font-groovy text-xl md:text-2xl font-black uppercase tracking-tight text-foreground">{item.title}</h3>
+              <p className="mt-3 text-sm md:text-base font-medium leading-relaxed text-foreground/80">
                 {item.description}
               </p>
-            </motion.div>
+            </div>
+            {/* Background decorative texture on hover */}
+            <div className="absolute inset-0 bg-naso-noise opacity-0 group-hover:opacity-20 transition-opacity pointer-events-none" />
           </motion.div>
         ))}
       </motion.div>

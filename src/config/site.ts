@@ -13,7 +13,7 @@ export const siteConfig = {
   locale: "en",
   nav: [
     { label: "Home", href: ROUTES.HOME },
-    { label: "Manifesto", href: ROUTES.ABOUT },
+    { label: "The Manifesto", href: ROUTES.ABOUT },
     { label: "Experiences", href: ROUTES.EXPERIENCES },
     { label: "Artifacts", href: ROUTES.SHOP },
     { label: "Connect", href: ROUTES.CONTACT },
