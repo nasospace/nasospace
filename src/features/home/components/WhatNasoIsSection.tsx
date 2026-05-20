@@ -53,7 +53,8 @@ export function WhatNasoIsSection() {
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/4 w-[50vw] h-[50vw] bg-naso-lilac/30 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 -translate-x-1/2"
+        className="absolute top-1/2 left-1/4 w-[50vw] h-[50vw] bg-naso-lilac/30 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 -translate-x-1/2 hidden md:block"
+        style={{ willChange: "transform, opacity" }}
       />
 
       <div className="container relative z-10">
@@ -174,11 +175,11 @@ export function WhatNasoIsSection() {
             </motion.div>
             
             {/* Parallax Flowers */}
-            <motion.div style={{ y: flower1Y }} className="absolute -top-12 -right-4 md:-top-16 md:-right-16 z-20 pointer-events-none">
+            <motion.div style={{ y: flower1Y, willChange: "transform" }} className="absolute -top-12 -right-4 md:-top-16 md:-right-16 z-20 pointer-events-none hidden md:block">
               <FlowerShape size={120} className="text-primary drop-shadow-[6px_6px_0_hsl(var(--foreground))] animate-[spin_10s_linear_infinite]" />
             </motion.div>
             
-            <motion.div style={{ y: flower2Y }} className="absolute -bottom-8 -left-4 md:-bottom-12 md:-left-12 z-20 opacity-90 pointer-events-none">
+            <motion.div style={{ y: flower2Y, willChange: "transform" }} className="absolute -bottom-8 -left-4 md:-bottom-12 md:-left-12 z-20 opacity-90 pointer-events-none hidden md:block">
               <FlowerShape size={80} className="text-naso-pink drop-shadow-[4px_4px_0_hsl(var(--foreground))] animate-[spin_8s_linear_infinite_reverse]" />
             </motion.div>
           </motion.div>

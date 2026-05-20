@@ -26,6 +26,7 @@ export const FlowerShape = forwardRef<
       viewBox={`0 0 ${size} ${size}`}
       className={cn("shrink-0", className)}
       style={{ width: size, height: size, ...style }}
+      aria-hidden="true"
     >
       {petalPath.map((transform, i) => (
         <ellipse
@@ -85,7 +86,7 @@ StickerBadge.displayName = "StickerBadge";
 export const Sparkle = forwardRef<SVGSVGElement, { className?: string }>(
   ({ className }, ref) => {
     return (
-      <svg ref={ref} viewBox="0 0 32 32" fill="currentColor" className={cn("shrink-0", className)}>
+      <svg ref={ref} viewBox="0 0 32 32" fill="currentColor" className={cn("shrink-0", className)} aria-hidden="true">
         <path d="M16 0l2.35 13.65L32 16l-13.65 2.35L16 32l-2.35-13.65L0 16l13.65-2.35z" />
       </svg>
     );
@@ -98,7 +99,7 @@ Sparkle.displayName = "Sparkle";
    ═══════════════════════════════════════════ */
 export function WavyDivider({ className, flip }: { className?: string; flip?: boolean }) {
   return (
-    <div className={cn("w-full overflow-hidden leading-[0]", flip && "rotate-180", className)}>
+    <div className={cn("w-full overflow-hidden leading-[0]", flip && "rotate-180", className)} aria-hidden="true">
       <svg
         viewBox="0 0 1440 60"
         preserveAspectRatio="none"
@@ -201,6 +202,7 @@ export function NarrativeMarqueeDivider({
         animate={{ x: direction === 1 ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={{ ease: "linear", duration: speed, repeat: Infinity }}
         className="flex whitespace-nowrap items-center"
+        aria-hidden="true"
       >
         {/* Render three times for seamless loop */}
         {[...words, ...words, ...words, ...words].map((word, i) => (

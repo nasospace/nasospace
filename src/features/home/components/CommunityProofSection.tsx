@@ -1,20 +1,7 @@
 import { motion } from "framer-motion";
 import { StickerBadge, FlowerShape } from "@/components/shared/RetroElements";
 import { cn } from "@/lib/utils";
-
-const REVIEWS_ROW_1 = [
-  { text: "I was worried about going solo, but the team made it so easy to meet people. The pottery setup was beautiful.", author: "Salma T.", handle: "@salmatweets", rotate: -3, img: "/assets/pottery_chill_1776810187258.png" },
-  { text: "Actually worth the money. Everything was organized and the energy was perfect.", author: "Ahmed S.", handle: "@ahmed_s_x", rotate: 2, img: "/assets/street_art_1776810227236.png" },
-  { text: "Finally, something to do on a Friday that isn't just sitting at a cafe.", author: "Farah T.", handle: "@farahvibe", rotate: -4, img: "/assets/cairo_jazz_1776810208777.png" },
-  { text: "Best creative workshop in Cairo. Met some amazing people.", author: "Omar K.", handle: "@omar.k", rotate: 4, img: "/assets/hero_image_1776810151671.png" },
-];
-
-const REVIEWS_ROW_2 = [
-  { text: "The energy was unmatched. Can't wait for the next drop.", author: "Laila H.", handle: "@lailah_creates", rotate: 3, img: "/assets/cairo_jazz_1776810208777.png" },
-  { text: "I never thought I'd find a community like this in Cairo. Absolutely obsessed.", author: "Youssef M.", handle: "@youssef.mood", rotate: -2, img: "/assets/street_art_1776810227236.png" },
-  { text: "The details. The vibes. Everything was a 10/10.", author: "Nour A.", handle: "@nour_art", rotate: 5, img: "/assets/hero_image_1776810151671.png" },
-  { text: "Made three new friends and a terrible clay pot. 100% worth it.", author: "Karim E.", handle: "@karim.e", rotate: -3, img: "/assets/pottery_chill_1776810187258.png" },
-];
+import { REVIEWS_ROW_1, REVIEWS_ROW_2 } from "@/config/homeData";
 
 function PolaroidCard({ review }: { review: any }) {
   return (
@@ -25,7 +12,13 @@ function PolaroidCard({ review }: { review: any }) {
       style={{ rotate: review.rotate }}
     >
       <div className="aspect-[4/5] w-full overflow-hidden border-2 border-foreground mb-6 bg-muted">
-        <img src={review.img} alt={`Photo from ${review.author}`} className="w-full h-full object-cover filter contrast-[1.1] saturate-[1.2]" draggable={false} loading="lazy" />
+        <img 
+          src={review.img} 
+          alt={`Portrait of ${review.author} enjoying a NASO experience`} 
+          className="w-full h-full object-cover filter contrast-[1.1] saturate-[1.2] transition-transform duration-500 group-hover:scale-105" 
+          draggable={false} 
+          loading="lazy" 
+        />
       </div>
       <div className="flex flex-col gap-4">
         <p className="font-groovy font-black text-foreground text-base sm:text-lg leading-tight min-h-[60px]">

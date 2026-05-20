@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Section } from "@/components/shared";
 import { SEOHead } from "@/components/shared/SEOHead";
+import { SectionErrorBoundary } from "@/components/shared/SectionErrorBoundary";
 import {
   ShopHero,
   ProductCategoryFilter,
@@ -51,7 +52,9 @@ export default function ShopPage() {
             ))}
           </div>
         ) : (
-          <ProductGrid key={active} products={filtered} />
+          <SectionErrorBoundary fallbackMessage="Failed to load products.">
+            <ProductGrid key={active} products={filtered} />
+          </SectionErrorBoundary>
         )}
       </Section>
     </>

@@ -63,7 +63,7 @@ export function HeroSection() {
     >
       {/* Background image — slow parallax with infinite slow zoom */}
       <motion.div 
-        style={{ y: yBg, scale: scaleBg }} 
+        style={{ y: yBg, scale: scaleBg, willChange: "transform" }} 
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         className="absolute inset-[-10%] bg-black"
@@ -89,7 +89,8 @@ export function HeroSection() {
           rotate: [0, 90, 0]
         }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-[45vw] h-[45vw] bg-naso-blue/40 rounded-full blur-[140px] pointer-events-none mix-blend-screen"
+        className="absolute top-1/4 left-1/4 w-[45vw] h-[45vw] bg-naso-blue/40 rounded-full blur-[140px] pointer-events-none mix-blend-screen hidden md:block"
+        style={{ willChange: "transform, opacity" }}
       />
       <motion.div 
         animate={{ 
@@ -98,7 +99,8 @@ export function HeroSection() {
           rotate: [0, -90, 0]
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-primary/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen"
+        className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] bg-primary/30 rounded-full blur-[120px] pointer-events-none mix-blend-screen hidden md:block"
+        style={{ willChange: "transform, opacity" }}
       />
 
       {/* Interactive Mouse Glow */}
@@ -121,8 +123,8 @@ export function HeroSection() {
       />
 
       {/* Huge Background Marquee */}
-      <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center opacity-10 pointer-events-none select-none mix-blend-overlay">
-        <motion.div style={{ y: yBg }} className="rotate-[-10deg] scale-125 w-[150vw]">
+      <div className="absolute inset-0 z-0 overflow-hidden hidden md:flex items-center justify-center opacity-10 pointer-events-none select-none mix-blend-overlay">
+        <motion.div style={{ y: yBg, willChange: "transform" }} className="rotate-[-10deg] scale-125 w-[150vw]">
           <MarqueeTicker speed={30} className="text-[12vw] font-black font-poster text-transparent">
             <span style={{ WebkitTextStroke: "2px white" }}>NASO CAIRO</span> <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" /> <span style={{ WebkitTextStroke: "2px white" }}>A CREATIVE MOVEMENT</span> <Sparkle className="inline-block h-[8vw] w-[8vw] mx-[3vw] text-white" />
           </MarqueeTicker>
@@ -159,7 +161,7 @@ export function HeroSection() {
 
       {/* Main content */}
       <motion.div
-        style={{ y: yText, opacity: opacityFade }}
+        style={{ y: yText, opacity: opacityFade, willChange: "transform, opacity" }}
         className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center text-center px-6 pt-32 sm:pt-40 pb-20"
       >
         <motion.div 
@@ -256,7 +258,7 @@ export function HeroSection() {
       </motion.div>
 
       {/* Decorative Floating Pills - Parallax Background */}
-      <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, -300]) }} className="absolute inset-0 pointer-events-none z-0">
+      <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], [0, -300]), willChange: "transform" }} className="absolute inset-0 pointer-events-none z-0 hidden md:block">
         <div className="absolute top-[20%] right-[10%] w-32 h-10 rounded-full border-2 border-primary/30 rotate-12 backdrop-blur-sm" />
         <div className="absolute bottom-[30%] left-[10%] w-24 h-8 rounded-full border-2 border-secondary/30 -rotate-12 backdrop-blur-sm" />
         <div className="absolute top-[60%] left-[5%] w-16 h-16 rounded-full bg-naso-blue/20 blur-xl" />

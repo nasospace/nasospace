@@ -17,6 +17,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/shared";
 import { SEOHead } from "@/components/shared/SEOHead";
+import { SectionErrorBoundary } from "@/components/shared/SectionErrorBoundary";
 import {
   ExperienceArchiveHero,
   JourneyMapV2,
@@ -79,7 +80,9 @@ export default function ExperiencesPage() {
             <Skeleton className="h-[500px] rounded-2xl" />
           </div>
         ) : (
-          <JourneyMapV2 experiences={experiences} />
+          <SectionErrorBoundary fallbackMessage="Failed to load the journey map.">
+            <JourneyMapV2 experiences={experiences} />
+          </SectionErrorBoundary>
         )}
       </Section>
 
@@ -120,7 +123,9 @@ export default function ExperiencesPage() {
             ))}
           </div>
         ) : (
-          <ExperienceArchiveGrid key={activeMood} experiences={filtered} />
+          <SectionErrorBoundary fallbackMessage="Failed to load experiences grid.">
+            <ExperienceArchiveGrid key={activeMood} experiences={filtered} />
+          </SectionErrorBoundary>
         )}
       </Section>
 

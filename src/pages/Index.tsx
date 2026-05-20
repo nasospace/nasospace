@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "@/config/routes";
 import { ArrowRight } from "lucide-react";
 import { NarrativeMarqueeDivider, WavyDivider } from "@/components/shared/RetroElements";
+import { SectionErrorBoundary } from "@/components/shared/SectionErrorBoundary";
 
 export default function HomePage() {
   return (
@@ -47,7 +48,9 @@ export default function HomePage() {
       <WavyDivider className="bg-background text-foreground -mt-px" />
 
       {/* FeaturedExperiences: bg-foreground (dark) */}
-      <FeaturedExperiencesSection />
+      <SectionErrorBoundary fallbackMessage="Failed to load experiences.">
+        <FeaturedExperiencesSection />
+      </SectionErrorBoundary>
 
       {/* Tape: dark → lilac — ExploreWorlds has its own internal top wave */}
       <NarrativeMarqueeDivider
@@ -103,23 +106,6 @@ export default function HomePage() {
 
       {/* BottomTicker: bg-foreground (dark) */}
       <BottomTickerSection />
-
-      {/* Sticky Mobile Action Bar */}
-      <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden animate-in slide-in-from-bottom-10 fade-in duration-700 delay-1000">
-        <div className="flex items-center justify-between rounded-full border-4 border-foreground bg-white/95 backdrop-blur-md p-2 shadow-[4px_4px_0_hsl(var(--foreground))]">
-          <div className="ml-4 flex flex-col">
-            <span className="font-groovy text-xs font-black text-foreground leading-tight tracking-tight">The 100 Chapters</span>
-            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-primary">Mysteries await</span>
-          </div>
-          <Link
-            to={ROUTES.EXPERIENCES}
-            className="flex h-11 items-center justify-center gap-2 rounded-full border-2 border-foreground bg-primary px-6 font-groovy text-[11px] font-black uppercase tracking-wider text-white shadow-[2px_2px_0_hsl(var(--foreground))] transition-all duration-200 active:translate-y-0.5 active:shadow-none"
-          >
-            Explore
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-      </div>
     </>
   );
 }
